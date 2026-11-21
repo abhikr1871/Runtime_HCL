@@ -15,7 +15,7 @@ frontend/dist/
 # Generated data and models (rebuilt by scripts)
 data/*.db
 data/*.db-*
-
+data/chroma/
 models/*
 !models/.gitkeep
 eval/results/

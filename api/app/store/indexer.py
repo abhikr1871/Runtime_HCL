@@ -44,10 +44,79 @@ _bm25: Optional[BM25Okapi] = None
 _bm25_ids: list[str] = []
 _tokenized_corpus: list[list[str]] = []
 
-# Dense embedding state
+# Dense embedding state (in-memory copy for fast cosine search; the persistent copy is in the vector store)
 _vectors: Optional[np.ndarray] = None          # (N, D) float32
 _vector_ids: list[str] = []
 _vector_map: dict[str, np.ndarray] = {}
+
+
+# ---------- Vector store: where embeddings are persisted (Chroma support: Jeevan, M2-A) ----------
+# VECTOR_STORE=sqlite (default): vectors in the SQLite `embeddings` table.
+# VECTOR_STORE=chromadb: vectors in a persistent Chroma collection (CHROMA_DIR, default data/chroma),
+#   and dense search queries Chroma. SQLite is then NOT written: vectors live in exactly one place.
+# If chromadb is not installed or fails to open, it falls back to SQLite and says so in /health.
+_chroma_col = None
+_chroma_failed = False
+
+
+def _chroma():
+    """The Chroma 'products' collection, opened once and reused (None if not configured or unavailable)."""
+    global _chroma_col, _chroma_failed
+    s = get_settings()
+    if s.vector_store != "chromadb" or _chroma_failed:
+        return None
+    if _chroma_col is None:
+        try:
+            import chromadb
+            s.chroma_dir.mkdir(parents=True, exist_ok=True)
+            client = chromadb.PersistentClient(path=str(s.chroma_dir))
+            _chroma_col = client.get_or_create_collection(name="products", metadata={"hnsw:space": "cosine"})
+        except Exception as exc:
+            _chroma_failed = True
+            log.warning("ChromaDB unavailable (%s); storing vectors in SQLite instead", exc)
+            return None
+    return _chroma_col
+
+
+def get_chroma_collection():
+    return _chroma()
+
+
+def reset_vector_store() -> None:
+    """Forget the open collection (tests and settings changes)."""
+    global _chroma_col, _chroma_failed
+    _chroma_col, _chroma_failed = None, False
+
+
+def vector_store_name() -> str:
+    return "chromadb" if _chroma() is not None else "sqlite"
+
+
+def _load_vectors() -> dict[str, np.ndarray]:
+    col = _chroma()
+    if col is not None:
+        got = col.get(include=["embeddings"])
+        return {pid: np.asarray(v, dtype=np.float32) for pid, v in zip(got["ids"], got["embeddings"])}
+    out: dict[str, np.ndarray] = {}
+    for pid, blob in repository.get_all_embeddings("text").items():
+        try:
+            out[pid] = embeddings.bytes_to_vector(blob)
+        except Exception as exc:
+            log.warning("error deserializing vector for %s: %s", pid, exc)
+    return out
+
+
+def _save_vectors(items: list[tuple[str, np.ndarray]], products: dict[str, Product]) -> None:
+    if not items:
+        return
+    col = _chroma()
+    if col is not None:
+        col.upsert(ids=[pid for pid, _ in items], embeddings=[np.asarray(v).tolist() for _, v in items],
+                   metadatas=[{"product_id": pid, "category": products[pid].category if pid in products else ""}
+                              for pid, _ in items])
+        return
+    s = get_settings()
+    repository.save_embeddings_batch([(pid, "text", s.embed_model, embeddings.vector_to_bytes(v)) for pid, v in items])
 
 # ---------- Tokenization ----------
 _TOKEN = re.compile(r"[\wऀ-ॿ]+")
@@ -119,21 +188,18 @@ def rebuild_product_index() -> int:
     active = repository.find_products("is_active = 1")
     fresh_products = {p.product_id: p for p in active}
 
-    # 1. Load stored embeddings from SQLite
-    stored_blobs = repository.get_all_embeddings("text")
+    # 1. Load stored embeddings from the vector store (SQLite or Chroma)
+    stored = _load_vectors()
     fresh_vector_map: dict[str, np.ndarray] = {}
     fresh_hashes: dict[str, str] = {}
 
     for pid, p in fresh_products.items():
         doc_text = embeddings.prepare_product_text(p)
         fresh_hashes[pid] = _content_hash(doc_text)
-        if pid in stored_blobs:
-            try:
-                fresh_vector_map[pid] = embeddings.bytes_to_vector(stored_blobs[pid])
-            except Exception as exc:
-                log.warning("error deserializing vector for %s: %s", pid, exc)
+        if pid in stored:
+            fresh_vector_map[pid] = stored[pid]
 
-    # 2. Re-embed missing products if embeddings are enabled
+    # 2. Re-embed missing products if embeddings are enabled, and persist them in the vector store
     s = get_settings()
     if s.enable_embeddings:
         missing_pids = [pid for pid in fresh_products.keys() if pid not in fresh_vector_map]
@@ -142,11 +208,9 @@ def rebuild_product_index() -> int:
             texts = [embeddings.prepare_product_text(fresh_products[pid]) for pid in missing_pids]
             vecs = embeddings.embed_passages(texts)
             if vecs is not None and len(vecs) == len(missing_pids):
-                records_to_save: list[tuple[str, str, str, bytes]] = []
                 for pid, vec in zip(missing_pids, vecs):
                     fresh_vector_map[pid] = vec
-                    records_to_save.append((pid, "text", s.embed_model, embeddings.vector_to_bytes(vec)))
-                repository.save_embeddings_batch(records_to_save)
+                _save_vectors(list(zip(missing_pids, vecs)), fresh_products)
 
     # 3. Atomically swap in the new state under lock
     with _lock:
@@ -200,7 +264,7 @@ def update_product_index(product_id: Union[str, list[str]]) -> None:
                 if vec is not None and len(vec) == 1:
                     v = vec[0]
                     _vector_map[pid] = v
-                    repository.save_embedding(pid, "text", s.embed_model, embeddings.vector_to_bytes(v))
+                    _save_vectors([(pid, v)], _products)
 
         # Re-sync BM25 and vector matrix
         active_list = list(_products.values())
@@ -219,7 +283,7 @@ def status() -> str:
         n_bm25 = len(_bm25_ids)
         n_vec = len(_vector_ids)
         embed_mode = "e5" if n_vec > 0 else "disabled"
-    return f"bm25+{embed_mode} ({n_prod} products, {n_bm25} indexed, {n_vec} vectors)"
+    return f"bm25+{embed_mode} ({n_prod} products, {n_bm25} indexed, {n_vec} vectors, store={vector_store_name()})"
 
 
 # ---------- Search / Ranking Helpers for M2-A ----------
@@ -266,9 +330,20 @@ def dense_search(query_or_vec: Union[str, np.ndarray], candidate_ids: Optional[l
     if q_vec is None:
         return []
 
-    # Cosine similarity (vectors are L2-normalized)
-    sims = np.dot(mat, q_vec)
-    id_sim = dict(zip(ids, sims))
+    col = _chroma()
+    id_sim: dict[str, float] = {}
+    if col is not None:
+        # Chroma is the vector store: ask it (cosine space, so similarity = 1 - distance)
+        try:
+            res = col.query(query_embeddings=[np.asarray(q_vec).tolist()], n_results=max(1, col.count()))
+            active = set(ids)
+            id_sim = {pid: 1.0 - float(d) for pid, d in zip(res["ids"][0], res["distances"][0]) if pid in active}
+        except Exception as exc:
+            log.warning("Chroma query failed, using the in-memory copy: %s", exc)
+    if not id_sim:
+        # Cosine similarity (vectors are L2-normalized)
+        sims = np.dot(mat, q_vec)
+        id_sim = dict(zip(ids, sims))
 
     candidates = candidate_ids if candidate_ids is not None else ids
     scored = [(pid, float(id_sim.get(pid, 0.0))) for pid in candidates if pid in id_sim]

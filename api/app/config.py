@@ -40,6 +40,8 @@ class Settings:
     retrieval_mode: str = "hybrid"
     reranker_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
     diversity_strategy: str = "brand"
+    vector_store: str = "sqlite"  # sqlite | chromadb
+    chroma_dir: Path = ROOT / "data" / "chroma"
 
 
 def _load_dotenv() -> None:
@@ -76,4 +78,6 @@ def get_settings() -> Settings:
         retrieval_mode=os.getenv("RETRIEVAL_MODE", "hybrid").strip().lower(),
         reranker_model=os.getenv("RERANKER_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2"),
         diversity_strategy=os.getenv("DIVERSITY_STRATEGY", "brand").strip().lower(),
+        vector_store=os.getenv("VECTOR_STORE", "sqlite").strip().lower(),
+        chroma_dir=_path("CHROMA_DIR", "data/chroma"),
     )

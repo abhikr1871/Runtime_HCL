@@ -231,3 +231,77 @@ def test_search_products_interface_contract():
     # Ensure hard constraints were respected
     assert all(it["price"] <= 3000 for it in res)
     assert all(it["in_stock"] is True for it in res)
+
+
+# 15. ChromaDB vector store integration (real chromadb; skipped if the package is not installed)
+def test_chromadb_vector_store(monkeypatch, tmp_path):
+    pytest.importorskip("chromadb")
+    monkeypatch.setenv("VECTOR_STORE", "chromadb")
+    monkeypatch.setenv("CHROMA_DIR", str(tmp_path / "chroma"))
+    from app.config import get_settings
+    get_settings.cache_clear()
+    indexer.reset_vector_store()
+    try:
+        col = indexer.get_chroma_collection()
+        assert col is not None
+        assert col.name == "products"
+        scores = indexer.get_dense_scores("laptop")
+        assert isinstance(scores, dict)
+    finally:
+        indexer.reset_vector_store()
+
+
+# 16. Vectors live in exactly ONE store (no chromadb or model needed: fake collection + fake embeddings)
+class _FakeCollection:
+    def __init__(self):
+        self.vecs = {}
+
+    def upsert(self, ids, embeddings, metadatas=None):
+        self.vecs.update(dict(zip(ids, embeddings)))
+
+    def get(self, include=None):
+        return {"ids": list(self.vecs), "embeddings": list(self.vecs.values())}
+
+    def count(self):
+        return len(self.vecs)
+
+    def query(self, query_embeddings, n_results):
+        import numpy as np
+        q = np.asarray(query_embeddings[0])
+        dist = {pid: 1.0 - float(np.dot(np.asarray(v), q)) for pid, v in self.vecs.items()}
+        ids = sorted(dist, key=dist.get)[:n_results]
+        return {"ids": [ids], "distances": [[dist[i] for i in ids]]}
+
+
+def _fake_vec(text):
+    import numpy as np
+    v = np.array([text.lower().count(w) for w in ("speaker", "shoe", "laptop", "trek", "bottle", "kurta")] + [1.0],
+                 dtype=np.float32)
+    return v / np.linalg.norm(v)
+
+
+@pytest.mark.parametrize("store", ["sqlite", "chromadb"])
+def test_vectors_are_stored_in_one_place_only(monkeypatch, store):
+    import numpy as np
+    from app.config import get_settings
+    fake = _FakeCollection()
+    monkeypatch.setenv("VECTOR_STORE", store)
+    monkeypatch.setenv("ENABLE_EMBEDDINGS", "true")
+    get_settings.cache_clear()
+    indexer.reset_vector_store()
+    if store == "chromadb":
+        monkeypatch.setattr(indexer, "_chroma_col", fake)
+    monkeypatch.setattr(indexer.embeddings, "embed_passages", lambda texts, **k: np.stack([_fake_vec(t) for t in texts]))
+    monkeypatch.setattr(indexer.embeddings, "embed_query", lambda text: _fake_vec(text))
+    try:
+        n = indexer.rebuild()
+        sqlite_rows = len(repository.get_all_embeddings("text"))
+        if store == "chromadb":
+            assert fake.count() == n and sqlite_rows == 0       # Chroma only
+        else:
+            assert sqlite_rows == n and fake.count() == 0       # SQLite only
+        top = sorted(indexer.get_dense_scores("bluetooth speaker").items(), key=lambda kv: -kv[1])[0][0]
+        assert "speaker" in indexer.get_product(top).name.lower()
+    finally:
+        indexer.reset_vector_store()
+        get_settings.cache_clear()

@@ -99,6 +99,11 @@ Configurable via environment variable or argument:
 - Scores query-document pairs on the top 20 candidates.
 - Includes non-blocking fallback if the model is absent.
 
+### H. Configurable Vector Store: SQLite & ChromaDB (`api/app/store/indexer.py`)
+- Configurable via `VECTOR_STORE=sqlite` (default) or `VECTOR_STORE=chromadb`.
+- **SQLite + NumPy**: In-memory normalized matrix multiplication (`np.dot`) with persistence in `data/shop.db` (`embeddings` table).
+- **ChromaDB**: Persistent HNSW cosine vector collection stored at `data/chroma/`. Synchronizes embeddings automatically and supports standalone vector similarity queries.
+
 ---
 
 ## 3. Interface Contract
