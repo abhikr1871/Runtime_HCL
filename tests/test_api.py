@@ -9,6 +9,14 @@ def test_health(client):
     assert body["db"] is True and body["products"] > 0
 
 
+def test_cors_allows_react_dev_server(client):
+    r = client.options("/chat", headers={"Origin": "http://localhost:5173", "Access-Control-Request-Method": "POST",
+                                         "Access-Control-Request-Headers": "content-type"})
+    assert r.headers.get("access-control-allow-origin") == "http://localhost:5173"
+    other = client.options("/chat", headers={"Origin": "https://evil.example", "Access-Control-Request-Method": "POST"})
+    assert "access-control-allow-origin" not in other.headers
+
+
 def test_budget_search_respects_constraint(client):
     body = ask(client, "gift for my father who likes trekking under 3000", session="budget")
     assert body["answer_type"] == "recommendation"

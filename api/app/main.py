@@ -2,10 +2,12 @@
 from __future__ import annotations
 
 import logging
+import os
 import uuid
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.routes import chat, health, ingest, products, sessions, trace
@@ -24,6 +26,12 @@ async def lifespan(_: FastAPI):
 
 
 app = FastAPI(title="AI Shopping Assistant", version="0.1.0", lifespan=lifespan)
+
+# Browser UIs on another port (React/Vite dev server on 5173) need CORS to call the API.
+# Only these local origins are allowed; set CORS_ORIGINS (comma-separated) to change them.
+_origins = os.getenv("CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173")
+app.add_middleware(CORSMiddleware, allow_origins=[o.strip() for o in _origins.split(",") if o.strip()],
+                   allow_methods=["GET", "POST", "DELETE"], allow_headers=["Content-Type", "X-Customer-Id"])
 
 
 @app.exception_handler(Exception)
