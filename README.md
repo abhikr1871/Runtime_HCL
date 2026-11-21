@@ -6,6 +6,7 @@ so over-budget, out-of-stock or invented products cannot reach the shopper.
 
 - Design (5 pages): [`docs/Design_5_Pages.pdf`](docs/Design_5_Pages.pdf)
 - Architecture (1 page): [`docs/Architecture.pdf`](docs/Architecture.pdf)
+- Search & Retrieval Engine: [`docs/retrieval.md`](docs/retrieval.md)
 - Task sheets per member: [`docs/tasks/`](docs/tasks/README.md)
 
 ## Quick start (local, about 5 minutes)

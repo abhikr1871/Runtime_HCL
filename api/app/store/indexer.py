@@ -274,3 +274,31 @@ def dense_search(query_or_vec: Union[str, np.ndarray], candidate_ids: Optional[l
     scored = [(pid, float(id_sim.get(pid, 0.0))) for pid in candidates if pid in id_sim]
     scored.sort(key=lambda x: -x[1])
     return scored[:top_k]
+
+
+# ---------- Adapters used by pipeline/retrieval.py (M2-A) ----------
+# Merge note: M2-A's hybrid ranker calls these. They reuse the M2-B index above, so there is one
+# BM25 index and one embedding matrix in the process.
+def get_bm25_scores(query_tokens: list[str]) -> dict[str, float]:
+    """BM25 score per product for already-tokenised query terms (only products that match a term).
+    Adds the same small term-overlap bonus as bm25_search(), so common terms never score zero."""
+    with _lock:
+        if _bm25 is None or not query_tokens or not _bm25_ids:
+            return {}
+        raw = _bm25.get_scores(query_tokens)
+        out: dict[str, float] = {}
+        for idx, pid in enumerate(_bm25_ids):
+            overlap = sum(_tokenized_corpus[idx].count(t) for t in query_tokens)
+            if overlap > 0:
+                out[pid] = float(raw[idx]) + 0.1 * overlap
+        return out
+
+
+def get_dense_scores(query_text: str) -> dict[str, float]:
+    """Cosine similarity per product (only positive scores); empty when embeddings are disabled."""
+    return {pid: s for pid, s in dense_search(query_text, top_k=len(_vector_ids) or 1) if s > 0}
+
+
+def get_product(product_id: str) -> Optional[Product]:
+    with _lock:
+        return _products.get(product_id)

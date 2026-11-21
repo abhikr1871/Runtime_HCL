@@ -37,6 +37,9 @@ class Settings:
     db_path: Path
     models_dir: Path
     sample_products: Path
+    retrieval_mode: str = "hybrid"
+    reranker_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
+    diversity_strategy: str = "brand"
 
 
 def _load_dotenv() -> None:
@@ -70,4 +73,7 @@ def get_settings() -> Settings:
         db_path=_path("DB_PATH", "data/shop.db"),
         models_dir=_path("MODELS_DIR", "models"),
         sample_products=ROOT / "data_kit" / "sample_products.json",
+        retrieval_mode=os.getenv("RETRIEVAL_MODE", "hybrid").strip().lower(),
+        reranker_model=os.getenv("RERANKER_MODEL", "cross-encoder/ms-marco-MiniLM-L-6-v2"),
+        diversity_strategy=os.getenv("DIVERSITY_STRATEGY", "brand").strip().lower(),
     )
