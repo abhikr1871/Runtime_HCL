@@ -30,6 +30,12 @@ def test_hindi_and_hinglish_budgets():
     assert nlu_rules.parse("जूते ३००० तक", BRANDS, VOCAB).budget_max == 3000      # Devanagari digits
 
 
+def test_number_words_only_count_as_whole_words():
+    assert nlu_rules.parse("dove soap under 500", BRANDS, VOCAB).budget_max == 500
+    assert nlu_rules.parse("show me dove soap", BRANDS, VOCAB).budget_max is None   # "do" inside "dove" is not 2
+    assert nlu_rules.parse("do hazaar tak ka speaker", BRANDS, VOCAB).budget_max == 2000
+
+
 def test_hinglish_word_mapping():
     assert "shoes" in nlu_rules.parse("mujhe joote chahiye", BRANDS, VOCAB).query_text
 

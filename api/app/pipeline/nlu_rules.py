@@ -4,8 +4,11 @@ Turns the shopper's message into Slots:
 - language (English / Hindi in Devanagari / Hinglish)
 - Hindi and Hinglish product words -> English search words ("कुर्ता" -> kurta, "joote" -> shoes)
 - typo correction against the catalogue's own vocabulary ("blutooth" -> bluetooth, "nkie" -> Nike)
-- budget in English, Hinglish and Hindi ("under 3k", "2000 se kam", "2000 रुपये से कम", "3 hazaar tak")
-- brands to include / exclude ("only Nike", "not boAt", "Nike nahi", "without Fabindia")
+- budget in English, Hinglish and Hindi ("under 3k", "2000 se kam", "2000 रुपये से कम", "3 hazaar tak",
+  number words "paanch hazaar" / "पाँच सौ", lakh, minimums "2000 se zyada", ranges "2000 se 4000 ke beech")
+- brands to include / exclude, typo-tolerant and multi-word ("only Nike", "not boAt", "nkie nahi", "Peter England")
+
+Budget-phrase parsing and the brand matcher were contributed by Daksh (M1) and combined with the rest here.
 - size, colour, explicit product IDs, references ("first two", "the second one")
 - intent: search, refine, compare, product_fact, greeting, out_of_scope, not_sold
 
@@ -16,6 +19,7 @@ from __future__ import annotations
 import re
 from typing import Iterable, Optional
 
+from rapidfuzz import distance, fuzz
 from rapidfuzz.distance import DamerauLevenshtein
 
 from app.schemas import Slots
@@ -63,12 +67,53 @@ _SEARCH_SYNONYMS = {
     "headphones": "earbuds", "tablet": "tablets", "cooker": "pressure",
 }
 
-_NUM = r"(?:rs\.?|inr|₹)?\s*(\d[\d,]*(?:\.\d+)?)\s*(k\b|thousand|hazaar|hazar|हज़ार|हजार)?"
-_MAX = [re.compile(r"(?:under|below|less than|within|up\s?to|max(?:imum)?|budget(?:\s+of|\s+is)?)\s*" + _NUM, re.I),
-        re.compile(_NUM + r"\s*(?:rs\.?|rupees|रुपये|रुपए|रु\.?)?\s*(?:se\s+kam|ke\s+andar|ke\s+neeche|tak|or less|"
-                   r"से\s+कम|तक|के\s+अंदर|के\s+नीचे)", re.I)]
-_MIN = [re.compile(r"(?:above|over|more than|at least|min(?:imum)?)\s*" + _NUM, re.I)]
-_BETWEEN = re.compile(r"between\s*" + _NUM + r"\s*(?:and|to|-)\s*" + _NUM, re.I)
+# ---------- budget phrases (Daksh) ----------
+_WORDS_TO_NUM: dict[str, int] = {
+    "ek": 1, "do": 2, "teen": 3, "char": 4, "chaar": 4, "paanch": 5, "panch": 5,
+    "chhe": 6, "che": 6, "saat": 7, "aath": 8, "nau": 9, "das": 10,
+    "gyarah": 11, "barah": 12, "terah": 13, "chaudah": 14, "pandrah": 15,
+    "solah": 16, "satrah": 17, "atharah": 18, "unnis": 19, "bees": 20,
+    "tees": 30, "chalis": 40, "pachas": 50, "pachaas": 50,
+    "एक": 1, "दो": 2, "तीन": 3, "चार": 4, "पाँच": 5, "पांच": 5, "छह": 6, "छ": 6,
+    "सात": 7, "आठ": 8, "नौ": 9, "दस": 10,
+}
+_MULT: dict[str, int] = {
+    "k": 1000, "thousand": 1000, "hazaar": 1000, "hazar": 1000, "hajar": 1000, "हज़ार": 1000, "हजार": 1000,
+    "sau": 100, "सौ": 100, "lakh": 100000, "lac": 100000, "लाख": 100000,
+}
+_WORDS_PAT = "|".join(sorted(_WORDS_TO_NUM, key=lambda x: -len(x)))
+_MULT_PAT = r"(?:k\b|thousand|hazaar|hazar|hajar|हज़ार|हजार|sau|सौ|lakh|lac|लाख)"
+_CURRENCY_WORD = r"(?:\s*(?:rs\.?|rupees|rupaye|rupay|रुपये|रुपए|रुपया|रु\.?))?"
+_NUM = (
+    r"(?:(?:rs\.?|inr|₹)\s*)?"
+    r"(?:(\d[\d,]*(?:\.\d+)?)|(?<![a-z])(" + _WORDS_PAT + r")(?![a-z]))"   # number words must stand alone ("do", not "dove")
+    r"(?:\s*(" + _MULT_PAT + r"))?"
+    r"(?!\s*(?:gb|tb|mb|mp|g\b|inch|hz|mah))"                             # "32 GB", "5G" are specs, not prices
+)
+_BETWEEN = [
+    re.compile(r"between\s*" + _NUM + r"\s*(?:and|to|-)\s*" + _NUM, re.I),
+    re.compile(_NUM + _CURRENCY_WORD + r"\s*(?:se|to|-|से)\s*" + _NUM + _CURRENCY_WORD +
+               r"\s*(?:ke\s+(?:beech|bich)|के\s*बीच|tak|तक)", re.I),
+]
+_MAX = [
+    re.compile(r"(?:under|below|less than|within|up\s?to|upto|max(?:imum)?|budget(?:\s+of|\s+is)?)\s*" + _NUM, re.I),
+    re.compile(_NUM + _CURRENCY_WORD + r"\s*(?:se\s+kam|से\s*कम|ke\s+andar|के\s*अंदर|ke\s+neeche|के\s*नीचे|"
+               r"tak(?:\s+ka)?|तक(?:\s*का)?|or less|budget)", re.I),
+    re.compile(r"(?:rs\.?|inr|₹)\s*" + _NUM, re.I),
+]
+_MIN = [
+    re.compile(r"(?:above|over|more than|at least|min(?:imum)?|starting(?:\s+from)?|start(?:\s+from)?)\s*" + _NUM, re.I),
+    re.compile(_NUM + _CURRENCY_WORD + r"\s*(?:se\s+(?:zyada|jyada|upar|adhik)|से\s*(?:ज़्यादा|ज्यादा|ऊपर|अधिक)|or more)", re.I),
+]
+# Words that must never be read as a brand typo (Daksh)
+_BRAND_STOPWORDS = {
+    "shoes", "shoe", "phone", "phones", "under", "below", "black", "white", "blue", "green", "red",
+    "price", "show", "best", "cheap", "cheaper", "gift", "gifts", "good", "laptop", "laptops",
+    "watch", "watches", "shirt", "shirts", "sound", "size", "with", "from", "that", "this",
+    "free", "deal", "more", "less", "sale", "home", "wear", "mens", "womens", "boys", "girls",
+    "chahiye", "dikhao", "sasta", "saste", "accha", "acha", "wala", "wali", "wale", "karo", "karna",
+    "only", "nahi", "nahin", "mat", "not", "between", "over", "above", "item", "items", "both",
+}
 _NEG = [re.compile(r"\b(?:not|no|except|without|but not)\s+([a-z][\w&-]+)", re.I),
         re.compile(r"\b([a-z][\w&-]+)\s+(?:nahi|nahin|mat)\b", re.I)]
 _NEG_WORDS = {"not", "no", "except", "without", "but", "nahi", "nahin", "mat", "only", "show", "me", "the", "a"}
@@ -95,9 +140,37 @@ _NOT_SOLD = re.compile(r"\b(electric cars?|cars?|motorcycles?|motorbikes?|scoote
                        r"land plots?|(?:flats?|houses?|plots?) (?:for|to) (?:rent|sale|buy))\b", re.I)
 
 
-def _to_int(num: str, unit: Optional[str]) -> int:
-    value = float(num.replace(",", ""))
-    return int(value * 1000) if unit else int(value)
+def _parse_val(num_str: Optional[str], word_str: Optional[str], mult_str: Optional[str]) -> Optional[int]:
+    """'3' + 'hazaar' -> 3000, 'paanch' + 'sau' -> 500, '1.5' + 'lakh' -> 150000 (Daksh)."""
+    if num_str:
+        val = float(num_str.replace(",", ""))
+    elif word_str:
+        val = float(_WORDS_TO_NUM[word_str.lower()])
+    else:
+        return None
+    if mult_str:
+        val *= _MULT.get(mult_str.lower(), 1)
+    return int(val)
+
+
+def _match_brand(token: str, brands: dict[str, str], threshold: float = 85.0) -> Optional[str]:
+    """Known brand for a token: exact match first, then typo-tolerant rapidfuzz (Daksh)."""
+    t = token.lower()
+    if t in brands:
+        return brands[t]
+    if len(t) < 4 or t in _BRAND_STOPWORDS:
+        return None
+    best_brand, best_score = None, 0.0
+    for b_lower, b_orig in brands.items():
+        if " " in b_lower:
+            continue
+        ratio = fuzz.ratio(t, b_lower)
+        jw = distance.JaroWinkler.similarity(t, b_lower) * 100.0
+        dl = distance.DamerauLevenshtein.distance(t, b_lower)
+        score = max(ratio, jw) if (dl <= 1 and abs(len(t) - len(b_lower)) <= 1) else ratio
+        if score >= threshold and score > best_score:
+            best_score, best_brand = score, b_orig
+    return best_brand
 
 
 def detect_language(text: str) -> str:
@@ -135,7 +208,7 @@ def correct_typos(text: str, vocabulary: Iterable[str], brands: Iterable[str]) -
     def fix(m: re.Match) -> str:
         word = m.group(0)
         low = word.lower()
-        if len(low) < 4 or low in candidates or low in _KEEP or low in _COLORS:
+        if len(low) < 4 or low in candidates or low in _KEEP or low in _COLORS or low in _BRAND_STOPWORDS:
             return word
         limit = 1 if len(low) <= 6 else 2
         best, best_d = None, limit + 1
@@ -167,16 +240,22 @@ def parse(message: str, known_brands: Iterable[str] = (), vocabulary: Iterable[s
     brands = {b.lower(): b for b in known_brands if b}
 
     # budget first, on the untranslated text (Hindi price phrases need the Hindi words)
-    if m := _BETWEEN.search(text):
-        s.budget_min, s.budget_max = _to_int(m.group(1), m.group(2)), _to_int(m.group(3), m.group(4))
-    else:
+    range_found = False
+    for p in _BETWEEN:
+        if m := p.search(text):
+            s.budget_min = _parse_val(m.group(1), m.group(2), m.group(3))
+            s.budget_max = _parse_val(m.group(4), m.group(5), m.group(6))
+            range_found = True
+            break
+    if not range_found:
         for p in _MAX:
             if m := p.search(text):
-                s.budget_max = _to_int(m.group(1), m.group(2))
+                s.budget_max = _parse_val(m.group(1), m.group(2), m.group(3))
                 break
         for p in _MIN:
             if m := p.search(text):
-                s.budget_min = _to_int(m.group(1), m.group(2))
+                s.budget_min = _parse_val(m.group(1), m.group(2), m.group(3))
+                break
 
     text, translated = translate_terms(text)
     before_typos = text
@@ -184,17 +263,30 @@ def parse(message: str, known_brands: Iterable[str] = (), vocabulary: Iterable[s
     s.corrections = {**translated, **typos}
     s.query_text = text
 
+    # brands (Daksh): multi-word brands, then negation / "only" / mentions, each typo-tolerant
+    text_lower = text.lower()
+    for b_lower, b_orig in brands.items():
+        if " " in b_lower and b_lower in text_lower:
+            neg = (r"\b(?:not|no|except|without|but not)\s+" + re.escape(b_lower) + r"\b|"
+                   r"\b" + re.escape(b_lower) + r"\s+(?:nahi|nahin|mat)\b")
+            if re.search(neg, text_lower):
+                if b_orig not in s.brands_exclude:
+                    s.brands_exclude.append(b_orig)
+            elif b_orig not in s.brands_include:
+                s.brands_include.append(b_orig)
     for p in _NEG:
         for word in p.findall(text):
-            if word.lower() in brands and brands[word.lower()] not in s.brands_exclude:
-                s.brands_exclude.append(brands[word.lower()])
-    tokens = re.findall(r"[a-z][\w&-]+", text.lower())
-    only = {w.lower() for w in _ONLY.findall(text)}
+            if (matched := _match_brand(word, brands)) and matched not in s.brands_exclude:
+                s.brands_exclude.append(matched)
+    only_matched = {m for w in _ONLY.findall(text) if (m := _match_brand(w, brands))}
+    tokens = re.findall(r"[a-z][\w&-]+", text_lower)
     for t in tokens:
-        if t in brands and brands[t] not in s.brands_exclude and brands[t] not in s.brands_include:
-            if only and t not in only:
+        matched = _match_brand(t, brands)
+        if matched and matched not in s.brands_exclude and matched not in s.brands_include:
+            if only_matched and matched not in only_matched:
                 continue
-            s.brands_include.append(brands[t])
+            s.brands_include.append(matched)
+    brand_words = {w for b in brands for w in b.split()}
 
     if m := _SIZE.search(text):
         s.size = (m.group(1) or m.group(2)).upper()
@@ -206,7 +298,8 @@ def parse(message: str, known_brands: Iterable[str] = (), vocabulary: Iterable[s
             break
 
     # words that describe a product (not brands, negation, filler or numbers)
-    product_words = [t for t in tokens if t not in brands and t not in _NEG_WORDS and t not in _KEEP and not t.isdigit()]
+    product_words = [t for t in tokens if t not in brands and t not in brand_words and t not in _NEG_WORDS
+                     and t not in _KEEP and not t.isdigit() and not _match_brand(t, brands)]
 
     if _GREETING.match(original):
         s.intent = "greeting"
