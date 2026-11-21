@@ -91,20 +91,24 @@ def _state(query, **filters):
 def test_clarify_only_for_broad_requests():
     many = [P(f"P-{i:04d}") for i in range(12)]
     few = many[:3]
-    assert clarify.next_question(_state("I need a laptop"), few, "en")            # broad item
+    assert clarify.next_question(_state("I need a laptop"), many[:5], "en")       # broad item
+    assert clarify.next_question(_state("I need a laptop"), few, "en") is None    # 3 or fewer: just show them
     assert clarify.next_question(_state("need earbuds"), many, "en")              # one word, many matches
     assert clarify.next_question(_state("wireless earbuds"), many, "en") is None  # specific enough
     assert clarify.next_question(_state("earbuds", brands_exclude=["boAt"]), many, "en") is None
     assert clarify.next_question(_state("laptop", budget_max=50000), many, "en") is None
     assert clarify.next_question(_state("kurta"), few, "en") is None              # narrow and few matches
+    spread = [P("P-0001", price=38990), P("P-0002", price=72990)]                 # few, but prices far apart
+    assert clarify.next_question(_state("I need a laptop"), spread, "en")[0] == "budget_max"
 
 
 def test_clarify_asks_in_the_shoppers_language_and_only_once():
-    q = clarify.next_question(_state("mujhe ek phone chahiye"), [P()], "hinglish")
+    same = [P(f"P-{i:04d}") for i in range(5)]       # nothing varies -> budget question
+    q = clarify.next_question(_state("mujhe ek phone chahiye"), same, "hinglish")
     assert q and "budget" in q[1].lower()
     st = _state("phone")
     st.asked_slots = ["budget_max"]
-    assert clarify.next_question(st, [P()], "en") is None
+    assert clarify.next_question(st, same, "en") is None
 
 
 # ---------- reasons ----------

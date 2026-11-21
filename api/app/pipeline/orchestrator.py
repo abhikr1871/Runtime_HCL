@@ -74,26 +74,19 @@ def _out(p: Product, reason: str) -> ProductOut:
                       reason=reason, brand=p.brand, rating=p.rating, category=p.category)
 
 
-def _relaxation_message(label: str, f: dict[str, Any], nearest: list[Product], lang: str) -> str:
-    """Which constraint blocked results, plus a concrete counterfactual for the budget case."""
-    if label == "budget" and f.get("budget_max"):
-        prices = [p.price_inr for p in nearest if p.price_inr is not None]
-        if prices:
-            cheapest, budget = min(prices), int(f["budget_max"])
-            more = cheapest - budget
-            return {
-                "en": f"Nothing matched under your {reasons.format_inr(budget)} budget. The closest option is "
-                      f"{reasons.format_inr(cheapest)} ({reasons.format_inr(more)} more).",
-                "hinglish": f"Aapke {reasons.format_inr(budget)} budget mein kuch nahi mila. Sabse kareeb option "
-                            f"{reasons.format_inr(cheapest)} ka hai ({reasons.format_inr(more)} zyada).",
-                "hi": f"आपके {reasons.format_inr(budget)} बजट में कुछ नहीं मिला। सबसे नज़दीकी विकल्प "
-                      f"{reasons.format_inr(cheapest)} का है ({reasons.format_inr(more)} ज़्यादा)।",
-            }.get(lang, "")
-    return {
-        "en": f"Nothing matched with your {label} choice. These are the closest options if you can change it.",
-        "hinglish": f"Aapke {label} ke saath kuch nahi mila. Ye sabse kareeb options hain.",
-        "hi": f"आपकी {label} पसंद के साथ कुछ नहीं मिला। ये सबसे नज़दीकी विकल्प हैं।",
-    }.get(lang, "")
+def _relaxation_message(label: str, f: dict[str, Any], hint: str, lang: str) -> str:
+    """Which constraint blocked results, followed by relax's counterfactual hint (Daksh), e.g.
+    "Nothing matched under your ₹2,000 budget. ₹500 more (₹2,500) gives 2 options."."""
+    if f.get("budget_max") and hint.startswith("₹"):
+        budget = reasons.format_inr(int(f["budget_max"]))
+        lead = {"en": f"Nothing matched under your {budget} budget.",
+                "hinglish": f"Aapke {budget} budget mein kuch nahi mila.",
+                "hi": f"आपके {budget} बजट में कुछ नहीं मिला।"}
+    else:
+        lead = {"en": f"Nothing matched with your {label} choice.",
+                "hinglish": f"Aapke {label} ke saath kuch nahi mila.",
+                "hi": f"आपकी {label} पसंद के साथ कुछ नहीं मिला।"}
+    return f"{lead.get(lang, lead['en'])} {hint}".strip()
 
 
 def handle_chat(req: ChatRequest) -> ChatResponse:
@@ -198,11 +191,11 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
 
     # 6. nothing matched -> relax one constraint and say which one blocked results
     if not ranked:
-        relaxed = relax.relax(f, query)
+        relaxed = relax.relax(f, query, lang)
         if relaxed:
-            label, nearest_ranked = relaxed
+            label, nearest_ranked, hint, _extra_allowed = relaxed
             nearest = diversity.diversify(nearest_ranked, 3)
-            msg = _relaxation_message(label, f, nearest, lang)
+            msg = _relaxation_message(label, f, hint, lang)
             rel = Relaxation(blocked_by=label, message=msg, nearest=[_out(p, reasons.build(p, {}, lang)[0]) for p in nearest])
             return finish(ChatResponse(trace_id=trace_id, answer_type="not_found", language=lang, active_filters=f,
                                        answer=f"{_NOT_FOUND[lang]} {msg}", relaxation=rel,
@@ -229,7 +222,8 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
         attempts.append({"ok": check.ok, "problems": check.problems})
     if not check.ok:
         answer = composer.template(items, lang)
-    record["validator"] = {"ok": check.ok, "attempts": attempts, "used_template": not check.ok}
+    record["validator"] = {"ok": check.ok, "attempts": attempts, "regenerated": len(attempts) > 1,
+                           "used_template": not check.ok}
 
     new_state = new_state.model_copy(update={"last_results": [p.product_id for p in top]})
     return finish(ChatResponse(
