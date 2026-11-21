@@ -149,11 +149,10 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
 
     # 6. nothing matched -> relax one constraint and say which one blocked results
     if not ranked:
-        relaxed = relax.relax(f, query)
+        relaxed = relax.relax(f, query, lang)
         if relaxed:
-            label, nearest_ranked = relaxed
+            label, nearest_ranked, msg, _ = relaxed
             nearest = diversity.diversify(nearest_ranked, 3)
-            msg = f"Nothing matched with your {label}. These are the closest options if you can change it."
             rel = Relaxation(blocked_by=label, message=msg, nearest=[_out(p, reasons.build(p, {})[0]) for p in nearest])
             return finish(ChatResponse(trace_id=trace_id, answer_type="not_found", language=lang, active_filters=f,
                                        answer=f"{_NOT_FOUND[lang]} {msg}", relaxation=rel,

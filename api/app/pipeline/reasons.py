@@ -1,9 +1,12 @@
 """Step 7a: build each product's reason from database fields (the LLM never invents these). Owner: M1."""
 from __future__ import annotations
 
+import re
 from typing import Any, Optional
 
 from app.schemas import Product
+
+_GENERIC_TAGS = {"shoes", "shoe", "laptop", "laptops", "phone", "phones", "shirt", "shirts", "bag", "bags", "product", "item"}
 
 
 def format_inr(amount: Optional[int]) -> str:
@@ -39,5 +42,38 @@ def build(p: Product, f: dict[str, Any]) -> tuple[str, list[str]]:
     if p.brand and p.brand in f.get("brands_include", []):
         parts.append(f"{p.brand} as you asked")
         fields.append("brand")
-    # TODO(M1): matched attributes/tags ("waterproof", "for trekking") and review highlights
+
+    # Match shopper's query words/slots against the product's tags/attributes/description keywords
+    query_text = (f.get("query_text") or "").lower()
+    shopper_words = set(re.findall(r"[\wऀ-ॿ]+", query_text))
+    for attr in f.get("attributes", []):
+        shopper_words.add(attr.lower())
+
+    matched_tags = []
+    for tag in (p.tags or []):
+        t_low = tag.lower().strip()
+        if t_low in _GENERIC_TAGS:
+            continue
+        if t_low in query_text or any(w in shopper_words for w in re.findall(r"[\wऀ-ॿ]+", t_low)):
+            if t_low not in matched_tags:
+                matched_tags.append(t_low)
+
+    for k, v in (p.attributes or {}).items():
+        if isinstance(v, str):
+            v_low = v.lower().strip()
+            if v_low not in _GENERIC_TAGS and (v_low in query_text or any(w in shopper_words for w in re.findall(r"[\wऀ-ॿ]+", v_low))):
+                if v_low not in matched_tags:
+                    matched_tags.append(v_low)
+
+    formatted_tags = []
+    for tag in matched_tags[:2]:
+        if tag in {"trekking", "hiking", "running", "study", "office", "gaming", "travel", "party", "flat feet", "jogging", "gym"}:
+            formatted_tags.append(f"for {tag}")
+        else:
+            formatted_tags.append(tag)
+
+    if formatted_tags:
+        parts.extend(formatted_tags)
+        fields.append("tags")
+
     return ", ".join(parts) or "matches your request", fields
