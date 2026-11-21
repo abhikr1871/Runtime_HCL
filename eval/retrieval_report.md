@@ -6,10 +6,10 @@ This evaluation compares four retrieval configurations across standard test suit
 
 | Retrieval Mode | Recall@3 (%) | Precision@3 (%) | Relevance@3 (%) | Constraint Violation Rate (%) | Mean Latency (ms) | p95 Latency (ms) |
 |---|---|---|---|---|---|---|
-| `bm25` | 44.83% | 42.53% | 88.46% | 0.0% | 0.94 ms | 1.67 ms |
-| `dense` | 44.83% | 42.53% | 88.46% | 0.0% | 0.74 ms | 1.05 ms |
-| `hybrid` | 44.83% | 42.53% | 88.46% | 0.0% | 0.79 ms | 1.43 ms |
-| `hybrid+rerank` | 44.83% | 42.53% | 88.46% | 0.0% | 0.74 ms | 1.14 ms |
+| `bm25` | 44.83% | 42.53% | 88.46% | 0.0% | 0.95 ms | 1.32 ms |
+| `dense` | 44.83% | 42.53% | 88.46% | 0.0% | 0.77 ms | 1.27 ms |
+| `hybrid` | 44.83% | 42.53% | 88.46% | 0.0% | 0.79 ms | 1.21 ms |
+| `hybrid+rerank` | 44.83% | 42.53% | 88.46% | 0.0% | 0.77 ms | 1.15 ms |
 
 ## Key Findings
 

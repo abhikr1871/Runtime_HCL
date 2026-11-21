@@ -25,11 +25,23 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / "api"))
+for p in [str(ROOT / "api"), str(ROOT), str(ROOT.parent)]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
-from app.config import get_settings
-from app.pipeline import filters, nlu_rules, rerank, retrieval
-from app.store import db, indexer, repository
+try:
+    from app.config import get_settings
+    from app.pipeline import filters, nlu_rules, rerank, retrieval
+    from app.store import db, indexer, repository
+except ImportError:
+    try:
+        from api.app.config import get_settings
+        from api.app.pipeline import filters, nlu_rules, rerank, retrieval
+        from api.app.store import db, indexer, repository
+    except ImportError:
+        from HCL_Runtime.Runtime_HCL.api.app.config import get_settings
+        from HCL_Runtime.Runtime_HCL.api.app.pipeline import filters, nlu_rules, rerank, retrieval
+        from HCL_Runtime.Runtime_HCL.api.app.store import db, indexer, repository
 
 
 def _known_brands() -> list[str]:
