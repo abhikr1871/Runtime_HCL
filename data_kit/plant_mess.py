@@ -15,6 +15,7 @@ import argparse
 import copy
 import json
 import re
+import time
 from collections import defaultdict
 from typing import Any
 
@@ -54,19 +55,23 @@ def template_translation(p: dict[str, Any], lang: str) -> str:
 
 
 def translate(llm, items: list[dict[str, str]]) -> dict[str, str]:
+    """Batches of 4 to stay inside Groq's free-tier token-per-minute limit."""
     if not llm:
         return {}
-    data = llm.complete_json("You return only valid JSON.",
-                             load_prompt("translations.md").replace("{items_json}", json.dumps(items, ensure_ascii=False)),
-                             temperature=0.3, max_tokens=4000)
     out = {}
     want = {i["id"]: i["lang"] for i in items}
-    for it in (data or {}).get("items", []) if isinstance(data, dict) else []:
-        text, lang = str(it.get("text", "")).strip(), want.get(it.get("id"))
-        if not text or not lang:
-            continue
-        if (lang == "hi") == bool(DEVANAGARI.search(text)):   # Hindi must be Devanagari; Hinglish must not be
-            out[it["id"]] = text
+    for i in range(0, len(items), 4):
+        batch = items[i:i + 4]
+        data = llm.complete_json("You return only valid JSON.",
+                                 load_prompt("translations.md").replace("{items_json}", json.dumps(batch, ensure_ascii=False)),
+                                 temperature=0.3, max_tokens=2000)
+        for it in (data or {}).get("items", []) if isinstance(data, dict) else []:
+            text, lang = str(it.get("text", "")).strip(), want.get(it.get("id"))
+            if not text or not lang:
+                continue
+            if (lang == "hi") == bool(DEVANAGARI.search(text)):   # Hindi must be Devanagari; Hinglish must not be
+                out[it["id"]] = text
+        time.sleep(2)
     return out
 
 

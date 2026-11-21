@@ -34,7 +34,8 @@ def get_llm(offline: bool) -> Optional[LLMClient]:
         print("offline mode: templates only, no LLM calls")
         return None
     s = get_settings()
-    client = LLMClient(ignore_mock=True, timeout_s=90)
+    # Batch jobs may wait for rate-limit resets (Groq free tier: 8,000 tokens per minute).
+    client = LLMClient(ignore_mock=True, timeout_s=90, max_wait_s=65)
     if client.ping() != "ok":
         print(f"WARNING: LLM ({s.llm_provider}:{s.llm_model}) not reachable; falling back to templates")
         return None

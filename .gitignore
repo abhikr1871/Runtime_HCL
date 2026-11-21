@@ -11,8 +11,7 @@ venv/
 # Generated data and models (rebuilt by scripts)
 data/*.db
 data/*.db-*
-data/raw/
-data/processed/
+
 models/*
 !models/.gitkeep
 eval/results/

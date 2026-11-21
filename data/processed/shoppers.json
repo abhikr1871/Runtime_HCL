@@ -1,0 +1,576 @@
+[
+ {
+  "customer_id": "C-001",
+  "city": "Lucknow",
+  "preferred_language": "en",
+  "budget_min_inr": 3000,
+  "budget_max_inr": 10000,
+  "interests": [
+   "watches",
+   "beauty"
+  ],
+  "display_name": "Asha K.",
+  "fav_brands": [
+   "Attitude",
+   "Calvin Klein",
+   "Chic Cosmetics"
+  ],
+  "sizes": {}
+ },
+ {
+  "customer_id": "C-002",
+  "city": "Indore",
+  "preferred_language": "en",
+  "budget_min_inr": 8000,
+  "budget_max_inr": 40000,
+  "interests": [
+   "watches",
+   "trekking"
+  ],
+  "display_name": "Raj P.",
+  "fav_brands": [
+   "Columbia",
+   "Wildcraft",
+   "IWC"
+  ],
+  "sizes": {}
+ },
+ {
+  "customer_id": "C-003",
+  "city": "Chennai",
+  "preferred_language": "en",
+  "budget_min_inr": 1000,
+  "budget_max_inr": 4000,
+  "interests": [
+   "ethnic wear",
+   "music"
+  ],
+  "display_name": "Meera S.",
+  "fav_brands": [
+   "Biba",
+   "Manyavar",
+   "Fabindia"
+  ],
+  "sizes": {
+   "clothing": "M"
+  }
+ },
+ {
+  "customer_id": "C-004",
+  "city": "Indore",
+  "preferred_language": "hinglish",
+  "budget_min_inr": 1000,
+  "budget_max_inr": 4000,
+  "interests": [
+   "running",
+   "ethnic wear"
+  ],
+  "display_name": "Sneha J.",
+  "fav_brands": [
+   "ASICS",
+   "Nike",
+   "Adidas"
+  ],
+  "sizes": {
+   "shoe": "7",
+   "clothing": "S"
+  }
+ },
+ {
+  "customer_id": "C-005",
+  "city": "Lucknow",
+  "preferred_language": "hinglish",
+  "budget_min_inr": 8000,
+  "budget_max_inr": 40000,
+  "interests": [
+   "beauty",
+   "trekking"
+  ],
+  "display_name": "Ravi K.",
+  "fav_brands": [
+   "Wildcraft",
+   "Chic Cosmetics"
+  ],
+  "sizes": {
+   "shoe": "9",
+   "clothing": "M"
+  }
+ },
+ {
+  "customer_id": "C-006",
+  "city": "Kochi",
+  "preferred_language": "hi",
+  "budget_min_inr": 8000,
+  "budget_max_inr": 40000,
+  "interests": [
+   "watches",
+   "running"
+  ],
+  "display_name": "Aditi K.",
+  "fav_brands": [
+   "ASICS",
+   "Nike",
+   "Skechers"
+  ],
+  "sizes": {
+   "shoe": "9"
+  }
+ },
+ {
+  "customer_id": "C-007",
+  "city": "Lucknow",
+  "preferred_language": "hinglish",
+  "budget_min_inr": 8000,
+  "budget_max_inr": 40000,
+  "interests": [
+   "beauty",
+   "trekking"
+  ],
+  "display_name": "Rohit P.",
+  "fav_brands": [
+   "Wildcraft",
+   "Dior"
+  ],
+  "sizes": {
+   "shoe": "10"
+  }
+ },
+ {
+  "customer_id": "C-008",
+  "city": "Patna",
+  "preferred_language": "hinglish",
+  "budget_min_inr": 300,
+  "budget_max_inr": 1500,
+  "interests": [
+   "fashion",
+   "ethnic wear"
+  ],
+  "display_name": "Mira S.",
+  "fav_brands": [
+   "Biba",
+   "Manyavar",
+   "Fashion Diva"
+  ],
+  "sizes": {
+   "clothing": "L"
+  }
+ },
+ {
+  "customer_id": "C-009",
+  "city": "Patna",
+  "preferred_language": "hi",
+  "budget_min_inr": 3000,
+  "budget_max_inr": 10000,
+  "interests": [
+   "fashion",
+   "trekking"
+  ],
+  "display_name": "Karan T.",
+  "fav_brands": [
+   "Columbia",
+   "Quechua",
+   "Prada"
+  ],
+  "sizes": {
+   "shoe": "8",
+   "clothing": "S"
+  }
+ },
+ {
+  "customer_id": "C-010",
+  "city": "Kolkata",
+  "preferred_language": "hi",
+  "budget_min_inr": 1000,
+  "budget_max_inr": 4000,
+  "interests": [
+   "music",
+   "ethnic wear"
+  ],
+  "display_name": "Neha R.",
+  "fav_brands": [
+   "Biba",
+   "Manyavar",
+   "Aurelia"
+  ],
+  "sizes": {
+   "clothing": "XL"
+  }
+ },
+ {
+  "customer_id": "C-011",
+  "city": "Patna",
+  "preferred_language": "en",
+  "budget_min_inr": 3000,
+  "budget_max_inr": 10000,
+  "interests": [
+   "running",
+   "trekking"
+  ],
+  "display_name": "Asha K.",
+  "fav_brands": [
+   "Adidas",
+   "Puma",
+   "Skechers"
+  ],
+  "sizes": {
+   "shoe": "9"
+  }
+ },
+ {
+  "customer_id": "C-012",
+  "city": "Bhopal",
+  "preferred_language": "hinglish",
+  "budget_min_inr": 8000,
+  "budget_max_inr": 40000,
+  "interests": [
+   "gadgets",
+   "running"
+  ],
+  "display_name": "Raj S.",
+  "fav_brands": [
+   "Apple",
+   "Samsung",
+   "TechGear"
+  ],
+  "sizes": {
+   "shoe": "10"
+  }
+ },
+ {
+  "customer_id": "C-013",
+  "city": "Patna",
+  "preferred_language": "hinglish",
+  "budget_min_inr": 8000,
+  "budget_max_inr": 40000,
+  "interests": [
+   "trekking",
+   "cooking"
+  ],
+  "display_name": "Meera P.",
+  "fav_brands": [
+   "Bajaj",
+   "Milton",
+   "Wildcraft"
+  ],
+  "sizes": {
+   "shoe": "8"
+  }
+ },
+ {
+  "customer_id": "C-014",
+  "city": "Mumbai",
+  "preferred_language": "hinglish",
+  "budget_min_inr": 8000,
+  "budget_max_inr": 40000,
+  "interests": [
+   "watches",
+   "trekking"
+  ],
+  "display_name": "Vikram G.",
+  "fav_brands": [
+   "IWC",
+   "Longines",
+   "Rolex"
+  ],
+  "sizes": {}
+ },
+ {
+  "customer_id": "C-015",
+  "city": "Kolkata",
+  "preferred_language": "en",
+  "budget_min_inr": 8000,
+  "budget_max_inr": 40000,
+  "interests": [
+   "running",
+   "trekking"
+  ],
+  "display_name": "Nisha D.",
+  "fav_brands": [
+   "ASICS",
+   "Nike",
+   "Quechua"
+  ],
+  "sizes": {
+   "shoe": "11"
+  }
+ },
+ {
+  "customer_id": "C-016",
+  "city": "Bhopal",
+  "preferred_language": "en",
+  "budget_min_inr": 3000,
+  "budget_max_inr": 10000,
+  "interests": [
+   "beauty",
+   "watches"
+  ],
+  "display_name": "Asha K.",
+  "fav_brands": [
+   "Chanel",
+   "Gucci",
+   "IWC"
+  ],
+  "sizes": {
+   "clothing": "M"
+  }
+ },
+ {
+  "customer_id": "C-017",
+  "city": "Bengaluru",
+  "preferred_language": "hi",
+  "budget_min_inr": 3000,
+  "budget_max_inr": 10000,
+  "interests": [
+   "trekking",
+   "watches"
+  ],
+  "display_name": "Rohan B.",
+  "fav_brands": [
+   "Columbia",
+   "IWC",
+   "Wildcraft"
+  ],
+  "sizes": {
+   "shoe": "9"
+  }
+ },
+ {
+  "customer_id": "C-018",
+  "city": "Indore",
+  "preferred_language": "hi",
+  "budget_min_inr": 8000,
+  "budget_max_inr": 40000,
+  "interests": [
+   "gadgets",
+   "music"
+  ],
+  "display_name": "Meera P.",
+  "fav_brands": [
+   "Apple",
+   "Samsung",
+   "OnePlus"
+  ],
+  "sizes": {}
+ },
+ {
+  "customer_id": "C-019",
+  "city": "Mumbai",
+  "preferred_language": "hinglish",
+  "budget_min_inr": 1000,
+  "budget_max_inr": 4000,
+  "interests": [
+   "cooking",
+   "music"
+  ],
+  "display_name": "Vikram R.",
+  "fav_brands": [
+   "Philips",
+   "Sony",
+   "boAt"
+  ],
+  "sizes": {}
+ },
+ {
+  "customer_id": "C-020",
+  "city": "Bhopal",
+  "preferred_language": "en",
+  "budget_min_inr": 8000,
+  "budget_max_inr": 40000,
+  "interests": [
+   "running",
+   "watches"
+  ],
+  "display_name": "Nisha L.",
+  "fav_brands": [
+   "Adidas",
+   "Nike",
+   "Skechers"
+  ],
+  "sizes": {
+   "shoe": "8"
+  }
+ },
+ {
+  "customer_id": "C-021",
+  "city": "Delhi",
+  "preferred_language": "hi",
+  "budget_min_inr": 3000,
+  "budget_max_inr": 10000,
+  "interests": [
+   "cooking",
+   "watches"
+  ],
+  "display_name": "Aisha B.",
+  "fav_brands": [
+   "IWC",
+   "Rolex"
+  ],
+  "sizes": {}
+ },
+ {
+  "customer_id": "C-022",
+  "city": "Chennai",
+  "preferred_language": "en",
+  "budget_min_inr": 300,
+  "budget_max_inr": 1500,
+  "interests": [
+   "running",
+   "gadgets"
+  ],
+  "display_name": "Ravi K.",
+  "fav_brands": [
+   "Nike",
+   "Adidas"
+  ],
+  "sizes": {}
+ },
+ {
+  "customer_id": "C-023",
+  "city": "Bhopal",
+  "preferred_language": "hi",
+  "budget_min_inr": 8000,
+  "budget_max_inr": 40000,
+  "interests": [
+   "gadgets",
+   "fashion"
+  ],
+  "display_name": "Neha D.",
+  "fav_brands": [
+   "Calvin Klein",
+   "Prada"
+  ],
+  "sizes": {}
+ },
+ {
+  "customer_id": "C-024",
+  "city": "Patna",
+  "preferred_language": "en",
+  "budget_min_inr": 300,
+  "budget_max_inr": 1500,
+  "interests": [
+   "watches",
+   "music"
+  ],
+  "display_name": "Sanjay M.",
+  "fav_brands": [
+   "IWC",
+   "Longines"
+  ],
+  "sizes": {}
+ },
+ {
+  "customer_id": "C-025",
+  "city": "Kolkata",
+  "preferred_language": "en",
+  "budget_min_inr": 3000,
+  "budget_max_inr": 10000,
+  "interests": [
+   "cooking",
+   "gadgets"
+  ],
+  "display_name": "Priya T.",
+  "fav_brands": [
+   "Apple",
+   "Samsung"
+  ],
+  "sizes": {}
+ },
+ {
+  "customer_id": "C-026",
+  "city": "Delhi",
+  "preferred_language": "en",
+  "budget_min_inr": 8000,
+  "budget_max_inr": 40000,
+  "interests": [
+   "trekking",
+   "fashion"
+  ],
+  "display_name": "Rohan K.",
+  "fav_brands": [
+   "Columbia",
+   "Nike",
+   "Wildcraft"
+  ],
+  "sizes": {
+   "shoe": "9",
+   "clothing": "M"
+  }
+ },
+ {
+  "customer_id": "C-027",
+  "city": "Bhopal",
+  "preferred_language": "en",
+  "budget_min_inr": 3000,
+  "budget_max_inr": 10000,
+  "interests": [
+   "ethnic wear",
+   "watches"
+  ],
+  "display_name": "Pooja B.",
+  "fav_brands": [
+   "Manyavar",
+   "Rolex",
+   "Fabindia"
+  ],
+  "sizes": {
+   "clothing": "S"
+  }
+ },
+ {
+  "customer_id": "C-028",
+  "city": "Chennai",
+  "preferred_language": "hinglish",
+  "budget_min_inr": 1000,
+  "budget_max_inr": 4000,
+  "interests": [
+   "beauty",
+   "home"
+  ],
+  "display_name": "Arjun T.",
+  "fav_brands": [
+   "Essence",
+   "Chic Cosmetics",
+   "Bath Trends"
+  ],
+  "sizes": {}
+ },
+ {
+  "customer_id": "C-029",
+  "city": "Chennai",
+  "preferred_language": "en",
+  "budget_min_inr": 200,
+  "budget_max_inr": 800,
+  "interests": [
+   "fashion",
+   "beauty"
+  ],
+  "display_name": "Mira S.",
+  "fav_brands": [
+   "Sony",
+   "JBL",
+   "Apple"
+  ],
+  "sizes": {
+   "clothing": "S"
+  }
+ },
+ {
+  "customer_id": "C-030",
+  "city": "Bhopal",
+  "preferred_language": "en",
+  "budget_min_inr": 1000,
+  "budget_max_inr": 4000,
+  "interests": [
+   "watches",
+   "ethnic wear"
+  ],
+  "display_name": "Karan M.",
+  "fav_brands": [
+   "Fashion Gold",
+   "Samsung"
+  ],
+  "sizes": {
+   "clothing": "M"
+  }
+ }
+]

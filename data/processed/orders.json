@@ -1,0 +1,818 @@
+[
+ {
+  "order_id": "O-0001",
+  "customer_id": "C-001",
+  "product_id": "P-0113",
+  "qty": 1,
+  "price_paid_inr": 749,
+  "ordered_at": "2026-07-04"
+ },
+ {
+  "order_id": "O-0002",
+  "customer_id": "C-001",
+  "product_id": "P-0009",
+  "qty": 1,
+  "price_paid_inr": 5809,
+  "ordered_at": "2026-10-09"
+ },
+ {
+  "order_id": "O-0003",
+  "customer_id": "C-001",
+  "product_id": "P-0006",
+  "qty": 1,
+  "price_paid_inr": 4149,
+  "ordered_at": "2026-10-12"
+ },
+ {
+  "order_id": "O-0004",
+  "customer_id": "C-002",
+  "product_id": "P-0195",
+  "qty": 1,
+  "price_paid_inr": 3799,
+  "ordered_at": "2026-05-24"
+ },
+ {
+  "order_id": "O-0005",
+  "customer_id": "C-002",
+  "product_id": "P-0190",
+  "qty": 1,
+  "price_paid_inr": 2599,
+  "ordered_at": "2026-05-20"
+ },
+ {
+  "order_id": "O-0006",
+  "customer_id": "C-002",
+  "product_id": "P-0191",
+  "qty": 1,
+  "price_paid_inr": 3799,
+  "ordered_at": "2026-07-29"
+ },
+ {
+  "order_id": "O-0007",
+  "customer_id": "C-002",
+  "product_id": "P-0199",
+  "qty": 1,
+  "price_paid_inr": 6499,
+  "ordered_at": "2026-09-03"
+ },
+ {
+  "order_id": "O-0008",
+  "customer_id": "C-002",
+  "product_id": "P-0192",
+  "qty": 1,
+  "price_paid_inr": 5099,
+  "ordered_at": "2026-05-19"
+ },
+ {
+  "order_id": "O-0009",
+  "customer_id": "C-003",
+  "product_id": "P-0251",
+  "qty": 1,
+  "price_paid_inr": 969,
+  "ordered_at": "2026-10-11"
+ },
+ {
+  "order_id": "O-0010",
+  "customer_id": "C-003",
+  "product_id": "P-0225",
+  "qty": 1,
+  "price_paid_inr": 1499,
+  "ordered_at": "2026-05-05"
+ },
+ {
+  "order_id": "O-0011",
+  "customer_id": "C-003",
+  "product_id": "P-0257",
+  "qty": 2,
+  "price_paid_inr": 1499,
+  "ordered_at": "2026-07-09"
+ },
+ {
+  "order_id": "O-0012",
+  "customer_id": "C-003",
+  "product_id": "P-0246",
+  "qty": 1,
+  "price_paid_inr": 1999,
+  "ordered_at": "2026-08-15"
+ },
+ {
+  "order_id": "O-0013",
+  "customer_id": "C-004",
+  "product_id": "P-0237",
+  "qty": 1,
+  "price_paid_inr": 4999,
+  "ordered_at": "2026-07-30"
+ },
+ {
+  "order_id": "O-0014",
+  "customer_id": "C-004",
+  "product_id": "P-0234",
+  "qty": 1,
+  "price_paid_inr": 5599,
+  "ordered_at": "2026-11-07"
+ },
+ {
+  "order_id": "O-0015",
+  "customer_id": "C-004",
+  "product_id": "P-0247",
+  "qty": 1,
+  "price_paid_inr": 2099,
+  "ordered_at": "2026-09-27"
+ },
+ {
+  "order_id": "O-0016",
+  "customer_id": "C-004",
+  "product_id": "P-0237",
+  "qty": 1,
+  "price_paid_inr": 4999,
+  "ordered_at": "2026-07-02"
+ },
+ {
+  "order_id": "O-0017",
+  "customer_id": "C-004",
+  "product_id": "P-0233",
+  "qty": 1,
+  "price_paid_inr": 5399,
+  "ordered_at": "2026-07-15"
+ },
+ {
+  "order_id": "O-0018",
+  "customer_id": "C-005",
+  "product_id": "P-0004",
+  "qty": 2,
+  "price_paid_inr": 1079,
+  "ordered_at": "2026-08-03"
+ },
+ {
+  "order_id": "O-0019",
+  "customer_id": "C-005",
+  "product_id": "P-0202",
+  "qty": 2,
+  "price_paid_inr": 1099,
+  "ordered_at": "2026-07-22"
+ },
+ {
+  "order_id": "O-0020",
+  "customer_id": "C-005",
+  "product_id": "P-0191",
+  "qty": 1,
+  "price_paid_inr": 3799,
+  "ordered_at": "2026-05-19"
+ },
+ {
+  "order_id": "O-0021",
+  "customer_id": "C-006",
+  "product_id": "P-0237",
+  "qty": 1,
+  "price_paid_inr": 4999,
+  "ordered_at": "2026-09-11"
+ },
+ {
+  "order_id": "O-0022",
+  "customer_id": "C-006",
+  "product_id": "P-0244",
+  "qty": 1,
+  "price_paid_inr": 9799,
+  "ordered_at": "2026-09-04"
+ },
+ {
+  "order_id": "O-0023",
+  "customer_id": "C-006",
+  "product_id": "P-0241",
+  "qty": 1,
+  "price_paid_inr": 3099,
+  "ordered_at": "2026-05-15"
+ },
+ {
+  "order_id": "O-0024",
+  "customer_id": "C-006",
+  "product_id": "P-0238",
+  "qty": 1,
+  "price_paid_inr": 8799,
+  "ordered_at": "2026-09-07"
+ },
+ {
+  "order_id": "O-0025",
+  "customer_id": "C-007",
+  "product_id": "P-0004",
+  "qty": 1,
+  "price_paid_inr": 1079,
+  "ordered_at": "2026-09-13"
+ },
+ {
+  "order_id": "O-0026",
+  "customer_id": "C-007",
+  "product_id": "P-0185",
+  "qty": 1,
+  "price_paid_inr": 2399,
+  "ordered_at": "2026-05-14"
+ },
+ {
+  "order_id": "O-0027",
+  "customer_id": "C-007",
+  "product_id": "P-0009",
+  "qty": 1,
+  "price_paid_inr": 5809,
+  "ordered_at": "2026-05-30"
+ },
+ {
+  "order_id": "O-0028",
+  "customer_id": "C-008",
+  "product_id": "P-0253",
+  "qty": 1,
+  "price_paid_inr": 1899,
+  "ordered_at": "2026-10-22"
+ },
+ {
+  "order_id": "O-0029",
+  "customer_id": "C-008",
+  "product_id": "P-0248",
+  "qty": 2,
+  "price_paid_inr": 2099,
+  "ordered_at": "2026-09-16"
+ },
+ {
+  "order_id": "O-0030",
+  "customer_id": "C-008",
+  "product_id": "P-0252",
+  "qty": 1,
+  "price_paid_inr": 1299,
+  "ordered_at": "2026-09-09"
+ },
+ {
+  "order_id": "O-0031",
+  "customer_id": "C-009",
+  "product_id": "P-0200",
+  "qty": 1,
+  "price_paid_inr": 7999,
+  "ordered_at": "2026-07-08"
+ },
+ {
+  "order_id": "O-0032",
+  "customer_id": "C-009",
+  "product_id": "P-0188",
+  "qty": 1,
+  "price_paid_inr": 2699,
+  "ordered_at": "2026-06-11"
+ },
+ {
+  "order_id": "O-0033",
+  "customer_id": "C-009",
+  "product_id": "P-0187",
+  "qty": 1,
+  "price_paid_inr": 2099,
+  "ordered_at": "2026-09-27"
+ },
+ {
+  "order_id": "O-0034",
+  "customer_id": "C-009",
+  "product_id": "P-0199",
+  "qty": 1,
+  "price_paid_inr": 6499,
+  "ordered_at": "2026-07-28"
+ },
+ {
+  "order_id": "O-0035",
+  "customer_id": "C-010",
+  "product_id": "P-0256",
+  "qty": 1,
+  "price_paid_inr": 1299,
+  "ordered_at": "2026-06-12"
+ },
+ {
+  "order_id": "O-0036",
+  "customer_id": "C-010",
+  "product_id": "P-0257",
+  "qty": 1,
+  "price_paid_inr": 1499,
+  "ordered_at": "2026-08-17"
+ },
+ {
+  "order_id": "O-0037",
+  "customer_id": "C-010",
+  "product_id": "P-0256",
+  "qty": 1,
+  "price_paid_inr": 1299,
+  "ordered_at": "2026-06-22"
+ },
+ {
+  "order_id": "O-0038",
+  "customer_id": "C-010",
+  "product_id": "P-0249",
+  "qty": 1,
+  "price_paid_inr": 3899,
+  "ordered_at": "2026-09-03"
+ },
+ {
+  "order_id": "O-0039",
+  "customer_id": "C-011",
+  "product_id": "P-0201",
+  "qty": 1,
+  "price_paid_inr": 1499,
+  "ordered_at": "2026-08-02"
+ },
+ {
+  "order_id": "O-0040",
+  "customer_id": "C-011",
+  "product_id": "P-0242",
+  "qty": 1,
+  "price_paid_inr": 3999,
+  "ordered_at": "2026-05-06"
+ },
+ {
+  "order_id": "O-0041",
+  "customer_id": "C-011",
+  "product_id": "P-0234",
+  "qty": 1,
+  "price_paid_inr": 5599,
+  "ordered_at": "2026-07-20"
+ },
+ {
+  "order_id": "O-0042",
+  "customer_id": "C-012",
+  "product_id": "P-0101",
+  "qty": 1,
+  "price_paid_inr": 45649,
+  "ordered_at": "2026-09-19"
+ },
+ {
+  "order_id": "O-0043",
+  "customer_id": "C-012",
+  "product_id": "P-0099",
+  "qty": 1,
+  "price_paid_inr": 8299,
+  "ordered_at": "2026-09-05"
+ },
+ {
+  "order_id": "O-0044",
+  "customer_id": "C-012",
+  "product_id": "P-0236",
+  "qty": 1,
+  "price_paid_inr": 5099,
+  "ordered_at": "2026-10-08"
+ },
+ {
+  "order_id": "O-0045",
+  "customer_id": "C-013",
+  "product_id": "P-0069",
+  "qty": 1,
+  "price_paid_inr": 339,
+  "ordered_at": "2026-09-18"
+ },
+ {
+  "order_id": "O-0046",
+  "customer_id": "C-013",
+  "product_id": "P-0261",
+  "qty": 1,
+  "price_paid_inr": 3699,
+  "ordered_at": "2026-11-14"
+ },
+ {
+  "order_id": "O-0047",
+  "customer_id": "C-013",
+  "product_id": "P-0185",
+  "qty": 1,
+  "price_paid_inr": 2399,
+  "ordered_at": "2026-05-19"
+ },
+ {
+  "order_id": "O-0048",
+  "customer_id": "C-013",
+  "product_id": "P-0205",
+  "qty": 1,
+  "price_paid_inr": 619,
+  "ordered_at": "2026-07-24"
+ },
+ {
+  "order_id": "O-0049",
+  "customer_id": "C-014",
+  "product_id": "P-0186",
+  "qty": 2,
+  "price_paid_inr": 2399,
+  "ordered_at": "2026-06-28"
+ },
+ {
+  "order_id": "O-0050",
+  "customer_id": "C-014",
+  "product_id": "P-0196",
+  "qty": 1,
+  "price_paid_inr": 4599,
+  "ordered_at": "2026-05-12"
+ },
+ {
+  "order_id": "O-0051",
+  "customer_id": "C-014",
+  "product_id": "P-0188",
+  "qty": 1,
+  "price_paid_inr": 2699,
+  "ordered_at": "2026-10-31"
+ },
+ {
+  "order_id": "O-0052",
+  "customer_id": "C-015",
+  "product_id": "P-0201",
+  "qty": 1,
+  "price_paid_inr": 1499,
+  "ordered_at": "2026-08-26"
+ },
+ {
+  "order_id": "O-0053",
+  "customer_id": "C-015",
+  "product_id": "P-0244",
+  "qty": 1,
+  "price_paid_inr": 9799,
+  "ordered_at": "2026-07-13"
+ },
+ {
+  "order_id": "O-0054",
+  "customer_id": "C-015",
+  "product_id": "P-0205",
+  "qty": 1,
+  "price_paid_inr": 619,
+  "ordered_at": "2026-07-14"
+ },
+ {
+  "order_id": "O-0055",
+  "customer_id": "C-016",
+  "product_id": "P-0007",
+  "qty": 2,
+  "price_paid_inr": 10789,
+  "ordered_at": "2026-05-16"
+ },
+ {
+  "order_id": "O-0056",
+  "customer_id": "C-016",
+  "product_id": "P-0184",
+  "qty": 1,
+  "price_paid_inr": 10789,
+  "ordered_at": "2026-08-13"
+ },
+ {
+  "order_id": "O-0057",
+  "customer_id": "C-016",
+  "product_id": "P-0010",
+  "qty": 1,
+  "price_paid_inr": 6639,
+  "ordered_at": "2026-06-06"
+ },
+ {
+  "order_id": "O-0058",
+  "customer_id": "C-017",
+  "product_id": "P-0194",
+  "qty": 1,
+  "price_paid_inr": 3499,
+  "ordered_at": "2026-10-26"
+ },
+ {
+  "order_id": "O-0059",
+  "customer_id": "C-017",
+  "product_id": "P-0205",
+  "qty": 1,
+  "price_paid_inr": 619,
+  "ordered_at": "2026-05-06"
+ },
+ {
+  "order_id": "O-0060",
+  "customer_id": "C-017",
+  "product_id": "P-0191",
+  "qty": 1,
+  "price_paid_inr": 3799,
+  "ordered_at": "2026-08-03"
+ },
+ {
+  "order_id": "O-0061",
+  "customer_id": "C-018",
+  "product_id": "P-0156",
+  "qty": 2,
+  "price_paid_inr": 29049,
+  "ordered_at": "2026-11-02"
+ },
+ {
+  "order_id": "O-0062",
+  "customer_id": "C-018",
+  "product_id": "P-0229",
+  "qty": 1,
+  "price_paid_inr": 1799,
+  "ordered_at": "2026-07-25"
+ },
+ {
+  "order_id": "O-0063",
+  "customer_id": "C-018",
+  "product_id": "P-0154",
+  "qty": 1,
+  "price_paid_inr": 41499,
+  "ordered_at": "2026-07-11"
+ },
+ {
+  "order_id": "O-0064",
+  "customer_id": "C-019",
+  "product_id": "P-0209",
+  "qty": 1,
+  "price_paid_inr": 1999,
+  "ordered_at": "2026-06-18"
+ },
+ {
+  "order_id": "O-0065",
+  "customer_id": "C-019",
+  "product_id": "P-0208",
+  "qty": 1,
+  "price_paid_inr": 1799,
+  "ordered_at": "2026-10-06"
+ },
+ {
+  "order_id": "O-0066",
+  "customer_id": "C-019",
+  "product_id": "P-0062",
+  "qty": 1,
+  "price_paid_inr": 499,
+  "ordered_at": "2026-10-25"
+ },
+ {
+  "order_id": "O-0067",
+  "customer_id": "C-019",
+  "product_id": "P-0068",
+  "qty": 2,
+  "price_paid_inr": 2079,
+  "ordered_at": "2026-05-17"
+ },
+ {
+  "order_id": "O-0068",
+  "customer_id": "C-019",
+  "product_id": "P-0262",
+  "qty": 1,
+  "price_paid_inr": 4899,
+  "ordered_at": "2026-10-09"
+ },
+ {
+  "order_id": "O-0069",
+  "customer_id": "C-020",
+  "product_id": "P-0242",
+  "qty": 1,
+  "price_paid_inr": 3999,
+  "ordered_at": "2026-09-07"
+ },
+ {
+  "order_id": "O-0070",
+  "customer_id": "C-020",
+  "product_id": "P-0242",
+  "qty": 1,
+  "price_paid_inr": 3999,
+  "ordered_at": "2026-07-20"
+ },
+ {
+  "order_id": "O-0071",
+  "customer_id": "C-020",
+  "product_id": "P-0238",
+  "qty": 1,
+  "price_paid_inr": 8799,
+  "ordered_at": "2026-08-18"
+ },
+ {
+  "order_id": "O-0072",
+  "customer_id": "C-021",
+  "product_id": "P-0264",
+  "qty": 1,
+  "price_paid_inr": 779,
+  "ordered_at": "2026-07-27"
+ },
+ {
+  "order_id": "O-0073",
+  "customer_id": "C-021",
+  "product_id": "P-0028",
+  "qty": 2,
+  "price_paid_inr": 459,
+  "ordered_at": "2026-08-28"
+ },
+ {
+  "order_id": "O-0074",
+  "customer_id": "C-021",
+  "product_id": "P-0055",
+  "qty": 1,
+  "price_paid_inr": 589,
+  "ordered_at": "2026-05-29"
+ },
+ {
+  "order_id": "O-0075",
+  "customer_id": "C-022",
+  "product_id": "P-0111",
+  "qty": 1,
+  "price_paid_inr": 1079,
+  "ordered_at": "2026-05-13"
+ },
+ {
+  "order_id": "O-0076",
+  "customer_id": "C-022",
+  "product_id": "P-0104",
+  "qty": 1,
+  "price_paid_inr": 1659,
+  "ordered_at": "2026-11-06"
+ },
+ {
+  "order_id": "O-0077",
+  "customer_id": "C-022",
+  "product_id": "P-0239",
+  "qty": 1,
+  "price_paid_inr": 1899,
+  "ordered_at": "2026-06-23"
+ },
+ {
+  "order_id": "O-0078",
+  "customer_id": "C-023",
+  "product_id": "P-0176",
+  "qty": 1,
+  "price_paid_inr": 6639,
+  "ordered_at": "2026-11-07"
+ },
+ {
+  "order_id": "O-0079",
+  "customer_id": "C-023",
+  "product_id": "P-0176",
+  "qty": 1,
+  "price_paid_inr": 6639,
+  "ordered_at": "2026-08-10"
+ },
+ {
+  "order_id": "O-0080",
+  "customer_id": "C-023",
+  "product_id": "P-0156",
+  "qty": 1,
+  "price_paid_inr": 29049,
+  "ordered_at": "2026-11-04"
+ },
+ {
+  "order_id": "O-0081",
+  "customer_id": "C-024",
+  "product_id": "P-0218",
+  "qty": 1,
+  "price_paid_inr": 1299,
+  "ordered_at": "2026-09-04"
+ },
+ {
+  "order_id": "O-0082",
+  "customer_id": "C-024",
+  "product_id": "P-0220",
+  "qty": 1,
+  "price_paid_inr": 1699,
+  "ordered_at": "2026-08-04"
+ },
+ {
+  "order_id": "O-0083",
+  "customer_id": "C-024",
+  "product_id": "P-0224",
+  "qty": 1,
+  "price_paid_inr": 1399,
+  "ordered_at": "2026-07-16"
+ },
+ {
+  "order_id": "O-0084",
+  "customer_id": "C-024",
+  "product_id": "P-0215",
+  "qty": 1,
+  "price_paid_inr": 1299,
+  "ordered_at": "2026-10-20"
+ },
+ {
+  "order_id": "O-0085",
+  "customer_id": "C-025",
+  "product_id": "P-0108",
+  "qty": 1,
+  "price_paid_inr": 2489,
+  "ordered_at": "2026-09-10"
+ },
+ {
+  "order_id": "O-0086",
+  "customer_id": "C-025",
+  "product_id": "P-0263",
+  "qty": 1,
+  "price_paid_inr": 4299,
+  "ordered_at": "2026-11-09"
+ },
+ {
+  "order_id": "O-0087",
+  "customer_id": "C-025",
+  "product_id": "P-0108",
+  "qty": 1,
+  "price_paid_inr": 2489,
+  "ordered_at": "2026-09-23"
+ },
+ {
+  "order_id": "O-0088",
+  "customer_id": "C-025",
+  "product_id": "P-0100",
+  "qty": 1,
+  "price_paid_inr": 10789,
+  "ordered_at": "2026-08-26"
+ },
+ {
+  "order_id": "O-0089",
+  "customer_id": "C-025",
+  "product_id": "P-0103",
+  "qty": 1,
+  "price_paid_inr": 8299,
+  "ordered_at": "2026-07-03"
+ },
+ {
+  "order_id": "O-0090",
+  "customer_id": "C-026",
+  "product_id": "P-0199",
+  "qty": 1,
+  "price_paid_inr": 6499,
+  "ordered_at": "2026-06-10"
+ },
+ {
+  "order_id": "O-0091",
+  "customer_id": "C-026",
+  "product_id": "P-0185",
+  "qty": 1,
+  "price_paid_inr": 2399,
+  "ordered_at": "2026-05-12"
+ },
+ {
+  "order_id": "O-0092",
+  "customer_id": "C-026",
+  "product_id": "P-0203",
+  "qty": 1,
+  "price_paid_inr": 1199,
+  "ordered_at": "2026-08-12"
+ },
+ {
+  "order_id": "O-0093",
+  "customer_id": "C-027",
+  "product_id": "P-0248",
+  "qty": 1,
+  "price_paid_inr": 2099,
+  "ordered_at": "2026-08-18"
+ },
+ {
+  "order_id": "O-0094",
+  "customer_id": "C-027",
+  "product_id": "P-0249",
+  "qty": 1,
+  "price_paid_inr": 3899,
+  "ordered_at": "2026-10-23"
+ },
+ {
+  "order_id": "O-0095",
+  "customer_id": "C-027",
+  "product_id": "P-0253",
+  "qty": 1,
+  "price_paid_inr": 1899,
+  "ordered_at": "2026-08-08"
+ },
+ {
+  "order_id": "O-0096",
+  "customer_id": "C-029",
+  "product_id": "P-0005",
+  "qty": 2,
+  "price_paid_inr": 749,
+  "ordered_at": "2026-07-21"
+ },
+ {
+  "order_id": "O-0097",
+  "customer_id": "C-029",
+  "product_id": "P-0005",
+  "qty": 1,
+  "price_paid_inr": 749,
+  "ordered_at": "2026-08-23"
+ },
+ {
+  "order_id": "O-0098",
+  "customer_id": "C-029",
+  "product_id": "P-0115",
+  "qty": 1,
+  "price_paid_inr": 829,
+  "ordered_at": "2026-10-07"
+ },
+ {
+  "order_id": "O-0099",
+  "customer_id": "C-030",
+  "product_id": "P-0127",
+  "qty": 1,
+  "price_paid_inr": 41499,
+  "ordered_at": "2026-07-22"
+ },
+ {
+  "order_id": "O-0100",
+  "customer_id": "C-030",
+  "product_id": "P-0183",
+  "qty": 1,
+  "price_paid_inr": 66399,
+  "ordered_at": "2026-06-22"
+ },
+ {
+  "order_id": "O-0101",
+  "customer_id": "C-030",
+  "product_id": "P-0254",
+  "qty": 1,
+  "price_paid_inr": 1099,
+  "ordered_at": "2026-09-02"
+ },
+ {
+  "order_id": "O-0102",
+  "customer_id": "C-030",
+  "product_id": "P-0247",
+  "qty": 1,
+  "price_paid_inr": 2099,
+  "ordered_at": "2026-05-12"
+ }
+]

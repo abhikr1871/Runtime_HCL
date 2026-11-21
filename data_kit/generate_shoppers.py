@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import time
 from datetime import timedelta
 from typing import Any
 
@@ -72,7 +73,7 @@ def skeletons(catalogue: list[dict[str, Any]]) -> list[dict[str, Any]]:
 
 def ask_llm(llm, prompt: str, batch: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
     data = llm.complete_json("You return only valid JSON.", prompt.replace("{skeletons_json}", json.dumps(batch, ensure_ascii=False)),
-                             temperature=0.8, max_tokens=3000)
+                             temperature=0.8, max_tokens=2000)
     allowed = {s["customer_id"]: set(s["available_brands"]) for s in batch}
     good = {}
     for raw in (data or {}).get("shoppers", []) if isinstance(data, dict) else []:
@@ -106,12 +107,14 @@ def main(offline: bool) -> None:
     from_llm: dict[str, dict[str, Any]] = {}
     if llm:
         prompt = load_prompt("shoppers.md")
-        for batch in batched(skel, 10):
+        for batch in batched(skel, 5):   # small batches fit Groq's free-tier tokens-per-minute limit
             got = ask_llm(llm, prompt, batch)
             missing = [s for s in batch if s["customer_id"] not in got]
             if missing:
                 got.update(ask_llm(llm, prompt, missing))
             from_llm.update(got)
+            print(f"shoppers: {len(from_llm)}/{len(skel)} from LLM")
+            time.sleep(2)
 
     shoppers = []
     for i, s in enumerate(skel):

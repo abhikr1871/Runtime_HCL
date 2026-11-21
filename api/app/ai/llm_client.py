@@ -14,6 +14,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+import time
 from typing import Any, Optional
 
 import httpx
@@ -22,6 +23,22 @@ from app.config import get_settings
 
 log = logging.getLogger("llm")
 _OPENAI_COMPATIBLE = {"groq", "openai", "hosted"}
+_DURATION = re.compile(r"(?:(\d+)h)?(?:(\d+)m(?!s))?(?:([\d.]+)s)?(?:(\d+)ms)?")
+
+
+def _reset_seconds(headers: httpx.Headers, default: float) -> float:
+    """Seconds to wait after a 429: Retry-After, else Groq's x-ratelimit-reset-tokens/-requests ('10.8s', '12m57s')."""
+    if headers.get("retry-after"):
+        try:
+            return float(headers["retry-after"])
+        except ValueError:
+            pass
+    for name in ("x-ratelimit-reset-tokens", "x-ratelimit-reset-requests"):
+        m = _DURATION.fullmatch(headers.get(name, "").strip())
+        if m and any(m.groups()):
+            h, mins, s, ms = m.groups()
+            return int(h or 0) * 3600 + int(mins or 0) * 60 + float(s or 0) + int(ms or 0) / 1000
+    return default
 
 
 def parse_json_loose(raw: str) -> Optional[Any]:
@@ -41,12 +58,24 @@ def parse_json_loose(raw: str) -> Optional[Any]:
     return None
 
 
+def _error_code(r: httpx.Response) -> str:
+    """Provider error code (e.g. rate_limit_exceeded, json_validate_failed) for logs; never includes the key."""
+    try:
+        err = r.json().get("error", {})
+        return str(err.get("code") or err.get("type") or "")
+    except Exception:
+        return ""
+
+
 class LLMClient:
-    def __init__(self, ignore_mock: bool = False, timeout_s: Optional[float] = None) -> None:
-        """`ignore_mock=True` is for offline data generation, which needs the real model even when the app runs in mock mode."""
+    def __init__(self, ignore_mock: bool = False, timeout_s: Optional[float] = None, max_wait_s: float = 2.0) -> None:
+        """`ignore_mock=True` is for offline data generation, which needs the real model even when the app runs in mock mode.
+        `max_wait_s` caps how long one call may wait for a rate-limit reset: keep it small for live chat
+        (fall back to rules/templates fast), larger for batch data generation."""
         self.s = get_settings()
         self.mock = self.s.mock_llm and not ignore_mock
         self.timeout = timeout_s or self.s.llm_timeout_s
+        self.max_wait_s = max_wait_s
         self.calls = 0
         self.failures = 0
         self.tokens_in = 0
@@ -97,25 +126,40 @@ class LLMClient:
             body["response_format"] = {"type": "json_object"}
         headers = {"Authorization": f"Bearer {self.s.hosted_api_key}"}
         url = f"{self.s.hosted_api_url.rstrip('/')}/chat/completions"
-        for attempt in range(2):
+        for attempt in range(5):
             self.calls += 1
             try:
                 r = httpx.post(url, json=body, headers=headers, timeout=self.timeout)
-                if r.status_code == 400 and "response_format" in body:
-                    body.pop("response_format")  # model without JSON mode: retry, parse loosely
+            except httpx.HTTPError as exc:  # timeout, connection error
+                log.warning("hosted LLM call failed: %s", exc.__class__.__name__)
+                if attempt < 2:
                     continue
-                if r.status_code == 429 and attempt == 0:
-                    continue  # rate limited: one immediate retry
-                r.raise_for_status()
+                break
+            if r.status_code == 200:
                 data = r.json()
                 usage = data.get("usage") or {}
                 self.tokens_in += usage.get("prompt_tokens", 0)
                 self.tokens_out += usage.get("completion_tokens", 0)
-                return data["choices"][0]["message"].get("content")
-            except Exception as exc:
-                self.failures += 1
-                log.warning("hosted LLM call failed: %s", exc.__class__.__name__)
-                return None
+                content = data["choices"][0]["message"].get("content")
+                if content:
+                    return content
+                log.warning("hosted LLM returned an empty message (finish_reason=%s)", data["choices"][0].get("finish_reason"))
+                break
+            err = _error_code(r)
+            if r.status_code == 400 and "response_format" in body and err == "json_validate_failed":
+                body.pop("response_format")  # model could not produce strict JSON: retry once without JSON mode
+                log.warning("JSON mode failed (json_validate_failed); retrying without it")
+                continue
+            if r.status_code == 429 or r.status_code >= 500:
+                wait = _reset_seconds(r.headers, default=2.0 * (attempt + 1)) if r.status_code == 429 else 2.0 * (attempt + 1)
+                if wait > self.max_wait_s:
+                    log.warning("hosted LLM %s (%s): would need to wait %.0fs, giving up", r.status_code, err, wait)
+                    break
+                log.warning("hosted LLM %s (%s): waiting %.1fs, then retrying", r.status_code, err, wait)
+                time.sleep(wait + 0.5)
+                continue
+            log.warning("hosted LLM call failed: HTTP %s (%s)", r.status_code, err)
+            break
         self.failures += 1
         return None
 

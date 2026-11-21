@@ -1,0 +1,3473 @@
+[
+ {
+  "product_id": "P-0001",
+  "source": "dummyjson",
+  "name": "Essence Mascara Lash Princess",
+  "category": "beauty",
+  "brand": "Essence",
+  "price_inr": 829,
+  "mrp_inr": 926,
+  "stock": 99,
+  "rating": 2.56,
+  "rating_count": 3,
+  "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
+  "tags": [
+   "beauty",
+   "mascara"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0002",
+  "source": "dummyjson",
+  "name": "Eyeshadow Palette with Mirror",
+  "category": "beauty",
+  "brand": "Glamour Beauty",
+  "price_inr": 1659,
+  "mrp_inr": 2027,
+  "stock": 34,
+  "rating": 2.86,
+  "rating_count": 3,
+  "description": "The Eyeshadow Palette with Mirror offers a versatile range of eyeshadow shades for creating stunning eye looks. With a built-in mirror, it's convenient for on-the-go makeup application.",
+  "tags": [
+   "beauty",
+   "eyeshadow"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0003",
+  "source": "dummyjson",
+  "name": "Powder Canister",
+  "category": "beauty",
+  "brand": "Velvet Touch",
+  "price_inr": 1249,
+  "mrp_inr": 1385,
+  "stock": 89,
+  "rating": 4.64,
+  "rating_count": 3,
+  "description": "The Powder Canister is a finely milled setting powder designed to set makeup and control shine. With a lightweight and translucent formula, it provides a smooth and matte finish.",
+  "tags": [
+   "beauty",
+   "face powder"
+  ],
+  "weight_raw": "8",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0004",
+  "source": "dummyjson",
+  "name": "Red Lipstick",
+  "category": "beauty",
+  "brand": "Chic Cosmetics",
+  "price_inr": 1079,
+  "mrp_inr": 1228,
+  "stock": 91,
+  "rating": 4.36,
+  "rating_count": 3,
+  "description": "The Red Lipstick is a classic and bold choice for adding a pop of color to your lips. With a creamy and pigmented formula, it provides a vibrant and long-lasting finish.",
+  "tags": [
+   "beauty",
+   "lipstick"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0005",
+  "source": "dummyjson",
+  "name": "Red Nail Polish",
+  "category": "beauty",
+  "brand": "Nail Couture",
+  "price_inr": 749,
+  "mrp_inr": 845,
+  "stock": 79,
+  "rating": 4.32,
+  "rating_count": 3,
+  "description": "The Red Nail Polish offers a rich and glossy red hue for vibrant and polished nails. With a quick-drying formula, it provides a salon-quality finish at home.",
+  "tags": [
+   "beauty",
+   "nail polish"
+  ],
+  "weight_raw": "8",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0006",
+  "source": "dummyjson",
+  "name": "Calvin Klein CK One",
+  "category": "fragrances",
+  "brand": "Calvin Klein",
+  "price_inr": 4149,
+  "mrp_inr": 4228,
+  "stock": 29,
+  "rating": 4.37,
+  "rating_count": 3,
+  "description": "CK One by Calvin Klein is a classic unisex fragrance, known for its fresh and clean scent. It's a versatile fragrance suitable for everyday wear.",
+  "tags": [
+   "fragrances",
+   "perfumes"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0007",
+  "source": "dummyjson",
+  "name": "Chanel Coco Noir Eau De",
+  "category": "fragrances",
+  "brand": "Chanel",
+  "price_inr": 10789,
+  "mrp_inr": 12922,
+  "stock": 58,
+  "rating": 4.26,
+  "rating_count": 3,
+  "description": "Coco Noir by Chanel is an elegant and mysterious fragrance, featuring notes of grapefruit, rose, and sandalwood. Perfect for evening occasions.",
+  "tags": [
+   "fragrances",
+   "perfumes"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0008",
+  "source": "dummyjson",
+  "name": "Dior J'adore",
+  "category": "fragrances",
+  "brand": "Dior",
+  "price_inr": 7469,
+  "mrp_inr": 8758,
+  "stock": 98,
+  "rating": 3.8,
+  "rating_count": 3,
+  "description": "J'adore by Dior is a luxurious and floral fragrance, known for its blend of ylang-ylang, rose, and jasmine. It embodies femininity and sophistication.",
+  "tags": [
+   "fragrances",
+   "perfumes"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0009",
+  "source": "dummyjson",
+  "name": "Dolce Shine Eau de",
+  "category": "fragrances",
+  "brand": "Dolce & Gabbana",
+  "price_inr": 5809,
+  "mrp_inr": 5845,
+  "stock": 4,
+  "rating": 3.96,
+  "rating_count": 3,
+  "description": "Dolce Shine by Dolce & Gabbana is a vibrant and fruity fragrance, featuring notes of mango, jasmine, and blonde woods. It's a joyful and youthful scent.",
+  "tags": [
+   "fragrances",
+   "perfumes"
+  ],
+  "weight_raw": "6",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0010",
+  "source": "dummyjson",
+  "name": "Gucci Bloom Eau de",
+  "category": "fragrances",
+  "brand": "Gucci",
+  "price_inr": 6639,
+  "mrp_inr": 7754,
+  "stock": 91,
+  "rating": 2.74,
+  "rating_count": 3,
+  "description": "Gucci Bloom by Gucci is a floral and captivating fragrance, with notes of tuberose, jasmine, and Rangoon creeper. It's a modern and romantic scent.",
+  "tags": [
+   "fragrances",
+   "perfumes"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0011",
+  "source": "dummyjson",
+  "name": "Annibale Colombo Bed",
+  "category": "furniture",
+  "brand": "Annibale Colombo",
+  "price_inr": 157699,
+  "mrp_inr": 172480,
+  "stock": 88,
+  "rating": 4.77,
+  "rating_count": 3,
+  "description": "The Annibale Colombo Bed is a luxurious and elegant bed frame, crafted with high-quality materials for a comfortable and stylish bedroom.",
+  "tags": [
+   "furniture",
+   "beds"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0012",
+  "source": "dummyjson",
+  "name": "Annibale Colombo Sofa",
+  "category": "furniture",
+  "brand": "Annibale Colombo",
+  "price_inr": 207499,
+  "mrp_inr": 242405,
+  "stock": 60,
+  "rating": 3.92,
+  "rating_count": 3,
+  "description": "The Annibale Colombo Sofa is a sophisticated and comfortable seating option, featuring exquisite design and premium upholstery for your living room.",
+  "tags": [
+   "furniture",
+   "sofas"
+  ],
+  "weight_raw": "6",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0013",
+  "source": "dummyjson",
+  "name": "Bedside Table African Cherry",
+  "category": "furniture",
+  "brand": "Furniture Co.",
+  "price_inr": 24899,
+  "mrp_inr": 30773,
+  "stock": 64,
+  "rating": 2.87,
+  "rating_count": 3,
+  "description": "The Bedside Table in African Cherry is a stylish and functional addition to your bedroom, providing convenient storage space and a touch of elegance.",
+  "tags": [
+   "furniture",
+   "bedside tables"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0014",
+  "source": "dummyjson",
+  "name": "Knoll Saarinen Executive Conference Chair",
+  "category": "furniture",
+  "brand": "Knoll",
+  "price_inr": 41499,
+  "mrp_inr": 42350,
+  "stock": 26,
+  "rating": 4.88,
+  "rating_count": 3,
+  "description": "The Knoll Saarinen Executive Conference Chair is a modern and ergonomic chair, perfect for your office or conference room with its timeless design.",
+  "tags": [
+   "furniture",
+   "office chairs"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0015",
+  "source": "dummyjson",
+  "name": "Wooden Bathroom Sink With Mirror",
+  "category": "furniture",
+  "brand": "Bath Trends",
+  "price_inr": 66399,
+  "mrp_inr": 72805,
+  "stock": 7,
+  "rating": 3.59,
+  "rating_count": 3,
+  "description": "The Wooden Bathroom Sink with Mirror is a unique and stylish addition to your bathroom, featuring a wooden sink countertop and a matching mirror.",
+  "tags": [
+   "furniture",
+   "bathroom"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0016",
+  "source": "dummyjson",
+  "name": "Apple",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 169,
+  "mrp_inr": 193,
+  "stock": 8,
+  "rating": 4.19,
+  "rating_count": 3,
+  "description": "Fresh and crisp apples, perfect for snacking or incorporating into various recipes.",
+  "tags": [
+   "fruits"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0017",
+  "source": "dummyjson",
+  "name": "Beef Steak",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 1079,
+  "mrp_inr": 1193,
+  "stock": 86,
+  "rating": 4.47,
+  "rating_count": 3,
+  "description": "High-quality beef steak, great for grilling or cooking to your preferred level of doneness.",
+  "tags": [
+   "meat"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0018",
+  "source": "dummyjson",
+  "name": "Cat Food",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 749,
+  "mrp_inr": 828,
+  "stock": 46,
+  "rating": 3.13,
+  "rating_count": 3,
+  "description": "Nutritious cat food formulated to meet the dietary needs of your feline friend.",
+  "tags": [
+   "pet supplies",
+   "cat food"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0019",
+  "source": "dummyjson",
+  "name": "Chicken Meat",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 829,
+  "mrp_inr": 960,
+  "stock": 97,
+  "rating": 3.19,
+  "rating_count": 3,
+  "description": "Fresh and tender chicken meat, suitable for various culinary preparations.",
+  "tags": [
+   "meat"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0020",
+  "source": "dummyjson",
+  "name": "Cooking Oil",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 419,
+  "mrp_inr": 462,
+  "stock": 10,
+  "rating": 4.8,
+  "rating_count": 3,
+  "description": "Versatile cooking oil suitable for frying, sautéing, and various culinary applications.",
+  "tags": [
+   "cooking essentials"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0021",
+  "source": "dummyjson",
+  "name": "Cucumber",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 129,
+  "mrp_inr": 129,
+  "stock": 84,
+  "rating": 4.07,
+  "rating_count": 3,
+  "description": "Crisp and hydrating cucumbers, ideal for salads, snacks, or as a refreshing side.",
+  "tags": [
+   "vegetables"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0022",
+  "source": "dummyjson",
+  "name": "Dog Food",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 919,
+  "mrp_inr": 1024,
+  "stock": 71,
+  "rating": 4.55,
+  "rating_count": 3,
+  "description": "Specially formulated dog food designed to provide essential nutrients for your canine companion.",
+  "tags": [
+   "pet supplies",
+   "dog food"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0023",
+  "source": "dummyjson",
+  "name": "Eggs",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 249,
+  "mrp_inr": 279,
+  "stock": 9,
+  "rating": 2.53,
+  "rating_count": 3,
+  "description": "Fresh eggs, a versatile ingredient for baking, cooking, or breakfast.",
+  "tags": [
+   "dairy"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0024",
+  "source": "dummyjson",
+  "name": "Fish Steak",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 1249,
+  "mrp_inr": 1304,
+  "stock": 74,
+  "rating": 3.78,
+  "rating_count": 3,
+  "description": "Quality fish steak, suitable for grilling, baking, or pan-searing.",
+  "tags": [
+   "seafood"
+  ],
+  "weight_raw": "6",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0025",
+  "source": "dummyjson",
+  "name": "Green Bell Pepper",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 109,
+  "mrp_inr": 109,
+  "stock": 33,
+  "rating": 3.25,
+  "rating_count": 3,
+  "description": "Fresh and vibrant green bell pepper, perfect for adding color and flavor to your dishes.",
+  "tags": [
+   "vegetables"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0026",
+  "source": "dummyjson",
+  "name": "Green Chili Pepper",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 89,
+  "mrp_inr": 89,
+  "stock": 3,
+  "rating": 3.66,
+  "rating_count": 3,
+  "description": "Spicy green chili pepper, ideal for adding heat to your favorite recipes.",
+  "tags": [
+   "vegetables"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0027",
+  "source": "dummyjson",
+  "name": "Honey Jar",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 589,
+  "mrp_inr": 688,
+  "stock": 34,
+  "rating": 3.97,
+  "rating_count": 3,
+  "description": "Pure and natural honey in a convenient jar, perfect for sweetening beverages or drizzling over food.",
+  "tags": [
+   "condiments"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0028",
+  "source": "dummyjson",
+  "name": "Ice Cream",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 459,
+  "mrp_inr": 502,
+  "stock": 27,
+  "rating": 3.39,
+  "rating_count": 3,
+  "description": "Creamy and delicious ice cream, available in various flavors for a delightful treat.",
+  "tags": [
+   "desserts"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0029",
+  "source": "dummyjson",
+  "name": "Juice",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 339,
+  "mrp_inr": 385,
+  "stock": 50,
+  "rating": 3.94,
+  "rating_count": 3,
+  "description": "Refreshing fruit juice, packed with vitamins and great for staying hydrated.",
+  "tags": [
+   "beverages"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0030",
+  "source": "dummyjson",
+  "name": "Kiwi",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 209,
+  "mrp_inr": 246,
+  "stock": 99,
+  "rating": 4.93,
+  "rating_count": 3,
+  "description": "Nutrient-rich kiwi, perfect for snacking or adding a tropical twist to your dishes.",
+  "tags": [
+   "fruits"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0031",
+  "source": "dummyjson",
+  "name": "Lemon",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 69,
+  "mrp_inr": 76,
+  "stock": 31,
+  "rating": 3.53,
+  "rating_count": 3,
+  "description": "Zesty and tangy lemons, versatile for cooking, baking, or making refreshing beverages.",
+  "tags": [
+   "fruits"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0032",
+  "source": "dummyjson",
+  "name": "Milk",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 299,
+  "mrp_inr": 346,
+  "stock": 27,
+  "rating": 2.61,
+  "rating_count": 3,
+  "description": "Fresh and nutritious milk, a staple for various recipes and daily consumption.",
+  "tags": [
+   "dairy"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0033",
+  "source": "dummyjson",
+  "name": "Mulberry",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 419,
+  "mrp_inr": 480,
+  "stock": 99,
+  "rating": 4.95,
+  "rating_count": 3,
+  "description": "Sweet and juicy mulberries, perfect for snacking or adding to desserts and cereals.",
+  "tags": [
+   "fruits"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0034",
+  "source": "dummyjson",
+  "name": "Nescafe Coffee",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 669,
+  "mrp_inr": 679,
+  "stock": 57,
+  "rating": 4.82,
+  "rating_count": 3,
+  "description": "Quality coffee from Nescafe, available in various blends for a rich and satisfying cup.",
+  "tags": [
+   "beverages",
+   "coffee"
+  ],
+  "weight_raw": "6",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0035",
+  "source": "dummyjson",
+  "name": "Potatoes",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 199,
+  "mrp_inr": 210,
+  "stock": 13,
+  "rating": 4.81,
+  "rating_count": 3,
+  "description": "Versatile and starchy potatoes, great for roasting, mashing, or as a side dish.",
+  "tags": [
+   "vegetables"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0036",
+  "source": "dummyjson",
+  "name": "Protein Powder",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 1659,
+  "mrp_inr": 1795,
+  "stock": 80,
+  "rating": 4.18,
+  "rating_count": 3,
+  "description": "Nutrient-packed protein powder, ideal for supplementing your diet with essential proteins.",
+  "tags": [
+   "health supplements"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0037",
+  "source": "dummyjson",
+  "name": "Red Onions",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 169,
+  "mrp_inr": 187,
+  "stock": 82,
+  "rating": 4.2,
+  "rating_count": 3,
+  "description": "Flavorful and aromatic red onions, perfect for adding depth to your savory dishes.",
+  "tags": [
+   "vegetables"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0038",
+  "source": "dummyjson",
+  "name": "Rice",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 499,
+  "mrp_inr": 550,
+  "stock": 59,
+  "rating": 3.18,
+  "rating_count": 3,
+  "description": "High-quality rice, a staple for various cuisines and a versatile base for many dishes.",
+  "tags": [
+   "grains"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0039",
+  "source": "dummyjson",
+  "name": "Soft Drinks",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 169,
+  "mrp_inr": 204,
+  "stock": 53,
+  "rating": 4.75,
+  "rating_count": 3,
+  "description": "Assorted soft drinks in various flavors, perfect for refreshing beverages.",
+  "tags": [
+   "beverages"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0040",
+  "source": "dummyjson",
+  "name": "Strawberry",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 339,
+  "mrp_inr": 342,
+  "stock": 46,
+  "rating": 3.08,
+  "rating_count": 3,
+  "description": "Sweet and succulent strawberries, great for snacking, desserts, or blending into smoothies.",
+  "tags": [
+   "fruits"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0041",
+  "source": "dummyjson",
+  "name": "Tissue Paper Box",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 209,
+  "mrp_inr": 241,
+  "stock": 86,
+  "rating": 2.69,
+  "rating_count": 3,
+  "description": "Convenient tissue paper box for everyday use, providing soft and absorbent tissues.",
+  "tags": [
+   "household essentials"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0042",
+  "source": "dummyjson",
+  "name": "Water",
+  "category": "groceries",
+  "brand": null,
+  "price_inr": 89,
+  "mrp_inr": 104,
+  "stock": 53,
+  "rating": 4.96,
+  "rating_count": 3,
+  "description": "Pure and refreshing bottled water, essential for staying hydrated throughout the day.",
+  "tags": [
+   "beverages"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0043",
+  "source": "dummyjson",
+  "name": "Decoration Swing",
+  "category": "home-decoration",
+  "brand": null,
+  "price_inr": 4979,
+  "mrp_inr": 5557,
+  "stock": 47,
+  "rating": 3.16,
+  "rating_count": 3,
+  "description": "The Decoration Swing is a charming addition to your home decor. Crafted with intricate details, it adds a touch of elegance and whimsy to any room.",
+  "tags": [
+   "home decor",
+   "swing"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0044",
+  "source": "dummyjson",
+  "name": "Family Tree Photo Frame",
+  "category": "home-decoration",
+  "brand": null,
+  "price_inr": 2489,
+  "mrp_inr": 2923,
+  "stock": 77,
+  "rating": 4.53,
+  "rating_count": 3,
+  "description": "The Family Tree Photo Frame is a sentimental and stylish way to display your cherished family memories. With multiple photo slots, it tells the story of your loved ones.",
+  "tags": [
+   "home decor",
+   "photo frame"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0045",
+  "source": "dummyjson",
+  "name": "House Showpiece Plant",
+  "category": "home-decoration",
+  "brand": null,
+  "price_inr": 3319,
+  "mrp_inr": 3586,
+  "stock": 28,
+  "rating": 4.67,
+  "rating_count": 3,
+  "description": "The House Showpiece Plant is an artificial plant that brings a touch of nature to your home without the need for maintenance. It adds greenery and style to any space.",
+  "tags": [
+   "home decor",
+   "artificial plants"
+  ],
+  "weight_raw": "8",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0046",
+  "source": "dummyjson",
+  "name": "Plant Pot",
+  "category": "home-decoration",
+  "brand": null,
+  "price_inr": 1249,
+  "mrp_inr": 1340,
+  "stock": 59,
+  "rating": 3.01,
+  "rating_count": 3,
+  "description": "The Plant Pot is a stylish container for your favorite plants. With a sleek design, it complements your indoor or outdoor garden, adding a modern touch to your plant display.",
+  "tags": [
+   "home decor",
+   "plant accessories"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0047",
+  "source": "dummyjson",
+  "name": "Table Lamp",
+  "category": "home-decoration",
+  "brand": null,
+  "price_inr": 4149,
+  "mrp_inr": 4465,
+  "stock": 9,
+  "rating": 3.55,
+  "rating_count": 3,
+  "description": "The Table Lamp is a functional and decorative lighting solution for your living space. With a modern design, it provides both ambient and task lighting, enhancing the atmosphere.",
+  "tags": [
+   "home decor",
+   "lighting"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0048",
+  "source": "dummyjson",
+  "name": "Bamboo Spatula",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 669,
+  "mrp_inr": 688,
+  "stock": 37,
+  "rating": 3.27,
+  "rating_count": 3,
+  "description": "The Bamboo Spatula is a versatile kitchen tool made from eco-friendly bamboo. Ideal for flipping, stirring, and serving various dishes.",
+  "tags": [
+   "kitchen tools",
+   "utensils"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0049",
+  "source": "dummyjson",
+  "name": "Black Aluminium Cup",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 499,
+  "mrp_inr": 591,
+  "stock": 75,
+  "rating": 4.46,
+  "rating_count": 3,
+  "description": "The Black Aluminium Cup is a stylish and durable cup suitable for both hot and cold beverages. Its sleek black design adds a modern touch to your drinkware collection.",
+  "tags": [
+   "drinkware",
+   "cups"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0050",
+  "source": "dummyjson",
+  "name": "Black Whisk",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 829,
+  "mrp_inr": 923,
+  "stock": 73,
+  "rating": 3.9,
+  "rating_count": 3,
+  "description": "The Black Whisk is a kitchen essential for whisking and beating ingredients. Its ergonomic handle and sleek design make it a practical and stylish tool.",
+  "tags": [
+   "kitchen tools",
+   "utensils"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0051",
+  "source": "dummyjson",
+  "name": "Boxed Blender",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 3319,
+  "mrp_inr": 3578,
+  "stock": 9,
+  "rating": 4.56,
+  "rating_count": 3,
+  "description": "The Boxed Blender is a powerful and compact blender perfect for smoothies, shakes, and more. Its convenient design and multiple functions make it a versatile kitchen appliance.",
+  "tags": [
+   "kitchen appliances",
+   "blenders"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0052",
+  "source": "dummyjson",
+  "name": "Carbon Steel Wok",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 2489,
+  "mrp_inr": 2662,
+  "stock": 40,
+  "rating": 4.05,
+  "rating_count": 3,
+  "description": "The Carbon Steel Wok is a versatile cooking pan suitable for stir-frying, sautéing, and deep frying. Its sturdy construction ensures even heat distribution for delicious meals.",
+  "tags": [
+   "cookware",
+   "woks"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0053",
+  "source": "dummyjson",
+  "name": "Chopping Board",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 1079,
+  "mrp_inr": 1173,
+  "stock": 14,
+  "rating": 3.7,
+  "rating_count": 3,
+  "description": "The Chopping Board is an essential kitchen accessory for food preparation. Made from durable material, it provides a safe and hygienic surface for cutting and chopping.",
+  "tags": [
+   "kitchen tools",
+   "cutting boards"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0054",
+  "source": "dummyjson",
+  "name": "Citrus Squeezer Yellow",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 749,
+  "mrp_inr": 852,
+  "stock": 22,
+  "rating": 4.63,
+  "rating_count": 3,
+  "description": "The Citrus Squeezer in Yellow is a handy tool for extracting juice from citrus fruits. Its vibrant color adds a cheerful touch to your kitchen gadgets.",
+  "tags": [
+   "kitchen tools",
+   "juicers"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0055",
+  "source": "dummyjson",
+  "name": "Egg Slicer",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 589,
+  "mrp_inr": 690,
+  "stock": 40,
+  "rating": 3.09,
+  "rating_count": 3,
+  "description": "The Egg Slicer is a convenient tool for slicing boiled eggs evenly. It's perfect for salads, sandwiches, and other dishes where sliced eggs are desired.",
+  "tags": [
+   "kitchen tools",
+   "slicers"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0056",
+  "source": "dummyjson",
+  "name": "Electric Stove",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 4149,
+  "mrp_inr": 4826,
+  "stock": 21,
+  "rating": 4.11,
+  "rating_count": 3,
+  "description": "The Electric Stove provides a portable and efficient cooking solution. Ideal for small kitchens or as an additional cooking surface for various culinary needs.",
+  "tags": [
+   "kitchen appliances",
+   "cooktops"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0057",
+  "source": "dummyjson",
+  "name": "Fine Mesh Strainer",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 829,
+  "mrp_inr": 859,
+  "stock": 85,
+  "rating": 3.04,
+  "rating_count": 3,
+  "description": "The Fine Mesh Strainer is a versatile tool for straining liquids and sifting dry ingredients. Its fine mesh ensures efficient filtering for smooth cooking and baking.",
+  "tags": [
+   "kitchen tools",
+   "strainers"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0058",
+  "source": "dummyjson",
+  "name": "Fork",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 339,
+  "mrp_inr": 368,
+  "stock": 7,
+  "rating": 3.11,
+  "rating_count": 3,
+  "description": "The Fork is a classic utensil for various dining and serving purposes. Its durable and ergonomic design makes it a reliable choice for everyday use.",
+  "tags": [
+   "kitchen tools",
+   "utensils"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0059",
+  "source": "dummyjson",
+  "name": "Glass",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 419,
+  "mrp_inr": 455,
+  "stock": 46,
+  "rating": 4.02,
+  "rating_count": 3,
+  "description": "The Glass is a versatile and elegant drinking vessel suitable for a variety of beverages. Its clear design allows you to enjoy the colors and textures of your drinks.",
+  "tags": [
+   "drinkware",
+   "glasses"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0060",
+  "source": "dummyjson",
+  "name": "Grater Black",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 919,
+  "mrp_inr": 952,
+  "stock": 84,
+  "rating": 3.21,
+  "rating_count": 3,
+  "description": "The Grater in Black is a handy kitchen tool for grating cheese, vegetables, and more. Its sleek design and sharp blades make food preparation efficient and easy.",
+  "tags": [
+   "kitchen tools",
+   "graters"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0061",
+  "source": "dummyjson",
+  "name": "Hand Blender",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 2909,
+  "mrp_inr": 3505,
+  "stock": 84,
+  "rating": 3.86,
+  "rating_count": 3,
+  "description": "The Hand Blender is a versatile kitchen appliance for blending, pureeing, and mixing. Its compact design and powerful motor make it a convenient tool for various recipes.",
+  "tags": [
+   "kitchen appliances",
+   "blenders"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0062",
+  "source": "dummyjson",
+  "name": "Ice Cube Tray",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 499,
+  "mrp_inr": 502,
+  "stock": 13,
+  "rating": 4.71,
+  "rating_count": 3,
+  "description": "The Ice Cube Tray is a practical accessory for making ice cubes in various shapes. Perfect for keeping your drinks cool and adding a fun element to your beverages.",
+  "tags": [
+   "kitchen tools",
+   "ice cube trays"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0063",
+  "source": "dummyjson",
+  "name": "Kitchen Sieve",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 669,
+  "mrp_inr": 825,
+  "stock": 68,
+  "rating": 3.09,
+  "rating_count": 3,
+  "description": "The Kitchen Sieve is a versatile tool for sifting and straining dry and wet ingredients. Its fine mesh design ensures smooth results in your cooking and baking.",
+  "tags": [
+   "kitchen tools",
+   "strainers"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0064",
+  "source": "dummyjson",
+  "name": "Knife",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 1249,
+  "mrp_inr": 1539,
+  "stock": 7,
+  "rating": 3.26,
+  "rating_count": 3,
+  "description": "The Knife is an essential kitchen tool for chopping, slicing, and dicing. Its sharp blade and ergonomic handle make it a reliable choice for food preparation.",
+  "tags": [
+   "kitchen tools",
+   "cutlery"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0065",
+  "source": "dummyjson",
+  "name": "Lunch Box",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 1079,
+  "mrp_inr": 1203,
+  "stock": 94,
+  "rating": 4.93,
+  "rating_count": 3,
+  "description": "The Lunch Box is a convenient and portable container for packing and carrying your meals. With compartments for different foods, it's perfect for on-the-go dining.",
+  "tags": [
+   "kitchen tools",
+   "storage"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0066",
+  "source": "dummyjson",
+  "name": "Microwave Oven",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 7469,
+  "mrp_inr": 8500,
+  "stock": 59,
+  "rating": 4.82,
+  "rating_count": 3,
+  "description": "The Microwave Oven is a versatile kitchen appliance for quick and efficient cooking, reheating, and defrosting. Its compact size makes it suitable for various kitchen setups.",
+  "tags": [
+   "kitchen appliances",
+   "microwaves"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0067",
+  "source": "dummyjson",
+  "name": "Mug Tree Stand",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 1329,
+  "mrp_inr": 1464,
+  "stock": 88,
+  "rating": 2.64,
+  "rating_count": 3,
+  "description": "The Mug Tree Stand is a stylish and space-saving solution for organizing your mugs. Keep your favorite mugs easily accessible and neatly displayed in your kitchen.",
+  "tags": [
+   "kitchen tools",
+   "organization"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0068",
+  "source": "dummyjson",
+  "name": "Pan",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 2079,
+  "mrp_inr": 2143,
+  "stock": 90,
+  "rating": 2.79,
+  "rating_count": 3,
+  "description": "The Pan is a versatile and essential cookware item for frying, sautéing, and cooking various dishes. Its non-stick coating ensures easy food release and cleanup.",
+  "tags": [
+   "cookware",
+   "pans"
+  ],
+  "weight_raw": "8",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0069",
+  "source": "dummyjson",
+  "name": "Plate",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 339,
+  "mrp_inr": 365,
+  "stock": 66,
+  "rating": 3.65,
+  "rating_count": 3,
+  "description": "The Plate is a classic and essential dishware item for serving meals. Its durable and stylish design makes it suitable for everyday use or special occasions.",
+  "tags": [
+   "dinnerware",
+   "plates"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0070",
+  "source": "dummyjson",
+  "name": "Red Tongs",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 589,
+  "mrp_inr": 689,
+  "stock": 82,
+  "rating": 4.42,
+  "rating_count": 3,
+  "description": "The Red Tongs are versatile kitchen tongs suitable for various cooking and serving tasks. Their vibrant color adds a pop of excitement to your kitchen utensils.",
+  "tags": [
+   "kitchen tools",
+   "tongs"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0071",
+  "source": "dummyjson",
+  "name": "Silver Pot With Glass Cap",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 3319,
+  "mrp_inr": 3519,
+  "stock": 40,
+  "rating": 3.22,
+  "rating_count": 3,
+  "description": "The Silver Pot with Glass Cap is a stylish and functional cookware item for boiling, simmering, and preparing delicious meals. Its glass cap allows you to monitor cooking progress.",
+  "tags": [
+   "cookware",
+   "pots"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0072",
+  "source": "dummyjson",
+  "name": "Slotted Turner",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 749,
+  "mrp_inr": 864,
+  "stock": 88,
+  "rating": 3.4,
+  "rating_count": 3,
+  "description": "The Slotted Turner is a kitchen utensil designed for flipping and turning food items. Its slotted design allows excess liquid to drain, making it ideal for frying and sautéing.",
+  "tags": [
+   "kitchen tools",
+   "turners"
+  ],
+  "weight_raw": "8",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0073",
+  "source": "dummyjson",
+  "name": "Spice Rack",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 1659,
+  "mrp_inr": 1887,
+  "stock": 79,
+  "rating": 4.87,
+  "rating_count": 3,
+  "description": "The Spice Rack is a convenient organizer for your spices and seasonings. Keep your kitchen essentials within reach and neatly arranged with this stylish spice rack.",
+  "tags": [
+   "kitchen tools",
+   "organization"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0074",
+  "source": "dummyjson",
+  "name": "Spoon",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 419,
+  "mrp_inr": 425,
+  "stock": 59,
+  "rating": 4.03,
+  "rating_count": 3,
+  "description": "The Spoon is a versatile kitchen utensil for stirring, serving, and tasting. Its ergonomic design and durable construction make it an essential tool for every kitchen.",
+  "tags": [
+   "kitchen tools",
+   "utensils"
+  ],
+  "weight_raw": "6",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0075",
+  "source": "dummyjson",
+  "name": "Tray",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 1419,
+  "mrp_inr": 1533,
+  "stock": 71,
+  "rating": 4.62,
+  "rating_count": 3,
+  "description": "The Tray is a functional and decorative item for serving snacks, appetizers, or drinks. Its stylish design makes it a versatile accessory for entertaining guests.",
+  "tags": [
+   "serveware",
+   "trays"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0076",
+  "source": "dummyjson",
+  "name": "Wooden Rolling Pin",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 999,
+  "mrp_inr": 1106,
+  "stock": 80,
+  "rating": 2.92,
+  "rating_count": 3,
+  "description": "The Wooden Rolling Pin is a classic kitchen tool for rolling out dough for baking. Its smooth surface and sturdy handles make it easy to achieve uniform thickness.",
+  "tags": [
+   "kitchen tools",
+   "baking"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0077",
+  "source": "dummyjson",
+  "name": "Yellow Peeler",
+  "category": "kitchen-accessories",
+  "brand": null,
+  "price_inr": 499,
+  "mrp_inr": 570,
+  "stock": 35,
+  "rating": 4.24,
+  "rating_count": 3,
+  "description": "The Yellow Peeler is a handy tool for peeling fruits and vegetables with ease. Its bright yellow color adds a cheerful touch to your kitchen gadgets.",
+  "tags": [
+   "kitchen tools",
+   "peelers"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0078",
+  "source": "dummyjson",
+  "name": "Apple MacBook Pro 14 Inch Space Grey",
+  "category": "laptops",
+  "brand": "Apple",
+  "price_inr": 165999,
+  "mrp_inr": 174167,
+  "stock": 24,
+  "rating": 3.65,
+  "rating_count": 3,
+  "description": "The MacBook Pro 14 Inch in Space Grey is a powerful and sleek laptop, featuring Apple's M1 Pro chip for exceptional performance and a stunning Retina display.",
+  "tags": [
+   "laptops",
+   "apple"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0079",
+  "source": "dummyjson",
+  "name": "Asus Zenbook Pro Dual Screen Laptop",
+  "category": "laptops",
+  "brand": "Asus",
+  "price_inr": 149399,
+  "mrp_inr": 168128,
+  "stock": 45,
+  "rating": 3.95,
+  "rating_count": 3,
+  "description": "The Asus Zenbook Pro Dual Screen Laptop is a high-performance device with dual screens, providing productivity and versatility for creative professionals.",
+  "tags": [
+   "laptops"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0080",
+  "source": "dummyjson",
+  "name": "Huawei Matebook X Pro",
+  "category": "laptops",
+  "brand": "Huawei",
+  "price_inr": 116199,
+  "mrp_inr": 128226,
+  "stock": 75,
+  "rating": 4.98,
+  "rating_count": 3,
+  "description": "The Huawei Matebook X Pro is a slim and stylish laptop with a high-resolution touchscreen display, offering a premium experience for users on the go.",
+  "tags": [
+   "laptops"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0081",
+  "source": "dummyjson",
+  "name": "Lenovo Yoga 920",
+  "category": "laptops",
+  "brand": "Lenovo",
+  "price_inr": 91299,
+  "mrp_inr": 97698,
+  "stock": 40,
+  "rating": 2.86,
+  "rating_count": 3,
+  "description": "The Lenovo Yoga 920 is a 2-in-1 convertible laptop with a flexible hinge, allowing you to use it as a laptop or tablet, offering versatility and portability.",
+  "tags": [
+   "laptops"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0082",
+  "source": "dummyjson",
+  "name": "New DELL XPS 13 9300 Laptop",
+  "category": "laptops",
+  "brand": "Dell",
+  "price_inr": 124499,
+  "mrp_inr": 141299,
+  "stock": 74,
+  "rating": 2.67,
+  "rating_count": 3,
+  "description": "The New DELL XPS 13 9300 Laptop is a compact and powerful device, featuring a virtually borderless InfinityEdge display and high-end performance for various tasks.",
+  "tags": [
+   "laptops"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0083",
+  "source": "dummyjson",
+  "name": "Blue & Black Check Shirt",
+  "category": "mens-shirts",
+  "brand": "Fashion Trends",
+  "price_inr": 2489,
+  "mrp_inr": 2940,
+  "stock": 38,
+  "rating": 3.64,
+  "rating_count": 3,
+  "description": "The Blue & Black Check Shirt is a stylish and comfortable men's shirt featuring a classic check pattern. Made from high-quality fabric, it's suitable for both casual and semi-formal occasions.",
+  "tags": [
+   "clothing",
+   "men's shirts"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0084",
+  "source": "dummyjson",
+  "name": "Gigabyte Aorus Men Tshirt",
+  "category": "mens-shirts",
+  "brand": "Gigabyte",
+  "price_inr": 2079,
+  "mrp_inr": 2098,
+  "stock": 90,
+  "rating": 3.18,
+  "rating_count": 3,
+  "description": "The Gigabyte Aorus Men Tshirt is a cool and casual shirt for gaming enthusiasts. With the Aorus logo and sleek design, it's perfect for expressing your gaming style.",
+  "tags": [
+   "clothing",
+   "men's t-shirts"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0085",
+  "source": "dummyjson",
+  "name": "Man Plaid Shirt",
+  "category": "mens-shirts",
+  "brand": "Classic Wear",
+  "price_inr": 2909,
+  "mrp_inr": 3613,
+  "stock": 82,
+  "rating": 3.46,
+  "rating_count": 3,
+  "description": "The Man Plaid Shirt is a timeless and versatile men's shirt with a classic plaid pattern. Its comfortable fit and casual style make it a wardrobe essential for various occasions.",
+  "tags": [
+   "clothing",
+   "men's shirts"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0086",
+  "source": "dummyjson",
+  "name": "Man Short Sleeve Shirt",
+  "category": "mens-shirts",
+  "brand": "Casual Comfort",
+  "price_inr": 1659,
+  "mrp_inr": 1780,
+  "stock": 2,
+  "rating": 2.9,
+  "rating_count": 3,
+  "description": "The Man Short Sleeve Shirt is a breezy and stylish option for warm days. With a comfortable fit and short sleeves, it's perfect for a laid-back yet polished look.",
+  "tags": [
+   "clothing",
+   "men's shirts"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0087",
+  "source": "dummyjson",
+  "name": "Men Check Shirt",
+  "category": "mens-shirts",
+  "brand": "Urban Chic",
+  "price_inr": 2329,
+  "mrp_inr": 2628,
+  "stock": 95,
+  "rating": 2.72,
+  "rating_count": 3,
+  "description": "The Men Check Shirt is a classic and versatile shirt featuring a stylish check pattern. Suitable for various occasions, it adds a smart and polished touch to your wardrobe.",
+  "tags": [
+   "clothing",
+   "men's shirts"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0088",
+  "source": "dummyjson",
+  "name": "Nike Air Jordan 1 Red And Black",
+  "category": "mens-shoes",
+  "brand": "Nike",
+  "price_inr": 12449,
+  "mrp_inr": 12983,
+  "stock": 7,
+  "rating": 4.77,
+  "rating_count": 3,
+  "description": "The Nike Air Jordan 1 in Red and Black is an iconic basketball sneaker known for its stylish design and high-performance features, making it a favorite among sneaker enthusiasts and athletes.",
+  "tags": [
+   "footwear",
+   "athletic shoes"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0089",
+  "source": "dummyjson",
+  "name": "Nike Baseball Cleats",
+  "category": "mens-shoes",
+  "brand": "Nike",
+  "price_inr": 6639,
+  "mrp_inr": 8100,
+  "stock": 12,
+  "rating": 3.88,
+  "rating_count": 3,
+  "description": "Nike Baseball Cleats are designed for maximum traction and performance on the baseball field. They provide stability and support for players during games and practices.",
+  "tags": [
+   "footwear",
+   "sports cleats"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0090",
+  "source": "dummyjson",
+  "name": "Puma Future Rider Trainers",
+  "category": "mens-shoes",
+  "brand": "Puma",
+  "price_inr": 7469,
+  "mrp_inr": 7796,
+  "stock": 90,
+  "rating": 4.9,
+  "rating_count": 3,
+  "description": "The Puma Future Rider Trainers offer a blend of retro style and modern comfort. Perfect for casual wear, these trainers provide a fashionable and comfortable option for everyday use.",
+  "tags": [
+   "footwear",
+   "casual shoes"
+  ],
+  "weight_raw": "6",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0091",
+  "source": "dummyjson",
+  "name": "Sports Sneakers Off White & Red",
+  "category": "mens-shoes",
+  "brand": "Off White",
+  "price_inr": 9959,
+  "mrp_inr": 10479,
+  "stock": 17,
+  "rating": 4.77,
+  "rating_count": 3,
+  "description": "The Sports Sneakers in Off White and Red combine style and functionality, making them a fashionable choice for sports enthusiasts. The red and off-white color combination adds a bold and energetic touch.",
+  "tags": [
+   "footwear",
+   "athletic shoes"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0092",
+  "source": "dummyjson",
+  "name": "Sports Sneakers Off White Red",
+  "category": "mens-shoes",
+  "brand": "Off White",
+  "price_inr": 9129,
+  "mrp_inr": 9132,
+  "stock": 62,
+  "rating": 4.69,
+  "rating_count": 3,
+  "description": "Another variant of the Sports Sneakers in Off White Red, featuring a unique design. These sneakers offer style and comfort for casual occasions.",
+  "tags": [
+   "footwear",
+   "casual shoes"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0093",
+  "source": "dummyjson",
+  "name": "Brown Leather Belt Watch",
+  "category": "mens-watches",
+  "brand": "Fashion Timepieces",
+  "price_inr": 7469,
+  "mrp_inr": 7944,
+  "stock": 32,
+  "rating": 4.19,
+  "rating_count": 3,
+  "description": "The Brown Leather Belt Watch is a stylish timepiece with a classic design. Featuring a genuine leather strap and a sleek dial, it adds a touch of sophistication to your look.",
+  "tags": [
+   "watches",
+   "leather watches"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0094",
+  "source": "dummyjson",
+  "name": "Longines Master Collection",
+  "category": "mens-watches",
+  "brand": "Longines",
+  "price_inr": 124499,
+  "mrp_inr": 150433,
+  "stock": 100,
+  "rating": 3.87,
+  "rating_count": 3,
+  "description": "The Longines Master Collection is an elegant and refined watch known for its precision and craftsmanship. With a timeless design, it's a symbol of luxury and sophistication.",
+  "tags": [
+   "watches",
+   "luxury watches"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0095",
+  "source": "dummyjson",
+  "name": "Rolex Cellini Date Black Dial",
+  "category": "mens-watches",
+  "brand": "Rolex",
+  "price_inr": 746999,
+  "mrp_inr": 819796,
+  "stock": 40,
+  "rating": 4.97,
+  "rating_count": 3,
+  "description": "The Rolex Cellini Date with Black Dial is a classic and prestigious watch. With a black dial and date complication, it exudes sophistication and is a symbol of Rolex's heritage.",
+  "tags": [
+   "watches",
+   "luxury watches"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0096",
+  "source": "dummyjson",
+  "name": "Rolex Cellini Moonphase",
+  "category": "mens-watches",
+  "brand": "Rolex",
+  "price_inr": 1078999,
+  "mrp_inr": 1308194,
+  "stock": 36,
+  "rating": 2.58,
+  "rating_count": 3,
+  "description": "The Rolex Cellini Moonphase is a masterpiece of horology, featuring a moon phase complication and exquisite design. It reflects Rolex's commitment to precision and elegance.",
+  "tags": [
+   "watches",
+   "luxury watches"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0097",
+  "source": "dummyjson",
+  "name": "Rolex Datejust",
+  "category": "mens-watches",
+  "brand": "Rolex",
+  "price_inr": 912999,
+  "mrp_inr": 948373,
+  "stock": 86,
+  "rating": 3.66,
+  "rating_count": 3,
+  "description": "The Rolex Datejust is an iconic and versatile timepiece with a date window. Known for its timeless design and reliability, it's a symbol of Rolex's watchmaking excellence.",
+  "tags": [
+   "watches",
+   "luxury watches"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0098",
+  "source": "dummyjson",
+  "name": "Rolex Submariner Watch",
+  "category": "mens-watches",
+  "brand": "Rolex",
+  "price_inr": 1161999,
+  "mrp_inr": 1223800,
+  "stock": 55,
+  "rating": 2.69,
+  "rating_count": 3,
+  "description": "The Rolex Submariner is a legendary dive watch with a rich history. Known for its durability and water resistance, it's a symbol of adventure and exploration.",
+  "tags": [
+   "watches",
+   "luxury watches"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0099",
+  "source": "dummyjson",
+  "name": "Amazon Echo Plus",
+  "category": "mobile-accessories",
+  "brand": "Amazon",
+  "price_inr": 8299,
+  "mrp_inr": 9438,
+  "stock": 61,
+  "rating": 4.99,
+  "rating_count": 3,
+  "description": "The Amazon Echo Plus is a smart speaker with built-in Alexa voice control. It features premium sound quality and serves as a hub for controlling smart home devices.",
+  "tags": [
+   "electronics",
+   "smart speakers"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0100",
+  "source": "dummyjson",
+  "name": "Apple Airpods",
+  "category": "mobile-accessories",
+  "brand": "Apple",
+  "price_inr": 10789,
+  "mrp_inr": 12774,
+  "stock": 67,
+  "rating": 4.15,
+  "rating_count": 3,
+  "description": "The Apple Airpods offer a seamless wireless audio experience. With easy pairing, high-quality sound, and Siri integration, they are perfect for on-the-go listening.",
+  "tags": [
+   "electronics",
+   "wireless earphones"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0101",
+  "source": "dummyjson",
+  "name": "Apple AirPods Max Silver",
+  "category": "mobile-accessories",
+  "brand": "Apple",
+  "price_inr": 45649,
+  "mrp_inr": 52877,
+  "stock": 59,
+  "rating": 3.47,
+  "rating_count": 3,
+  "description": "The Apple AirPods Max in Silver are premium over-ear headphones with high-fidelity audio, adaptive EQ, and active noise cancellation. Experience immersive sound in style.",
+  "tags": [
+   "electronics",
+   "over-ear headphones"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0102",
+  "source": "dummyjson",
+  "name": "Apple Airpower Wireless Charger",
+  "category": "mobile-accessories",
+  "brand": "Apple",
+  "price_inr": 6639,
+  "mrp_inr": 6950,
+  "stock": 1,
+  "rating": 3.68,
+  "rating_count": 3,
+  "description": "The Apple AirPower Wireless Charger provides a convenient way to charge your compatible Apple devices wirelessly. Simply place your devices on the charging mat for effortless charging.",
+  "tags": [
+   "electronics",
+   "wireless chargers"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0103",
+  "source": "dummyjson",
+  "name": "Apple HomePod Mini Cosmic Grey",
+  "category": "mobile-accessories",
+  "brand": "Apple",
+  "price_inr": 8299,
+  "mrp_inr": 10133,
+  "stock": 27,
+  "rating": 4.62,
+  "rating_count": 3,
+  "description": "The Apple HomePod Mini in Cosmic Grey is a compact smart speaker that delivers impressive audio and integrates seamlessly with the Apple ecosystem for a smart home experience.",
+  "tags": [
+   "electronics",
+   "smart speakers"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0104",
+  "source": "dummyjson",
+  "name": "Apple iPhone Charger",
+  "category": "mobile-accessories",
+  "brand": "Apple",
+  "price_inr": 1659,
+  "mrp_inr": 2036,
+  "stock": 31,
+  "rating": 4.15,
+  "rating_count": 3,
+  "description": "The Apple iPhone Charger is a high-quality charger designed for fast and efficient charging of your iPhone. Ensure your device stays powered up and ready to go.",
+  "tags": [
+   "electronics",
+   "chargers"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0105",
+  "source": "dummyjson",
+  "name": "Apple MagSafe Battery Pack",
+  "category": "mobile-accessories",
+  "brand": "Apple",
+  "price_inr": 8299,
+  "mrp_inr": 10019,
+  "stock": 1,
+  "rating": 3.62,
+  "rating_count": 3,
+  "description": "The Apple MagSafe Battery Pack is a portable and convenient way to add extra battery life to your MagSafe-compatible iPhone. Attach it magnetically for a secure connection.",
+  "tags": [
+   "electronics",
+   "power banks"
+  ],
+  "weight_raw": "6",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0106",
+  "source": "dummyjson",
+  "name": "Apple Watch Series 4 Gold",
+  "category": "mobile-accessories",
+  "brand": "Apple",
+  "price_inr": 29049,
+  "mrp_inr": 33017,
+  "stock": 33,
+  "rating": 2.74,
+  "rating_count": 3,
+  "description": "The Apple Watch Series 4 in Gold is a stylish and advanced smartwatch with features like heart rate monitoring, fitness tracking, and a beautiful Retina display.",
+  "tags": [
+   "electronics",
+   "smartwatches"
+  ],
+  "weight_raw": "6",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0107",
+  "source": "dummyjson",
+  "name": "Beats Flex Wireless Earphones",
+  "category": "mobile-accessories",
+  "brand": "Beats",
+  "price_inr": 4149,
+  "mrp_inr": 4401,
+  "stock": 50,
+  "rating": 4.24,
+  "rating_count": 3,
+  "description": "The Beats Flex Wireless Earphones offer a comfortable and versatile audio experience. With magnetic earbuds and up to 12 hours of battery life, they are ideal for everyday use.",
+  "tags": [
+   "electronics",
+   "wireless earphones"
+  ],
+  "weight_raw": "8",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0108",
+  "source": "dummyjson",
+  "name": "iPhone 12 Silicone Case with MagSafe Plum",
+  "category": "mobile-accessories",
+  "brand": "Apple",
+  "price_inr": 2489,
+  "mrp_inr": 2889,
+  "stock": 69,
+  "rating": 3.62,
+  "rating_count": 3,
+  "description": "The iPhone 12 Silicone Case with MagSafe in Plum is a stylish and protective case designed for the iPhone 12. It features MagSafe technology for easy attachment of accessories.",
+  "tags": [
+   "electronics",
+   "phone accessories"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0109",
+  "source": "dummyjson",
+  "name": "Monopod",
+  "category": "mobile-accessories",
+  "brand": "TechGear",
+  "price_inr": 1659,
+  "mrp_inr": 1814,
+  "stock": 48,
+  "rating": 4.43,
+  "rating_count": 3,
+  "description": "The Monopod is a versatile camera accessory for stable and adjustable shooting. Perfect for capturing selfies, group photos, and videos with ease.",
+  "tags": [
+   "electronics",
+   "camera accessories"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0110",
+  "source": "dummyjson",
+  "name": "Selfie Lamp with iPhone",
+  "category": "mobile-accessories",
+  "brand": "GadgetMaster",
+  "price_inr": 1249,
+  "mrp_inr": 1549,
+  "stock": 58,
+  "rating": 3.55,
+  "rating_count": 3,
+  "description": "The Selfie Lamp with iPhone is a portable and adjustable LED light designed to enhance your selfies and video calls. Attach it to your iPhone for well-lit photos.",
+  "tags": [
+   "electronics",
+   "selfie accessories"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0111",
+  "source": "dummyjson",
+  "name": "Selfie Stick Monopod",
+  "category": "mobile-accessories",
+  "brand": "SnapTech",
+  "price_inr": 1079,
+  "mrp_inr": 1334,
+  "stock": 11,
+  "rating": 3.88,
+  "rating_count": 3,
+  "description": "The Selfie Stick Monopod is a extendable and foldable device for capturing the perfect selfie or group photo. Compatible with smartphones and cameras.",
+  "tags": [
+   "electronics",
+   "selfie accessories"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0112",
+  "source": "dummyjson",
+  "name": "TV Studio Camera Pedestal",
+  "category": "mobile-accessories",
+  "brand": "ProVision",
+  "price_inr": 41499,
+  "mrp_inr": 45260,
+  "stock": 15,
+  "rating": 2.78,
+  "rating_count": 3,
+  "description": "The TV Studio Camera Pedestal is a professional-grade camera support system for smooth and precise camera movements in a studio setting. Ideal for broadcast and production.",
+  "tags": [
+   "electronics",
+   "camera accessories"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0113",
+  "source": "dummyjson",
+  "name": "Attitude Super Leaves Hand Soap",
+  "category": "skin-care",
+  "brand": "Attitude",
+  "price_inr": 749,
+  "mrp_inr": 918,
+  "stock": 94,
+  "rating": 3.19,
+  "rating_count": 3,
+  "description": "Attitude Super Leaves Hand Soap is a natural and nourishing hand soap enriched with the goodness of super leaves. It cleanses and moisturizes your hands, leaving them feeling fresh and soft.",
+  "tags": [
+   "personal care",
+   "hand soap"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0114",
+  "source": "dummyjson",
+  "name": "Olay Ultra Moisture Shea Butter Body Wash",
+  "category": "skin-care",
+  "brand": "Olay",
+  "price_inr": 1079,
+  "mrp_inr": 1290,
+  "stock": 34,
+  "rating": 4.51,
+  "rating_count": 3,
+  "description": "Olay Ultra Moisture Shea Butter Body Wash is a luxurious body wash that hydrates and nourishes your skin with the moisturizing power of shea butter. Enjoy a rich lather and silky-smooth skin.",
+  "tags": [
+   "personal care",
+   "body wash"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0115",
+  "source": "dummyjson",
+  "name": "Vaseline Men Body and Face Lotion",
+  "category": "skin-care",
+  "brand": "Vaseline",
+  "price_inr": 829,
+  "mrp_inr": 957,
+  "stock": 95,
+  "rating": 3.16,
+  "rating_count": 3,
+  "description": "Vaseline Men Body and Face Lotion is a specially formulated lotion designed to provide long-lasting moisture to men's skin. It absorbs quickly and helps keep the skin hydrated and healthy.",
+  "tags": [
+   "personal care",
+   "body lotion"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0116",
+  "source": "dummyjson",
+  "name": "iPhone 5s",
+  "category": "smartphones",
+  "brand": "Apple",
+  "price_inr": 16599,
+  "mrp_inr": 19059,
+  "stock": 25,
+  "rating": 2.83,
+  "rating_count": 3,
+  "description": "The iPhone 5s is a classic smartphone known for its compact design and advanced features during its release. While it's an older model, it still provides a reliable user experience.",
+  "tags": [
+   "smartphones",
+   "apple"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0117",
+  "source": "dummyjson",
+  "name": "iPhone 6",
+  "category": "smartphones",
+  "brand": "Apple",
+  "price_inr": 24899,
+  "mrp_inr": 26684,
+  "stock": 60,
+  "rating": 3.41,
+  "rating_count": 3,
+  "description": "The iPhone 6 is a stylish and capable smartphone with a larger display and improved performance. It introduced new features and design elements, making it a popular choice in its time.",
+  "tags": [
+   "smartphones",
+   "apple"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0118",
+  "source": "dummyjson",
+  "name": "iPhone 13 Pro",
+  "category": "smartphones",
+  "brand": "Apple",
+  "price_inr": 91299,
+  "mrp_inr": 100738,
+  "stock": 56,
+  "rating": 4.12,
+  "rating_count": 3,
+  "description": "The iPhone 13 Pro is a cutting-edge smartphone with a powerful camera system, high-performance chip, and stunning display. It offers advanced features for users who demand top-notch technology.",
+  "tags": [
+   "smartphones",
+   "apple"
+  ],
+  "weight_raw": "8",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0119",
+  "source": "dummyjson",
+  "name": "iPhone X",
+  "category": "smartphones",
+  "brand": "Apple",
+  "price_inr": 74699,
+  "mrp_inr": 92897,
+  "stock": 37,
+  "rating": 2.51,
+  "rating_count": 3,
+  "description": "The iPhone X is a flagship smartphone featuring a bezel-less OLED display, facial recognition technology (Face ID), and impressive performance. It represents a milestone in iPhone design and innovation.",
+  "tags": [
+   "smartphones",
+   "apple"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0120",
+  "source": "dummyjson",
+  "name": "Oppo A57",
+  "category": "smartphones",
+  "brand": "Oppo",
+  "price_inr": 20749,
+  "mrp_inr": 21265,
+  "stock": 19,
+  "rating": 3.94,
+  "rating_count": 3,
+  "description": "The Oppo A57 is a mid-range smartphone known for its sleek design and capable features. It offers a balance of performance and affordability, making it a popular choice.",
+  "tags": [
+   "smartphones",
+   "oppo"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0121",
+  "source": "dummyjson",
+  "name": "Oppo F19 Pro Plus",
+  "category": "smartphones",
+  "brand": "Oppo",
+  "price_inr": 33199,
+  "mrp_inr": 40805,
+  "stock": 78,
+  "rating": 3.51,
+  "rating_count": 3,
+  "description": "The Oppo F19 Pro Plus is a feature-rich smartphone with a focus on camera capabilities. It boasts advanced photography features and a powerful performance for a premium user experience.",
+  "tags": [
+   "smartphones",
+   "oppo"
+  ],
+  "weight_raw": "6",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0122",
+  "source": "dummyjson",
+  "name": "Oppo K1",
+  "category": "smartphones",
+  "brand": "Oppo",
+  "price_inr": 24899,
+  "mrp_inr": 30472,
+  "stock": 55,
+  "rating": 4.25,
+  "rating_count": 3,
+  "description": "The Oppo K1 series offers a range of smartphones with various features and specifications. Known for their stylish design and reliable performance, the Oppo K1 series caters to diverse user preferences.",
+  "tags": [
+   "smartphones",
+   "oppo"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0123",
+  "source": "dummyjson",
+  "name": "Realme C35",
+  "category": "smartphones",
+  "brand": "Realme",
+  "price_inr": 12449,
+  "mrp_inr": 14697,
+  "stock": 48,
+  "rating": 4.2,
+  "rating_count": 3,
+  "description": "The Realme C35 is a budget-friendly smartphone with a focus on providing essential features for everyday use. It offers a reliable performance and user-friendly experience.",
+  "tags": [
+   "smartphones",
+   "realme"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0124",
+  "source": "dummyjson",
+  "name": "Realme X",
+  "category": "smartphones",
+  "brand": "Realme",
+  "price_inr": 24899,
+  "mrp_inr": 26758,
+  "stock": 12,
+  "rating": 3.7,
+  "rating_count": 3,
+  "description": "The Realme X is a mid-range smartphone known for its sleek design and impressive display. It offers a good balance of performance and camera capabilities for users seeking a quality device.",
+  "tags": [
+   "smartphones",
+   "realme"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0125",
+  "source": "dummyjson",
+  "name": "Realme XT",
+  "category": "smartphones",
+  "brand": "Realme",
+  "price_inr": 29049,
+  "mrp_inr": 32827,
+  "stock": 80,
+  "rating": 4.58,
+  "rating_count": 3,
+  "description": "The Realme XT is a feature-rich smartphone with a focus on camera technology. It comes equipped with advanced camera sensors, delivering high-quality photos and videos for photography enthusiasts.",
+  "tags": [
+   "smartphones",
+   "realme"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0126",
+  "source": "dummyjson",
+  "name": "Samsung Galaxy S7",
+  "category": "smartphones",
+  "brand": "Samsung",
+  "price_inr": 24899,
+  "mrp_inr": 30949,
+  "stock": 67,
+  "rating": 3.3,
+  "rating_count": 3,
+  "description": "The Samsung Galaxy S7 is a flagship smartphone known for its sleek design and advanced features. It features a high-resolution display, powerful camera, and robust performance.",
+  "tags": [
+   "smartphones",
+   "samsung galaxy"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0127",
+  "source": "dummyjson",
+  "name": "Samsung Galaxy S8",
+  "category": "smartphones",
+  "brand": "Samsung",
+  "price_inr": 41499,
+  "mrp_inr": 51519,
+  "stock": 0,
+  "rating": 4.4,
+  "rating_count": 3,
+  "description": "The Samsung Galaxy S8 is a premium smartphone with an Infinity Display, offering a stunning visual experience. It boasts advanced camera capabilities and cutting-edge technology.",
+  "tags": [
+   "smartphones",
+   "samsung galaxy"
+  ],
+  "weight_raw": "6",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0128",
+  "source": "dummyjson",
+  "name": "Samsung Galaxy S10",
+  "category": "smartphones",
+  "brand": "Samsung",
+  "price_inr": 58099,
+  "mrp_inr": 61539,
+  "stock": 19,
+  "rating": 3.06,
+  "rating_count": 3,
+  "description": "The Samsung Galaxy S10 is a flagship device featuring a dynamic AMOLED display, versatile camera system, and powerful performance. It represents innovation and excellence in smartphone technology.",
+  "tags": [
+   "smartphones",
+   "samsung galaxy"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0129",
+  "source": "dummyjson",
+  "name": "Vivo S1",
+  "category": "smartphones",
+  "brand": "Vivo",
+  "price_inr": 20749,
+  "mrp_inr": 23098,
+  "stock": 50,
+  "rating": 3.5,
+  "rating_count": 3,
+  "description": "The Vivo S1 is a stylish and mid-range smartphone offering a blend of design and performance. It features a vibrant display, capable camera system, and reliable functionality.",
+  "tags": [
+   "smartphones",
+   "vivo"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0130",
+  "source": "dummyjson",
+  "name": "Vivo V9",
+  "category": "smartphones",
+  "brand": "Vivo",
+  "price_inr": 24899,
+  "mrp_inr": 30242,
+  "stock": 82,
+  "rating": 3.6,
+  "rating_count": 3,
+  "description": "The Vivo V9 is a smartphone known for its sleek design and emphasis on capturing high-quality selfies. It features a notch display, dual-camera setup, and a modern design.",
+  "tags": [
+   "smartphones",
+   "vivo"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0131",
+  "source": "dummyjson",
+  "name": "Vivo X21",
+  "category": "smartphones",
+  "brand": "Vivo",
+  "price_inr": 41499,
+  "mrp_inr": 50247,
+  "stock": 7,
+  "rating": 4.26,
+  "rating_count": 3,
+  "description": "The Vivo X21 is a premium smartphone with a focus on cutting-edge technology. It features an in-display fingerprint sensor, a high-resolution display, and advanced camera capabilities.",
+  "tags": [
+   "smartphones",
+   "vivo"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0132",
+  "source": "dummyjson",
+  "name": "American Football",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 1659,
+  "mrp_inr": 1745,
+  "stock": 53,
+  "rating": 4.91,
+  "rating_count": 3,
+  "description": "The American Football is a classic ball used in American football games. It is designed for throwing and catching, making it an essential piece of equipment for the sport.",
+  "tags": [
+   "sports equipment",
+   "american football"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0133",
+  "source": "dummyjson",
+  "name": "Baseball Ball",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 749,
+  "mrp_inr": 762,
+  "stock": 100,
+  "rating": 2.57,
+  "rating_count": 3,
+  "description": "The Baseball Ball is a standard baseball used in baseball games. It features a durable leather cover and is designed for pitching, hitting, and fielding in the game of baseball.",
+  "tags": [
+   "sports equipment",
+   "baseball"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0134",
+  "source": "dummyjson",
+  "name": "Baseball Glove",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 2079,
+  "mrp_inr": 2141,
+  "stock": 22,
+  "rating": 3.96,
+  "rating_count": 3,
+  "description": "The Baseball Glove is a protective glove worn by baseball players. It is designed to catch and field the baseball, providing players with comfort and control during the game.",
+  "tags": [
+   "sports equipment",
+   "baseball"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0135",
+  "source": "dummyjson",
+  "name": "Basketball",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 1249,
+  "mrp_inr": 1349,
+  "stock": 75,
+  "rating": 4.66,
+  "rating_count": 3,
+  "description": "The Basketball is a standard ball used in basketball games. It is designed for dribbling, shooting, and passing in the game of basketball, suitable for both indoor and outdoor play.",
+  "tags": [
+   "sports equipment",
+   "basketball"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0136",
+  "source": "dummyjson",
+  "name": "Basketball Rim",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 3319,
+  "mrp_inr": 3597,
+  "stock": 43,
+  "rating": 4.6,
+  "rating_count": 3,
+  "description": "The Basketball Rim is a sturdy hoop and net assembly mounted on a basketball backboard. It provides a target for shooting and scoring in the game of basketball.",
+  "tags": [
+   "sports equipment",
+   "basketball"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0137",
+  "source": "dummyjson",
+  "name": "Cricket Ball",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 1079,
+  "mrp_inr": 1180,
+  "stock": 30,
+  "rating": 3.53,
+  "rating_count": 3,
+  "description": "The Cricket Ball is a hard leather ball used in the sport of cricket. It is bowled and batted in the game, and its hardness and seam contribute to the dynamics of cricket play.",
+  "tags": [
+   "sports equipment",
+   "cricket"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0138",
+  "source": "dummyjson",
+  "name": "Cricket Bat",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 2489,
+  "mrp_inr": 2573,
+  "stock": 98,
+  "rating": 3.17,
+  "rating_count": 3,
+  "description": "The Cricket Bat is an essential piece of cricket equipment used by batsmen to hit the cricket ball. It is made of wood and comes in various sizes and designs.",
+  "tags": [
+   "sports equipment",
+   "cricket"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0139",
+  "source": "dummyjson",
+  "name": "Cricket Helmet",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 3739,
+  "mrp_inr": 4137,
+  "stock": 10,
+  "rating": 4.69,
+  "rating_count": 3,
+  "description": "The Cricket Helmet is a protective headgear worn by cricket players, especially batsmen and wicketkeepers. It provides protection against fast bowling and bouncers.",
+  "tags": [
+   "sports equipment",
+   "cricket"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0140",
+  "source": "dummyjson",
+  "name": "Cricket Wicket",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 2489,
+  "mrp_inr": 2996,
+  "stock": 25,
+  "rating": 4.73,
+  "rating_count": 3,
+  "description": "The Cricket Wicket is a set of three stumps and two bails, forming a wicket used in the sport of cricket. Batsmen aim to protect the wicket while scoring runs.",
+  "tags": [
+   "sports equipment",
+   "cricket"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0141",
+  "source": "dummyjson",
+  "name": "Feather Shuttlecock",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 499,
+  "mrp_inr": 514,
+  "stock": 95,
+  "rating": 2.85,
+  "rating_count": 3,
+  "description": "The Feather Shuttlecock is used in the sport of badminton. It features natural feathers and is designed for high-speed play, providing stability and accuracy during matches.",
+  "tags": [
+   "sports equipment",
+   "badminton"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0142",
+  "source": "dummyjson",
+  "name": "Football",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 1499,
+  "mrp_inr": 1580,
+  "stock": 96,
+  "rating": 3.28,
+  "rating_count": 3,
+  "description": "The Football, also known as a soccer ball, is the standard ball used in the sport of football (soccer). It is designed for kicking and passing in the game.",
+  "tags": [
+   "sports equipment",
+   "football"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0143",
+  "source": "dummyjson",
+  "name": "Golf Ball",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 829,
+  "mrp_inr": 1003,
+  "stock": 84,
+  "rating": 4.3,
+  "rating_count": 3,
+  "description": "The Golf Ball is a small ball used in the sport of golf. It features dimples on its surface, providing aerodynamic lift and distance when struck by a golf club.",
+  "tags": [
+   "sports equipment",
+   "golf"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0144",
+  "source": "dummyjson",
+  "name": "Iron Golf",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 4149,
+  "mrp_inr": 4438,
+  "stock": 90,
+  "rating": 4.41,
+  "rating_count": 3,
+  "description": "The Iron Golf is a type of golf club designed for various golf shots. It features a solid metal head and is used for approach shots, chipping, and other golfing techniques.",
+  "tags": [
+   "sports equipment",
+   "golf"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0145",
+  "source": "dummyjson",
+  "name": "Metal Baseball Bat",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 2489,
+  "mrp_inr": 3092,
+  "stock": 16,
+  "rating": 4.66,
+  "rating_count": 3,
+  "description": "The Metal Baseball Bat is a durable and lightweight baseball bat made from metal alloys. It is commonly used in baseball games for hitting and batting practice.",
+  "tags": [
+   "sports equipment",
+   "baseball"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0146",
+  "source": "dummyjson",
+  "name": "Tennis Ball",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 589,
+  "mrp_inr": 667,
+  "stock": 28,
+  "rating": 4.06,
+  "rating_count": 3,
+  "description": "The Tennis Ball is a standard ball used in the sport of tennis. It is designed for bouncing and hitting with tennis rackets during matches or practice sessions.",
+  "tags": [
+   "sports equipment",
+   "tennis"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0147",
+  "source": "dummyjson",
+  "name": "Tennis Racket",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 4149,
+  "mrp_inr": 5161,
+  "stock": 6,
+  "rating": 4.03,
+  "rating_count": 3,
+  "description": "The Tennis Racket is an essential piece of equipment used in the sport of tennis. It features a frame with strings and a grip, allowing players to hit the tennis ball.",
+  "tags": [
+   "sports equipment",
+   "tennis"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0148",
+  "source": "dummyjson",
+  "name": "Volleyball",
+  "category": "sports-accessories",
+  "brand": null,
+  "price_inr": 999,
+  "mrp_inr": 1138,
+  "stock": 0,
+  "rating": 3.84,
+  "rating_count": 3,
+  "description": "The Volleyball is a standard ball used in the sport of volleyball. It is designed for passing, setting, and spiking over the net during volleyball matches.",
+  "tags": [
+   "sports equipment",
+   "volleyball"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0149",
+  "source": "dummyjson",
+  "name": "Black Sun Glasses",
+  "category": "sunglasses",
+  "brand": "Fashion Shades",
+  "price_inr": 2489,
+  "mrp_inr": 2618,
+  "stock": 60,
+  "rating": 4.41,
+  "rating_count": 3,
+  "description": "The Black Sun Glasses are a classic and stylish choice, featuring a sleek black frame and tinted lenses. They provide both UV protection and a fashionable look.",
+  "tags": [
+   "eyewear",
+   "sunglasses"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0150",
+  "source": "dummyjson",
+  "name": "Classic Sun Glasses",
+  "category": "sunglasses",
+  "brand": "Fashion Shades",
+  "price_inr": 2079,
+  "mrp_inr": 2187,
+  "stock": 1,
+  "rating": 3.86,
+  "rating_count": 3,
+  "description": "The Classic Sun Glasses offer a timeless design with a neutral frame and UV-protected lenses. These sunglasses are versatile and suitable for various occasions.",
+  "tags": [
+   "eyewear",
+   "sunglasses"
+  ],
+  "weight_raw": "8",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0151",
+  "source": "dummyjson",
+  "name": "Green and Black Glasses",
+  "category": "sunglasses",
+  "brand": "Fashion Shades",
+  "price_inr": 2909,
+  "mrp_inr": 2938,
+  "stock": 24,
+  "rating": 4.55,
+  "rating_count": 3,
+  "description": "The Green and Black Glasses feature a bold combination of green and black colors, adding a touch of vibrancy to your eyewear collection. They are both stylish and eye-catching.",
+  "tags": [
+   "eyewear",
+   "sunglasses"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0152",
+  "source": "dummyjson",
+  "name": "Party Glasses",
+  "category": "sunglasses",
+  "brand": "Fashion Fun",
+  "price_inr": 1659,
+  "mrp_inr": 1868,
+  "stock": 86,
+  "rating": 2.79,
+  "rating_count": 3,
+  "description": "The Party Glasses are designed to add flair to your party outfit. With unique shapes or colorful frames, they're perfect for adding a playful touch to your look during celebrations.",
+  "tags": [
+   "eyewear",
+   "party glasses"
+  ],
+  "weight_raw": "9",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0153",
+  "source": "dummyjson",
+  "name": "Sunglasses",
+  "category": "sunglasses",
+  "brand": "Fashion Shades",
+  "price_inr": 1909,
+  "mrp_inr": 1938,
+  "stock": 27,
+  "rating": 3.02,
+  "rating_count": 3,
+  "description": "The Sunglasses offer a classic and simple design with a focus on functionality. These sunglasses provide essential UV protection while maintaining a timeless look.",
+  "tags": [
+   "eyewear",
+   "sunglasses"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0154",
+  "source": "dummyjson",
+  "name": "iPad Mini 2021 Starlight",
+  "category": "tablets",
+  "brand": "Apple",
+  "price_inr": 41499,
+  "mrp_inr": 43066,
+  "stock": 47,
+  "rating": 3.18,
+  "rating_count": 3,
+  "description": "The iPad Mini 2021 in Starlight is a compact and powerful tablet from Apple. Featuring a stunning Retina display, powerful A-series chip, and a sleek design, it offers a premium tablet experience.",
+  "tags": [
+   "electronics",
+   "tablets"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0155",
+  "source": "dummyjson",
+  "name": "Samsung Galaxy Tab S8 Plus Grey",
+  "category": "tablets",
+  "brand": "Samsung",
+  "price_inr": 49799,
+  "mrp_inr": 57444,
+  "stock": 62,
+  "rating": 4.68,
+  "rating_count": 3,
+  "description": "The Samsung Galaxy Tab S8 Plus in Grey is a high-performance Android tablet by Samsung. With a large AMOLED display, powerful processor, and S Pen support, it's ideal for productivity and entertainment.",
+  "tags": [
+   "electronics",
+   "tablets"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0156",
+  "source": "dummyjson",
+  "name": "Samsung Galaxy Tab White",
+  "category": "tablets",
+  "brand": "Samsung",
+  "price_inr": 29049,
+  "mrp_inr": 35512,
+  "stock": 92,
+  "rating": 3.72,
+  "rating_count": 3,
+  "description": "The Samsung Galaxy Tab in White is a sleek and versatile Android tablet. With a vibrant display, long-lasting battery, and a range of features, it offers a great user experience for various tasks.",
+  "tags": [
+   "electronics",
+   "tablets"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0157",
+  "source": "dummyjson",
+  "name": "Blue Frock",
+  "category": "tops",
+  "brand": null,
+  "price_inr": 2489,
+  "mrp_inr": 2832,
+  "stock": 52,
+  "rating": 4.17,
+  "rating_count": 3,
+  "description": "The Blue Frock is a charming and stylish dress for various occasions. With a vibrant blue color and a comfortable design, it adds a touch of elegance to your wardrobe.",
+  "tags": [
+   "clothing",
+   "dresses"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0158",
+  "source": "dummyjson",
+  "name": "Girl Summer Dress",
+  "category": "tops",
+  "brand": null,
+  "price_inr": 1659,
+  "mrp_inr": 2053,
+  "stock": 43,
+  "rating": 4.77,
+  "rating_count": 3,
+  "description": "The Girl Summer Dress is a cute and breezy dress designed for warm weather. With playful patterns and lightweight fabric, it's perfect for keeping cool and stylish during the summer.",
+  "tags": [
+   "clothing",
+   "girls' dresses"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0159",
+  "source": "dummyjson",
+  "name": "Gray Dress",
+  "category": "tops",
+  "brand": null,
+  "price_inr": 2909,
+  "mrp_inr": 3393,
+  "stock": 55,
+  "rating": 2.72,
+  "rating_count": 3,
+  "description": "The Gray Dress is a versatile and chic option for various occasions. With a neutral gray color, it can be dressed up or down, making it a wardrobe staple for any fashion-forward individual.",
+  "tags": [
+   "clothing",
+   "dresses"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0160",
+  "source": "dummyjson",
+  "name": "Short Frock",
+  "category": "tops",
+  "brand": null,
+  "price_inr": 2079,
+  "mrp_inr": 2402,
+  "stock": 22,
+  "rating": 3.23,
+  "rating_count": 3,
+  "description": "The Short Frock is a playful and trendy dress with a shorter length. Ideal for casual outings or special occasions, it combines style and comfort for a fashionable look.",
+  "tags": [
+   "clothing",
+   "dresses"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0161",
+  "source": "dummyjson",
+  "name": "Tartan Dress",
+  "category": "tops",
+  "brand": null,
+  "price_inr": 3319,
+  "mrp_inr": 3812,
+  "stock": 73,
+  "rating": 4.05,
+  "rating_count": 3,
+  "description": "The Tartan Dress features a classic tartan pattern, bringing a timeless and sophisticated touch to your wardrobe. Perfect for fall and winter, it adds a hint of traditional charm.",
+  "tags": [
+   "clothing",
+   "dresses"
+  ],
+  "weight_raw": "8",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0162",
+  "source": "dummyjson",
+  "name": "Blue Women's Handbag",
+  "category": "womens-bags",
+  "brand": "Fashionista",
+  "price_inr": 4149,
+  "mrp_inr": 5052,
+  "stock": 76,
+  "rating": 2.92,
+  "rating_count": 3,
+  "description": "The Blue Women's Handbag is a stylish and spacious accessory for everyday use. With a vibrant blue color and multiple compartments, it combines fashion and functionality.",
+  "tags": [
+   "fashion accessories",
+   "handbags"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0163",
+  "source": "dummyjson",
+  "name": "Heshe Women's Leather Bag",
+  "category": "womens-bags",
+  "brand": "Heshe",
+  "price_inr": 10789,
+  "mrp_inr": 11223,
+  "stock": 99,
+  "rating": 4.92,
+  "rating_count": 3,
+  "description": "The Heshe Women's Leather Bag is a luxurious and high-quality leather bag for the sophisticated woman. With a timeless design and durable craftsmanship, it's a versatile accessory.",
+  "tags": [
+   "fashion accessories",
+   "leather bags"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0164",
+  "source": "dummyjson",
+  "name": "Prada Women Bag",
+  "category": "womens-bags",
+  "brand": "Prada",
+  "price_inr": 49799,
+  "mrp_inr": 57966,
+  "stock": 75,
+  "rating": 2.71,
+  "rating_count": 3,
+  "description": "The Prada Women Bag is an iconic designer bag that exudes elegance and luxury. Crafted with precision and featuring the Prada logo, it's a statement piece for fashion enthusiasts.",
+  "tags": [
+   "fashion accessories",
+   "designer bags"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0165",
+  "source": "dummyjson",
+  "name": "White Faux Leather Backpack",
+  "category": "womens-bags",
+  "brand": "Urban Chic",
+  "price_inr": 3319,
+  "mrp_inr": 3913,
+  "stock": 39,
+  "rating": 3.36,
+  "rating_count": 3,
+  "description": "The White Faux Leather Backpack is a trendy and practical backpack for the modern woman. With a sleek white design and ample storage space, it's perfect for both casual and on-the-go styles.",
+  "tags": [
+   "fashion accessories",
+   "backpacks"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0166",
+  "source": "dummyjson",
+  "name": "Women Handbag Black",
+  "category": "womens-bags",
+  "brand": "Elegance Collection",
+  "price_inr": 4979,
+  "mrp_inr": 5634,
+  "stock": 11,
+  "rating": 2.89,
+  "rating_count": 3,
+  "description": "The Women Handbag in Black is a classic and versatile accessory that complements various outfits. With a timeless black color and functional design, it's a must-have in every woman's wardrobe.",
+  "tags": [
+   "fashion accessories",
+   "handbags"
+  ],
+  "weight_raw": "6",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0167",
+  "source": "dummyjson",
+  "name": "Black Women's Gown",
+  "category": "womens-dresses",
+  "brand": null,
+  "price_inr": 10789,
+  "mrp_inr": 12052,
+  "stock": 25,
+  "rating": 3.64,
+  "rating_count": 3,
+  "description": "The Black Women's Gown is an elegant and timeless evening gown. With a sleek black design, it's perfect for formal events and special occasions, exuding sophistication and style.",
+  "tags": [
+   "clothing",
+   "gowns"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0168",
+  "source": "dummyjson",
+  "name": "Corset Leather With Skirt",
+  "category": "womens-dresses",
+  "brand": null,
+  "price_inr": 7469,
+  "mrp_inr": 8919,
+  "stock": 30,
+  "rating": 3.05,
+  "rating_count": 3,
+  "description": "The Corset Leather With Skirt is a bold and edgy ensemble that combines a stylish corset with a matching skirt. Ideal for fashion-forward individuals, it makes a statement at any event.",
+  "tags": [
+   "clothing",
+   "corsets",
+   "skirts"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0169",
+  "source": "dummyjson",
+  "name": "Corset With Black Skirt",
+  "category": "womens-dresses",
+  "brand": null,
+  "price_inr": 6639,
+  "mrp_inr": 7816,
+  "stock": 33,
+  "rating": 4.52,
+  "rating_count": 3,
+  "description": "The Corset With Black Skirt is a chic and versatile outfit that pairs a fashionable corset with a classic black skirt. It offers a trendy and coordinated look for various occasions.",
+  "tags": [
+   "clothing",
+   "corsets",
+   "skirts"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0170",
+  "source": "dummyjson",
+  "name": "Dress Pea",
+  "category": "womens-dresses",
+  "brand": null,
+  "price_inr": 4149,
+  "mrp_inr": 5040,
+  "stock": 6,
+  "rating": 4.88,
+  "rating_count": 3,
+  "description": "The Dress Pea is a stylish and comfortable dress with a pea pattern. Perfect for casual outings, it adds a playful and fun element to your wardrobe, making it a great choice for day-to-day wear.",
+  "tags": [
+   "clothing",
+   "dresses"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0171",
+  "source": "dummyjson",
+  "name": "Marni Red & Black Suit",
+  "category": "womens-dresses",
+  "brand": null,
+  "price_inr": 14939,
+  "mrp_inr": 18447,
+  "stock": 62,
+  "rating": 4.48,
+  "rating_count": 3,
+  "description": "The Marni Red & Black Suit is a sophisticated and fashion-forward suit ensemble. With a combination of red and black tones, it showcases a modern design for a bold and confident look.",
+  "tags": [
+   "clothing",
+   "suits"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0172",
+  "source": "dummyjson",
+  "name": "Green Crystal Earring",
+  "category": "womens-jewellery",
+  "brand": null,
+  "price_inr": 2489,
+  "mrp_inr": 2936,
+  "stock": 54,
+  "rating": 3.96,
+  "rating_count": 3,
+  "description": "The Green Crystal Earring is a dazzling accessory that features a vibrant green crystal. With a classic design, it adds a touch of elegance to your ensemble, perfect for formal or special occasions.",
+  "tags": [
+   "fashion accessories",
+   "earrings"
+  ],
+  "weight_raw": "2",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0173",
+  "source": "dummyjson",
+  "name": "Green Oval Earring",
+  "category": "womens-jewellery",
+  "brand": null,
+  "price_inr": 2079,
+  "mrp_inr": 2451,
+  "stock": 73,
+  "rating": 3.57,
+  "rating_count": 3,
+  "description": "The Green Oval Earring is a stylish and versatile accessory with a unique oval shape. Whether for casual or dressy occasions, its green hue and contemporary design make it a standout piece.",
+  "tags": [
+   "fashion accessories",
+   "earrings"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0174",
+  "source": "dummyjson",
+  "name": "Tropical Earring",
+  "category": "womens-jewellery",
+  "brand": null,
+  "price_inr": 1659,
+  "mrp_inr": 1671,
+  "stock": 1,
+  "rating": 4.4,
+  "rating_count": 3,
+  "description": "The Tropical Earring is a fun and playful accessory inspired by tropical elements. Featuring vibrant colors and a lively design, it's perfect for adding a touch of summer to your look.",
+  "tags": [
+   "fashion accessories",
+   "earrings"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0175",
+  "source": "dummyjson",
+  "name": "Black & Brown Slipper",
+  "category": "womens-shoes",
+  "brand": "Comfort Trends",
+  "price_inr": 1659,
+  "mrp_inr": 1716,
+  "stock": 3,
+  "rating": 2.53,
+  "rating_count": 3,
+  "description": "The Black & Brown Slipper is a comfortable and stylish choice for casual wear. Featuring a blend of black and brown colors, it adds a touch of sophistication to your relaxation.",
+  "tags": [
+   "footwear",
+   "slippers"
+  ],
+  "weight_raw": "5",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0176",
+  "source": "dummyjson",
+  "name": "Calvin Klein Heel Shoes",
+  "category": "womens-shoes",
+  "brand": "Calvin Klein",
+  "price_inr": 6639,
+  "mrp_inr": 6857,
+  "stock": 93,
+  "rating": 4.92,
+  "rating_count": 3,
+  "description": "Calvin Klein Heel Shoes are elegant and sophisticated, designed for formal occasions. With a classic design and high-quality materials, they complement your stylish ensemble.",
+  "tags": [
+   "footwear",
+   "heel shoes"
+  ],
+  "weight_raw": "6",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0177",
+  "source": "dummyjson",
+  "name": "Golden Shoes Woman",
+  "category": "womens-shoes",
+  "brand": "Fashion Diva",
+  "price_inr": 4149,
+  "mrp_inr": 4820,
+  "stock": 88,
+  "rating": 3.26,
+  "rating_count": 3,
+  "description": "The Golden Shoes for Women are a glamorous choice for special occasions. Featuring a golden hue and stylish design, they add a touch of luxury to your outfit.",
+  "tags": [
+   "footwear",
+   "women's shoes"
+  ],
+  "weight_raw": "4",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0178",
+  "source": "dummyjson",
+  "name": "Pampi Shoes",
+  "category": "womens-shoes",
+  "brand": "Pampi",
+  "price_inr": 2489,
+  "mrp_inr": 2898,
+  "stock": 49,
+  "rating": 3.05,
+  "rating_count": 3,
+  "description": "Pampi Shoes offer a blend of comfort and style for everyday use. With a versatile design, they are suitable for various casual occasions, providing a trendy and relaxed look.",
+  "tags": [
+   "footwear",
+   "casual shoes"
+  ],
+  "weight_raw": "7",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0179",
+  "source": "dummyjson",
+  "name": "Red Shoes",
+  "category": "womens-shoes",
+  "brand": "Fashion Express",
+  "price_inr": 2909,
+  "mrp_inr": 3534,
+  "stock": 7,
+  "rating": 3.25,
+  "rating_count": 3,
+  "description": "The Red Shoes make a bold statement with their vibrant red color. Whether for a party or a casual outing, these shoes add a pop of color and style to your wardrobe.",
+  "tags": [
+   "footwear",
+   "women's shoes"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0180",
+  "source": "dummyjson",
+  "name": "IWC Ingenieur Automatic Steel",
+  "category": "womens-watches",
+  "brand": "IWC",
+  "price_inr": 414999,
+  "mrp_inr": 458309,
+  "stock": 90,
+  "rating": 2.93,
+  "rating_count": 3,
+  "description": "The IWC Ingenieur Automatic Steel watch is a durable and sophisticated timepiece. With a stainless steel case and automatic movement, it combines precision and style for watch enthusiasts.",
+  "tags": [
+   "watches",
+   "luxury watches"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0181",
+  "source": "dummyjson",
+  "name": "Rolex Cellini Moonphase",
+  "category": "womens-watches",
+  "brand": "Rolex",
+  "price_inr": 1327999,
+  "mrp_inr": 1384919,
+  "stock": 52,
+  "rating": 3.83,
+  "rating_count": 3,
+  "description": "The Rolex Cellini Moonphase watch is a masterpiece of horology. Featuring a moon phase complication, it showcases the craftsmanship and elegance that Rolex is renowned for.",
+  "tags": [
+   "watches",
+   "luxury watches"
+  ],
+  "weight_raw": "10",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0182",
+  "source": "dummyjson",
+  "name": "Rolex Datejust Women",
+  "category": "womens-watches",
+  "brand": "Rolex",
+  "price_inr": 912999,
+  "mrp_inr": 1086127,
+  "stock": 4,
+  "rating": 2.86,
+  "rating_count": 3,
+  "description": "The Rolex Datejust Women's watch is an iconic timepiece designed for women. With a timeless design and a date complication, it offers both elegance and functionality.",
+  "tags": [
+   "watches",
+   "luxury watches",
+   "women's watches"
+  ],
+  "weight_raw": "3",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0183",
+  "source": "dummyjson",
+  "name": "Watch Gold for Women",
+  "category": "womens-watches",
+  "brand": "Fashion Gold",
+  "price_inr": 66399,
+  "mrp_inr": 81311,
+  "stock": 0,
+  "rating": 4.24,
+  "rating_count": 3,
+  "description": "The Gold Women's Watch is a stunning accessory that combines luxury and style. Featuring a gold-plated case and a chic design, it adds a touch of glamour to any outfit.",
+  "tags": [
+   "watches",
+   "women's watches"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ },
+ {
+  "product_id": "P-0184",
+  "source": "dummyjson",
+  "name": "Women's Wrist Watch",
+  "category": "womens-watches",
+  "brand": "Fashion Co.",
+  "price_inr": 10789,
+  "mrp_inr": 12344,
+  "stock": 12,
+  "rating": 3.52,
+  "rating_count": 3,
+  "description": "The Women's Wrist Watch is a versatile and fashionable timepiece for everyday wear. With a comfortable strap and a simple yet elegant design, it complements various styles.",
+  "tags": [
+   "watches",
+   "women's watches"
+  ],
+  "weight_raw": "1",
+  "image_path": null
+ }
+]

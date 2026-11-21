@@ -1,0 +1,62 @@
+[
+ {
+  "script": "generate_products.py",
+  "at": "2026-11-21T07:08:01+00:00",
+  "model": "groq:openai/gpt-oss-20b",
+  "prompt_files": [
+   "products.md"
+  ],
+  "llm_calls": 37,
+  "llm_failures": 14,
+  "tokens_in": 5798,
+  "tokens_out": 3829,
+  "products": 81,
+  "from_llm": 32,
+  "from_template": 49
+ },
+ {
+  "script": "generate_products.py",
+  "at": "2026-11-21T07:12:17+00:00",
+  "model": "groq:openai/gpt-oss-20b",
+  "prompt_files": [
+   "products.md"
+  ],
+  "llm_calls": 20,
+  "llm_failures": 0,
+  "tokens_in": 10203,
+  "tokens_out": 4802,
+  "products": 81,
+  "from_llm": 81,
+  "from_template": 0
+ },
+ {
+  "script": "plant_mess.py",
+  "at": "2026-11-21T07:12:40+00:00",
+  "model": "groq:openai/gpt-oss-20b",
+  "prompt_files": [
+   "translations.md"
+  ],
+  "llm_calls": 3,
+  "llm_failures": 0,
+  "tokens_in": 1320,
+  "tokens_out": 729,
+  "translated_by_llm": 12,
+  "translated_by_template": 0
+ },
+ {
+  "script": "generate_shoppers.py",
+  "at": "2026-11-21T07:13:28+00:00",
+  "model": "groq:openai/gpt-oss-20b",
+  "prompt_files": [
+   "shoppers.md"
+  ],
+  "llm_calls": 12,
+  "llm_failures": 0,
+  "tokens_in": 6816,
+  "tokens_out": 1930,
+  "shoppers": 30,
+  "orders": 102,
+  "from_llm": 30,
+  "from_template": 0
+ }
+]

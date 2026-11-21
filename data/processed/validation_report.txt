@@ -1,0 +1,29 @@
+products=265 categories=27 reviews=635 shoppers=30 orders=102
+PASS: all products match the schema (0 invalid: [])
+PASS: product IDs unique (0 duplicates)
+PASS: product IDs look like P-0001
+PASS: 265 products (brief minimum 250)
+PASS: 27 categories (brief minimum 5)
+PASS: prices positive
+PASS: stock never negative
+PASS: ratings between 0 and 5
+PASS: mess 'weight_in_kg': 8 (want 6+)
+PASS: mess 'weight_missing_unit': 3 (want 3+)
+PASS: mess 'brand_missing': 5 (want 5+)
+PASS: mess 'out_of_stock': 8 (want 8+)
+PASS: mess 'low_stock': 8 (want 8+)
+PASS: mess 'injection_review': 3 (want 3+)
+PASS: mess 'near_duplicate_groups': 12 (want 5+)
+PASS: 12 Hindi/Hinglish descriptions (want 8+)
+PASS: Hindi descriptions in Devanagari, Hinglish in Roman script ([])
+PASS: every review points to a real product (0 orphans)
+PASS: 10+ Hindi/Hinglish reviews
+PASS: 30 shoppers (brief minimum 25)
+PASS: shopper languages: {'en': 14, 'hinglish': 9, 'hi': 7}
+PASS: every order points to a real product (0 bad)
+PASS: every order belongs to a real shopper
+PASS: every shopper except the new one has 3+ orders ([])
+PASS: edge case: new shopper with no orders (C-028)
+PASS: 3 edge-case shoppers recorded: ['C-028', 'C-029', 'C-030']
+PASS: no emails or phone numbers in shopper data
+OK
