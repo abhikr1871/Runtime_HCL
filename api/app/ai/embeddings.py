@@ -21,7 +21,10 @@ def get_model():
     if _model is None:
         try:
             from sentence_transformers import SentenceTransformer
-            _model = SentenceTransformer(s.embed_model, cache_folder=str(s.models_dir))
+            try:
+                _model = SentenceTransformer(s.embed_model, cache_folder=str(s.models_dir), local_files_only=True)
+            except Exception:
+                _model = SentenceTransformer(s.embed_model, cache_folder=str(s.models_dir))
         except Exception as exc:
             log.warning("embedding model unavailable, falling back to keyword search: %s", exc)
             return None
