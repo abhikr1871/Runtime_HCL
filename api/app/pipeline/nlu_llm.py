@@ -14,12 +14,13 @@ from app.schemas import Slots
 
 _PROMPT = (Path(__file__).resolve().parents[1] / "ai" / "prompts" / "nlu.md").read_text(encoding="utf-8")
 CONFIDENCE_THRESHOLD = 0.6
+MAX_TOKENS = 600   # enough for the JSON (reasoning models think first); keeps calls inside the rate limit
 
 
 def refine(message: str, rules: Slots, llm: LLMClient) -> Slots:
     if rules.confidence >= CONFIDENCE_THRESHOLD:
         return rules
-    data = llm.complete_json(_PROMPT, message)
+    data = llm.complete_json(_PROMPT, message, max_tokens=MAX_TOKENS)
     if not data:
         return rules
     try:

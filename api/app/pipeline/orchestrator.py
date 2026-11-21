@@ -1,13 +1,16 @@
 """Runs one chat turn through the pipeline. Owner: M1 (with M3 for state and trace wiring).
 
-guard -> understand (rules, LLM fallback) -> state -> decide -> filters -> clarify? -> rank
--> diversity -> reasons -> compose (LLM) -> validate -> save trace + session
+guard -> understand (rules, LLM fallback) -> state -> decide -> filters -> rank -> clarify?
+-> diversity -> reasons -> compose (LLM) -> validate (regenerate once) -> save trace + session
 
-The LLM is used at most twice per turn (understand fallback, wording). Everything else is code.
+The LLM is used at most three times per turn (understand fallback, wording, one regeneration);
+everything that must be correct (filters, prices, stock, ranking) is code.
 """
 from __future__ import annotations
 
+import re
 import uuid
+from functools import lru_cache
 from typing import Any, Optional
 
 from app.ai.llm_client import LLMClient
@@ -36,6 +39,11 @@ _NOT_FOUND = {
     "hinglish": "Ye hamare catalogue mein nahi mila.",
     "hi": "यह हमारे कैटलॉग में नहीं मिला।",
 }
+_WIDEN = {
+    "en": "Would you like me to widen the search?",
+    "hinglish": "Kya main search thoda badha doon?",
+    "hi": "क्या मैं खोज थोड़ी बढ़ा दूँ?",
+}
 
 
 class SessionOwnershipError(Exception):
@@ -46,9 +54,46 @@ def _known_brands() -> list[str]:
     return [r["brand"] for r in db.query("SELECT DISTINCT brand FROM products WHERE brand IS NOT NULL")]
 
 
+@lru_cache(maxsize=4)
+def _vocabulary_for(catalogue_version: tuple[int, str]) -> frozenset[str]:
+    """Words the catalogue actually uses (names, categories, tags) - the typo corrector only maps onto these."""
+    words: set[str] = set()
+    for r in db.query("SELECT name, category, COALESCE(subcategory, '') AS sub, tags_json FROM products WHERE is_active = 1"):
+        words.update(re.findall(r"[a-z]{3,}", f"{r['name']} {r['category']} {r['sub']} {r['tags_json']}".lower()))
+    return frozenset(words)
+
+
+def _vocabulary() -> frozenset[str]:
+    """Cached per catalogue version, so a live /ingest adds its new words on the next request."""
+    row = db.query("SELECT COUNT(*) AS n, COALESCE(MAX(updated_at), '') AS t FROM products")[0]
+    return _vocabulary_for((row["n"], row["t"]))
+
+
 def _out(p: Product, reason: str) -> ProductOut:
     return ProductOut(product_id=p.product_id, name=p.name, price=p.price_inr, in_stock=p.stock > 0,
                       reason=reason, brand=p.brand, rating=p.rating, category=p.category)
+
+
+def _relaxation_message(label: str, f: dict[str, Any], nearest: list[Product], lang: str) -> str:
+    """Which constraint blocked results, plus a concrete counterfactual for the budget case."""
+    if label == "budget" and f.get("budget_max"):
+        prices = [p.price_inr for p in nearest if p.price_inr is not None]
+        if prices:
+            cheapest, budget = min(prices), int(f["budget_max"])
+            more = cheapest - budget
+            return {
+                "en": f"Nothing matched under your {reasons.format_inr(budget)} budget. The closest option is "
+                      f"{reasons.format_inr(cheapest)} ({reasons.format_inr(more)} more).",
+                "hinglish": f"Aapke {reasons.format_inr(budget)} budget mein kuch nahi mila. Sabse kareeb option "
+                            f"{reasons.format_inr(cheapest)} ka hai ({reasons.format_inr(more)} zyada).",
+                "hi": f"आपके {reasons.format_inr(budget)} बजट में कुछ नहीं मिला। सबसे नज़दीकी विकल्प "
+                      f"{reasons.format_inr(cheapest)} का है ({reasons.format_inr(more)} ज़्यादा)।",
+            }.get(lang, "")
+    return {
+        "en": f"Nothing matched with your {label} choice. These are the closest options if you can change it.",
+        "hinglish": f"Aapke {label} ke saath kuch nahi mila. Ye sabse kareeb options hain.",
+        "hi": f"आपकी {label} पसंद के साथ कुछ नहीं मिला। ये सबसे नज़दीकी विकल्प हैं।",
+    }.get(lang, "")
 
 
 def handle_chat(req: ChatRequest) -> ChatResponse:
@@ -81,9 +126,9 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
         return finish(ChatResponse(trace_id=trace_id, answer_type="refusal", language=lang,
                                    answer=_REFUSAL[g.reason][lang]))
 
-    # 2. understand
+    # 2. understand: rules first (Hindi words, typos, budget, brands), LLM only if unclear
     with timer.step("understand"):
-        slots = nlu_rules.parse(req.message, _known_brands())
+        slots = nlu_rules.parse(req.message, _known_brands(), _vocabulary())
         slots = nlu_llm.refine(req.message, slots, llm)
     record["slots"] = slots.model_dump()
     lang = slots.language
@@ -94,6 +139,9 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
         return finish(ChatResponse(trace_id=trace_id, answer_type="clarification", answer=q, follow_up_question=q, language=lang))
     if slots.intent == "out_of_scope":
         return finish(ChatResponse(trace_id=trace_id, answer_type="refusal", answer=_REFUSAL["out_of_scope"][lang], language=lang))
+    if slots.intent == "not_sold":
+        return finish(ChatResponse(trace_id=trace_id, answer_type="not_found", language=lang,
+                                   answer=f"{_NOT_FOUND[lang]} {_WIDEN[lang]}"))
 
     # 3. state
     with timer.step("state"):
@@ -109,7 +157,7 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
             return finish(ChatResponse(trace_id=trace_id, answer_type="clarification", answer=q, follow_up_question=q,
                                        language=lang, active_filters=f), new_state)
         table = compare.build_table(items)
-        outs = [_out(p, reasons.build(p, f)[0]) for p in items]
+        outs = [_out(p, reasons.build(p, f, lang)[0]) for p in items]
         return finish(ChatResponse(trace_id=trace_id, answer_type="comparison", language=lang, active_filters=f,
                                    answer="Here is a side-by-side comparison from our catalogue.", products=outs,
                                    comparison=table,
@@ -121,14 +169,14 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
             stock = f"in stock ({p.stock} left)" if p.stock > 0 else "currently out of stock"
             answer = f"{p.name} ({p.product_id}) costs {reasons.format_inr(p.price_inr)} and is {stock}."
             return finish(ChatResponse(trace_id=trace_id, answer_type="product_fact", language=lang, active_filters=f,
-                                       answer=answer, products=[_out(p, reasons.build(p, f)[0])],
+                                       answer=answer, products=[_out(p, reasons.build(p, f, lang)[0])],
                                        sources=[Source(product_id=p.product_id, fields=["price", "stock"])]), new_state)
 
     # 4b. hard filters, rank, then maybe one clarifying question
+    query = nlu_rules.expand_for_search(f.get("query_text", ""))
     with timer.step("filter"):
         total = repository.count_products()
         candidates = filters.apply(f)
-    query = f.get("query_text", "")
     with timer.step("rank"):
         ranked = retrieval.rank(query, candidates, f.get("sort"))
     question = clarify.next_question(new_state, [p for p, _ in ranked], lang)
@@ -145,7 +193,8 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
     with timer.step("rank"):
         ranked = rerank.rerank(query, ranked)
         ranked, assumptions = personalise.apply(ranked, req.customer_id)
-    record["retrieval"] = {"candidates": len(candidates), "top": [(p.product_id, round(s, 4)) for p, s in ranked[:10]]}
+    record["retrieval"] = {"query": query, "candidates": len(candidates),
+                           "top": [(p.product_id, round(s, 4)) for p, s in ranked[:10]]}
 
     # 6. nothing matched -> relax one constraint and say which one blocked results
     if not ranked:
@@ -153,27 +202,34 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
         if relaxed:
             label, nearest_ranked = relaxed
             nearest = diversity.diversify(nearest_ranked, 3)
-            msg = f"Nothing matched with your {label}. These are the closest options if you can change it."
-            rel = Relaxation(blocked_by=label, message=msg, nearest=[_out(p, reasons.build(p, {})[0]) for p in nearest])
+            msg = _relaxation_message(label, f, nearest, lang)
+            rel = Relaxation(blocked_by=label, message=msg, nearest=[_out(p, reasons.build(p, {}, lang)[0]) for p in nearest])
             return finish(ChatResponse(trace_id=trace_id, answer_type="not_found", language=lang, active_filters=f,
                                        answer=f"{_NOT_FOUND[lang]} {msg}", relaxation=rel,
                                        funnel=Funnel(total=total, after_filters=len(candidates), shown=0)), new_state)
         return finish(ChatResponse(trace_id=trace_id, answer_type="not_found", language=lang, active_filters=f,
-                                   answer=f"{_NOT_FOUND[lang]} Would you like me to widen the search?",
+                                   answer=f"{_NOT_FOUND[lang]} {_WIDEN[lang]}",
                                    funnel=Funnel(total=total, after_filters=len(candidates), shown=0)), new_state)
 
-    # 7. answer: reasons from fields -> wording -> validator
+    # 7. answer: reasons from fields -> wording -> validator (regenerate once, then template)
     top = diversity.diversify(ranked, 3)
-    built = [(p, *reasons.build(p, f)) for p in top]
+    built = [(p, *reasons.build(p, f, lang)) for p in top]
     items = [(p, r) for p, r, _ in built]
+    allowed = [v for v in (f.get("budget_max"), f.get("budget_min")) if v is not None]
     with timer.step("compose"):
         answer = composer.compose(items, lang, llm)
     with timer.step("validate"):
-        allowed = [v for v in (f.get("budget_max"), f.get("budget_min")) if v is not None]
         check = validator.check(answer, top, allowed)
-    record["validator"] = {"ok": check.ok, "problems": check.problems}
+    attempts = [{"ok": check.ok, "problems": check.problems}]
+    if not check.ok and not llm.mock:
+        with timer.step("compose"):
+            answer = composer.compose(items, lang, llm, feedback=check.problems)
+        with timer.step("validate"):
+            check = validator.check(answer, top, allowed)
+        attempts.append({"ok": check.ok, "problems": check.problems})
     if not check.ok:
-        answer = composer.template(items, lang)  # TODO(M1): one regeneration before falling back
+        answer = composer.template(items, lang)
+    record["validator"] = {"ok": check.ok, "attempts": attempts, "used_template": not check.ok}
 
     new_state = new_state.model_copy(update={"last_results": [p.product_id for p in top]})
     return finish(ChatResponse(
