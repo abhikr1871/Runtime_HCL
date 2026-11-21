@@ -89,3 +89,62 @@ def get_orders_for(customer_id: str) -> list[dict]:
     """History for ONE customer. Callers pass the session owner's ID, never one taken from the message."""
     rows = db.query("SELECT * FROM orders WHERE customer_id = ? ORDER BY ordered_at DESC", (customer_id,))
     return [dict(r) for r in rows]
+
+
+# ---------- embeddings (Owner: M2-B) ----------
+def save_embedding(product_id: str, kind: str, model: str, vector_bytes: bytes) -> None:
+    """Save or update an embedding vector for a product."""
+    db.execute(
+        "INSERT INTO embeddings (product_id, kind, model, vector, updated_at) "
+        "VALUES (?, ?, ?, ?, datetime('now')) "
+        "ON CONFLICT(product_id, kind) DO UPDATE SET model = excluded.model, "
+        "vector = excluded.vector, updated_at = datetime('now')",
+        (product_id, kind, model, vector_bytes),
+    )
+
+
+def save_embeddings_batch(records: list[tuple[str, str, str, bytes]]) -> None:
+    """Batch save embeddings in a single transaction."""
+    if not records:
+        return
+    with db._lock:
+        conn = db.get_conn()
+        conn.executemany(
+            "INSERT INTO embeddings (product_id, kind, model, vector, updated_at) "
+            "VALUES (?, ?, ?, ?, datetime('now')) "
+            "ON CONFLICT(product_id, kind) DO UPDATE SET model = excluded.model, "
+            "vector = excluded.vector, updated_at = datetime('now')",
+            records,
+        )
+        conn.commit()
+
+
+def get_embedding(product_id: str, kind: str = "text") -> Optional[bytes]:
+    """Retrieve raw vector bytes for a single product."""
+    rows = db.query("SELECT vector FROM embeddings WHERE product_id = ? AND kind = ?", (product_id, kind))
+    return rows[0]["vector"] if rows else None
+
+
+def get_all_embeddings(kind: str = "text") -> dict[str, bytes]:
+    """Retrieve all embeddings of a given kind as a mapping of product_id -> vector_bytes."""
+    rows = db.query("SELECT product_id, vector FROM embeddings WHERE kind = ?", (kind,))
+    return {r["product_id"]: r["vector"] for r in rows}
+
+
+def delete_embedding(product_id: str, kind: str = "text") -> None:
+    """Delete an embedding record."""
+    db.execute("DELETE FROM embeddings WHERE product_id = ? AND kind = ?", (product_id, kind))
+
+
+def deactivate_product(product_id: str) -> bool:
+    """Soft-delete: mark product inactive so it never appears in search."""
+    cur = db.execute("UPDATE products SET is_active = 0, updated_at = datetime('now') WHERE product_id = ?", (product_id,))
+    return cur.rowcount > 0
+
+
+def delete_product(product_id: str) -> bool:
+    """Hard-delete product and its embeddings."""
+    db.execute("DELETE FROM embeddings WHERE product_id = ?", (product_id,))
+    cur = db.execute("DELETE FROM products WHERE product_id = ?", (product_id,))
+    return cur.rowcount > 0
+
