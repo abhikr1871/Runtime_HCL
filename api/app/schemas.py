@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 
 AnswerType = Literal["recommendation", "comparison", "clarification", "product_fact", "not_found", "refusal"]
 Language = Literal["en", "hi", "hinglish"]
-Intent = Literal["search", "refine", "compare", "product_fact", "out_of_scope", "other_shopper_data", "greeting"]
+Intent = Literal["search", "refine", "compare", "product_fact", "out_of_scope", "not_sold", "other_shopper_data", "greeting"]
 
 
 # ---------- /chat ----------
@@ -90,6 +90,7 @@ class Slots(BaseModel):
     recipient: Optional[str] = None
     references: list[int] = []          # 0-based positions in the last result list
     product_ids: list[str] = []         # explicit IDs typed by the shopper, e.g. "P-0012"
+    corrections: dict[str, str] = {}    # typo / Hindi word -> word used for search, e.g. {"blutooth": "bluetooth"}
     wants_cheaper: bool = False
     sort: Optional[Literal["price_asc", "price_desc", "rating_desc"]] = None
     confidence: float = 0.5
