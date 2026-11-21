@@ -5,6 +5,10 @@ __pycache__/
 venv/
 .pytest_cache/
 
+# Node / React frontend (reinstalled with npm ci, rebuilt with npm run build)
+node_modules/
+frontend/dist/
+
 # Secrets and local config
 .env
 
