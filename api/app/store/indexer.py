@@ -92,6 +92,10 @@ def _load_or_compute_embeddings(prods: dict[str, Product]) -> tuple[list[str], O
                         (pid, s.embed_model, vec_f32.tobytes()),
                     )
 
+        # Sync to ChromaDB collection when embeddings exist
+        if existing:
+            _sync_to_chroma(prods, existing)
+
         emb_ids = [pid for pid in prods if pid in existing]
         if not emb_ids:
             return [], None
@@ -100,6 +104,54 @@ def _load_or_compute_embeddings(prods: dict[str, Product]) -> tuple[list[str], O
     except Exception as exc:
         log.warning("Dense embeddings indexing skipped or failed: %s", exc)
         return [], None
+
+
+def get_chroma_collection():
+    """Returns the persistent ChromaDB collection for products."""
+    try:
+        import chromadb
+        s = get_settings()
+        s.chroma_dir.mkdir(parents=True, exist_ok=True)
+        client = chromadb.PersistentClient(path=str(s.chroma_dir))
+        return client.get_or_create_collection(
+            name="products",
+            metadata={"hnsw:space": "cosine"}
+        )
+    except Exception as exc:
+        log.warning("ChromaDB initialization failed: %s", exc)
+        return None
+
+
+def _sync_to_chroma(prods: dict[str, Product], embeddings_dict: dict[str, np.ndarray]) -> None:
+    """Sync embeddings to ChromaDB collection."""
+    col = get_chroma_collection()
+    if col is None:
+        return
+    try:
+        pids = [pid for pid in embeddings_dict if pid in prods]
+        if not pids:
+            return
+        batch_size = 200
+        for i in range(0, len(pids), batch_size):
+            chunk = pids[i : i + batch_size]
+            col.upsert(
+                ids=chunk,
+                embeddings=[embeddings_dict[pid].tolist() for pid in chunk],
+                documents=[doc_text(prods[pid]) for pid in chunk],
+                metadatas=[
+                    {
+                        "product_id": pid,
+                        "brand": prods[pid].brand or "",
+                        "category": prods[pid].category or "",
+                        "price_inr": int(prods[pid].price_inr or 0),
+                        "in_stock": int(prods[pid].stock > 0),
+                    }
+                    for pid in chunk
+                ],
+            )
+        log.info("Synced %d embeddings to ChromaDB collection 'products'", len(pids))
+    except Exception as exc:
+        log.warning("ChromaDB sync failed: %s", exc)
 
 
 def rebuild() -> int:
@@ -153,7 +205,28 @@ def get_bm25_scores(query_tokens: list[str]) -> dict[str, float]:
 
 
 def get_dense_scores(query_text: str) -> dict[str, float]:
-    """Cosine similarity scores against multilingual e5 embeddings."""
+    """Cosine similarity scores against multilingual e5 embeddings (NumPy or ChromaDB)."""
+    s = get_settings()
+    if s.vector_store == "chromadb":
+        try:
+            col = get_chroma_collection()
+            if col is not None and col.count() > 0:
+                q_vec = embeddings.embed_query(query_text)
+                if q_vec is not None:
+                    res = col.query(
+                        query_embeddings=[q_vec.tolist() if hasattr(q_vec, "tolist") else list(q_vec)],
+                        n_results=min(col.count(), 100),
+                    )
+                    if res and res.get("ids") and len(res["ids"]) > 0:
+                        scores = {}
+                        for pid, dist in zip(res["ids"][0], res["distances"][0]):
+                            sim = max(0.0, 1.0 - float(dist))
+                            if sim > 0:
+                                scores[pid] = sim
+                        return scores
+        except Exception as exc:
+            log.warning("ChromaDB retrieval fallback to NumPy: %s", exc)
+
     with _lock:
         if _embedding_matrix is None or len(_embedding_ids) == 0:
             return {}
@@ -172,8 +245,10 @@ def get_product(product_id: str) -> Optional[Product]:
 
 def status() -> str:
     with _lock:
+        s = get_settings()
         n = len(_products)
+        store = s.vector_store
         has_emb = _embedding_matrix is not None and len(_embedding_ids) > 0
         if has_emb:
-            return f"hybrid (BM25 + Dense {len(_embedding_ids)}/{n} prods)"
+            return f"hybrid (BM25 + Dense[{store}] {len(_embedding_ids)}/{n} prods)"
         return f"bm25 ({n} products)"

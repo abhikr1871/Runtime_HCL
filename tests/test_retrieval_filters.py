@@ -221,3 +221,17 @@ def test_search_products_interface_contract():
     # Ensure hard constraints were respected
     assert all(it["price"] <= 3000 for it in res)
     assert all(it["in_stock"] is True for it in res)
+
+
+# 15. ChromaDB vector store integration
+def test_chromadb_vector_store(monkeypatch):
+    monkeypatch.setenv("VECTOR_STORE", "chromadb")
+    from app.config import get_settings
+    get_settings.cache_clear()
+
+    col = indexer.get_chroma_collection()
+    assert col is not None
+    assert col.name == "products"
+    scores = indexer.get_dense_scores("laptop")
+    assert isinstance(scores, dict)
+
