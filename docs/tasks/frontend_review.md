@@ -4,6 +4,8 @@ The React UI in `frontend/` is merged. These changes are needed before the demo.
 
 | # | Issue | Fix |
 | --- | --- | --- |
+| 0 | **Crash (fixed in main):** `useEffect(()=>bottomRef.current?.scrollIntoView(...))` returned a Promise in current Chrome, so React threw "destroy is not a function" and the page went blank after the first message. Fixed by wrapping the body in `{ }`. | Keep effects as `useEffect(() => { ... }, deps)` |
+| 0b | In API mode every product shows "1 left", because `/chat` returns `in_stock` (true/false), not a stock count. Products with no brand show "Catalog". | Show "In stock" / "Out of stock" from `in_stock`; show "Brand not listed" for missing brands (the catalogue has 5 on purpose) |
 | 1 | It uses a hardcoded demo catalogue (16 made-up products, `P-2041` ...) and starts in **Demo mode**. Judges must see our real 265-product catalogue. | Start in API mode by default; remove `PRODUCTS` / `mockAnswer` or keep them only as an offline fallback clearly labelled "demo". Load products from `GET /products/{id}` results returned by `/chat`. |
 | 2 | API base is `http://localhost:8000`. On Windows `localhost` adds ~2 s per request. | Use `http://127.0.0.1:8000`. |
 | 3 | `customer_id` is hardcoded to `demo-shopper` and `session_id` to `demo-session` (every browser tab shares one session). | Add a customer picker (C-001 ... C-030) and a fresh `session_id` per conversation (e.g. `crypto.randomUUID()`). |
