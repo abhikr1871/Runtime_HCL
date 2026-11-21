@@ -138,6 +138,8 @@ def test_relax_counterfactual_budget_hint(monkeypatch):
     assert label == "budget"
     assert "₹500 more (₹2,500) gives 2 options." in msg_en
     assert extra == [500, 2500, 2000]
+    assert len(ranked) == 2
+    assert all(p.price_inr <= 2500 for p, _ in ranked)
 
     # Hinglish check
     res_hinglish = relax.relax(f, "shoes", "hinglish")
@@ -146,6 +148,26 @@ def test_relax_counterfactual_budget_hint(monkeypatch):
     # Hindi check
     res_hi = relax.relax(f, "shoes", "hi")
     assert "₹500 अधिक (₹2,500) में 2 विकल्प उपलब्ध हैं।" in res_hi[2]
+
+
+def test_relax_budget_fixtures_card_consistency(monkeypatch):
+    # Test with fixtures: budget 3000, products at 3500, 3500, 8000 -> hint says 2 options and ranked list has only two 3500 items
+    candidates = [
+        _make_prod("P-1", price=3500),
+        _make_prod("P-2", price=3500),
+        _make_prod("P-3", price=8000),
+    ]
+    monkeypatch.setattr("app.pipeline.filters.apply", lambda loosened: candidates)
+    monkeypatch.setattr("app.pipeline.retrieval.rank", lambda q, c, s: [(p, 1.0) for p in c])
+
+    f = {"budget_max": 3000, "category": "mens-shoes"}
+    res = relax.relax(f, "shoes", "en")
+    assert res is not None
+    label, ranked, msg, extra = res
+    assert "₹500 more (₹3,500) gives 2 options." in msg
+    assert len(ranked) == 2
+    assert [p.product_id for p, _ in ranked] == ["P-1", "P-2"]
+    assert all(p.price_inr <= 3500 for p, _ in ranked)
 
 
 def test_relax_non_budget_filter_removal(monkeypatch):
@@ -199,3 +221,18 @@ def test_reasons_unmatched_tags_remain_unchanged():
     assert "waterproof" not in reason
     assert "trekking" not in reason
     assert "tags" not in fields
+
+
+def test_reasons_tag_matching_precision():
+    # query "shoes for running" must NOT match tag "for flat feet" but MUST match tag "running"
+    p1 = _make_prod("P-1", tags=["for flat feet", "running"])
+    reason1, _ = reasons.build(p1, {"query_text": "shoes for running"})
+    assert "for running" in reason1 or "running" in reason1
+    assert "flat feet" not in reason1
+
+    # query "women sandals" must not match tag "men" or attribute "gender": "men"
+    p2 = _make_prod("P-2", tags=["men"])
+    p2.attributes = {"gender": "men"}
+    reason2, fields2 = reasons.build(p2, {"query_text": "women sandals"})
+    assert "men" not in reason2
+    assert "tags" not in fields2

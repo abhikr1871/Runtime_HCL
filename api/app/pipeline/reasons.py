@@ -7,6 +7,7 @@ from typing import Any, Optional
 from app.schemas import Product
 
 _GENERIC_TAGS = {"shoes", "shoe", "laptop", "laptops", "phone", "phones", "shirt", "shirts", "bag", "bags", "product", "item"}
+_FILLER_WORDS = {"for", "and", "the", "with", "in", "of", "to", "a", "an"}
 
 
 def format_inr(amount: Optional[int]) -> str:
@@ -26,6 +27,13 @@ def format_inr(amount: Optional[int]) -> str:
     return f"₹{s}"
 
 
+def _tag_matches_query(tag: str, shopper_words: set[str]) -> bool:
+    content_tag_words = [w for w in re.findall(r"[\wऀ-ॿ]+", tag.lower()) if w not in _FILLER_WORDS]
+    if not content_tag_words:
+        return False
+    return all(w in shopper_words for w in content_tag_words)
+
+
 def build(p: Product, f: dict[str, Any]) -> tuple[str, list[str]]:
     """Returns (reason sentence, catalogue fields used)."""
     parts, fields = [], []
@@ -43,34 +51,43 @@ def build(p: Product, f: dict[str, Any]) -> tuple[str, list[str]]:
         parts.append(f"{p.brand} as you asked")
         fields.append("brand")
 
-    # Match shopper's query words/slots against the product's tags/attributes/description keywords
+    # Match shopper's query words/slots against the product's tags/attributes
     query_text = (f.get("query_text") or "").lower()
     shopper_words = set(re.findall(r"[\wऀ-ॿ]+", query_text))
     for attr in f.get("attributes", []):
-        shopper_words.add(attr.lower())
+        shopper_words.update(re.findall(r"[\wऀ-ॿ]+", attr.lower()))
 
     matched_tags = []
     for tag in (p.tags or []):
         t_low = tag.lower().strip()
         if t_low in _GENERIC_TAGS:
             continue
-        if t_low in query_text or any(w in shopper_words for w in re.findall(r"[\wऀ-ॿ]+", t_low)):
+        if _tag_matches_query(t_low, shopper_words):
             if t_low not in matched_tags:
                 matched_tags.append(t_low)
 
     for k, v in (p.attributes or {}).items():
         if isinstance(v, str):
             v_low = v.lower().strip()
-            if v_low not in _GENERIC_TAGS and (v_low in query_text or any(w in shopper_words for w in re.findall(r"[\wऀ-ॿ]+", v_low))):
+            if v_low not in _GENERIC_TAGS and _tag_matches_query(v_low, shopper_words):
                 if v_low not in matched_tags:
                     matched_tags.append(v_low)
+        elif isinstance(v, list):
+            for item in v:
+                if isinstance(item, str):
+                    item_low = item.lower().strip()
+                    if item_low not in _GENERIC_TAGS and _tag_matches_query(item_low, shopper_words):
+                        if item_low not in matched_tags:
+                            matched_tags.append(item_low)
 
     formatted_tags = []
     for tag in matched_tags[:2]:
-        if tag in {"trekking", "hiking", "running", "study", "office", "gaming", "travel", "party", "flat feet", "jogging", "gym"}:
-            formatted_tags.append(f"for {tag}")
+        content = [w for w in re.findall(r"[\wऀ-ॿ]+", tag) if w not in _FILLER_WORDS]
+        clean_tag = " ".join(content)
+        if clean_tag in {"trekking", "hiking", "running", "study", "office", "gaming", "travel", "party", "flat feet", "jogging", "gym"}:
+            formatted_tags.append(f"for {clean_tag}")
         else:
-            formatted_tags.append(tag)
+            formatted_tags.append(clean_tag)
 
     if formatted_tags:
         parts.extend(formatted_tags)

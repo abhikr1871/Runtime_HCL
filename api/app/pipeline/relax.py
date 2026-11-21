@@ -38,7 +38,7 @@ def relax(f: dict[str, Any], query: str, language: str = "en") -> Optional[tuple
             diff = min_price - user_budget
             at_min_price = [p for p in over_budget if p.price_inr <= min_price]
             count = len(at_min_price)
-            ranked = retrieval.rank(query, over_budget, loosened.get("sort"))
+            ranked = retrieval.rank(query, at_min_price, loosened.get("sort"))
 
             opt_str = "option" if count == 1 else "options"
             if language == "hi":
