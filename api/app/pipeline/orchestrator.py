@@ -166,14 +166,40 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
     top = diversity.diversify(ranked, 3)
     built = [(p, *reasons.build(p, f)) for p in top]
     items = [(p, r) for p, r, _ in built]
+    allowed = [v for v in (f.get("budget_max"), f.get("budget_min")) if v is not None]
+
     with timer.step("compose"):
         answer = composer.compose(items, lang, llm)
     with timer.step("validate"):
-        allowed = [v for v in (f.get("budget_max"), f.get("budget_min")) if v is not None]
         check = validator.check(answer, top, allowed)
-    record["validator"] = {"ok": check.ok, "problems": check.problems}
-    if not check.ok:
-        answer = composer.template(items, lang)  # TODO(M1): one regeneration before falling back
+
+    validation_failures = list(check.problems)
+    regenerated = False
+    fallback_used = False
+
+    if not check.ok and not llm.mock:
+        # Regenerate once with extra instruction listing violations
+        regenerated = True
+        extra_instr = f"Your previous answer contained validation errors: {'; '.join(check.problems)}. Use only the exact facts and stock/price data provided."
+        with timer.step("compose_retry"):
+            answer = composer.compose(items, lang, llm, extra_instruction=extra_instr)
+        with timer.step("validate_retry"):
+            check = validator.check(answer, top, allowed)
+        if not check.ok:
+            validation_failures.extend(check.problems)
+            fallback_used = True
+            answer = composer.template(items, lang)
+    elif not check.ok:
+        fallback_used = True
+        answer = composer.template(items, lang)
+
+    record["validator"] = {
+        "ok": check.ok,
+        "problems": check.problems,
+        "validation_failures": validation_failures,
+        "regenerated": regenerated,
+        "fallback_used": fallback_used,
+    }
 
     new_state = new_state.model_copy(update={"last_results": [p.product_id for p in top]})
     return finish(ChatResponse(

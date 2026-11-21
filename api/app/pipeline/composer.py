@@ -36,9 +36,11 @@ def template(items: list[tuple[Product, str]], language: str) -> str:
     return "\n".join(lines)
 
 
-def compose(items: list[tuple[Product, str]], language: str, llm: LLMClient) -> str:
+def compose(items: list[tuple[Product, str]], language: str, llm: LLMClient, extra_instruction: str = "") -> str:
     fallback = template(items, language)
     facts = [{"product_id": p.product_id, "name": p.name, "price": format_inr(p.price_inr), "reason": r} for p, r in items]
     user = f"<catalogue_data>\n{json.dumps(facts, ensure_ascii=False)}\n</catalogue_data>"
+    if extra_instruction:
+        user += f"\n\nCorrection required: {extra_instruction}\nUse only the exact facts inside <catalogue_data>."
     text = llm.complete_text(_PROMPT.replace("{language}", _LANG_NAME.get(language, "English")), user)
     return text.strip() if text else fallback
