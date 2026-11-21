@@ -81,14 +81,22 @@ _MULT: dict[str, int] = {
     "k": 1000, "thousand": 1000, "hazaar": 1000, "hazar": 1000, "hajar": 1000, "हज़ार": 1000, "हजार": 1000,
     "sau": 100, "सौ": 100, "lakh": 100000, "lac": 100000, "लाख": 100000,
 }
-_WORDS_PAT = "|".join(sorted(_WORDS_TO_NUM, key=lambda x: -len(x)))
-_MULT_PAT = r"(?:k\b|thousand|hazaar|hazar|hajar|हज़ार|हजार|sau|सौ|lakh|lac|लाख)"
+# number words and multipliers must stand alone ("do" in "dove" is not 2) (Daksh)
+_ROMAN_WORDS = (r"\b(?:ek|do|teen|char|chaar|paanch|panch|chhe|che|saat|aath|nau|das|gyarah|barah|terah|chaudah|"
+                r"pandrah|solah|satrah|atharah|unnis|bees|tees|chalis|pachas|pachaas)\b")
+_DEV_WORDS = r"(?<![ऀ-ॿ])(?:एक|दो|तीन|चार|पाँच|पांच|छह|छ|सात|आठ|नौ|दस)(?![ऀ-ॿ])"
+_WORDS_PAT = f"(?:{_ROMAN_WORDS}|{_DEV_WORDS})"
+_MULT_ROMAN = r"(?:k\b|\b(?:thousand|hazaar|hazar|hajar|sau|lakh|lac)\b)"
+_MULT_DEV = r"(?<![ऀ-ॿ])(?:हज़ार|हजार|सौ|लाख)(?![ऀ-ॿ])"
+_MULT_PAT = f"(?:{_MULT_ROMAN}|{_MULT_DEV})"
+# "32 GB", "5G", "2.4 GHz", "8 cores" are specs, not prices
+_UNIT_GUARD = r"(?!\s*(?:gb|tb|mb|mp|g|inch(?:es)?|hz|khz|mhz|ghz|mah|ram|cores?)\b)"
 _CURRENCY_WORD = r"(?:\s*(?:rs\.?|rupees|rupaye|rupay|रुपये|रुपए|रुपया|रु\.?))?"
 _NUM = (
     r"(?:(?:rs\.?|inr|₹)\s*)?"
-    r"(?:(\d[\d,]*(?:\.\d+)?)|(?<![a-z])(" + _WORDS_PAT + r")(?![a-z]))"   # number words must stand alone ("do", not "dove")
+    r"(?:(?<![\d.])(\d[\d,]*(?:\.\d+)?)(?![\d.])|(" + _WORDS_PAT + r"))"
     r"(?:\s*(" + _MULT_PAT + r"))?"
-    r"(?!\s*(?:gb|tb|mb|mp|g\b|inch|hz|mah))"                             # "32 GB", "5G" are specs, not prices
+    + _UNIT_GUARD
 )
 _BETWEEN = [
     re.compile(r"between\s*" + _NUM + r"\s*(?:and|to|-)\s*" + _NUM, re.I),
@@ -99,12 +107,13 @@ _MAX = [
     re.compile(r"(?:under|below|less than|within|up\s?to|upto|max(?:imum)?|budget(?:\s+of|\s+is)?)\s*" + _NUM, re.I),
     re.compile(_NUM + _CURRENCY_WORD + r"\s*(?:se\s+kam|से\s*कम|ke\s+andar|के\s*अंदर|ke\s+neeche|के\s*नीचे|"
                r"tak(?:\s+ka)?|तक(?:\s*का)?|or less|budget)", re.I),
-    re.compile(r"(?:rs\.?|inr|₹)\s*" + _NUM, re.I),
 ]
 _MIN = [
     re.compile(r"(?:above|over|more than|at least|min(?:imum)?|starting(?:\s+from)?|start(?:\s+from)?)\s*" + _NUM, re.I),
     re.compile(_NUM + _CURRENCY_WORD + r"\s*(?:se\s+(?:zyada|jyada|upar|adhik)|से\s*(?:ज़्यादा|ज्यादा|ऊपर|अधिक)|or more)", re.I),
 ]
+# "₹2000" with no other wording: treated as a maximum only when nothing else matched (Daksh)
+_BARE_CURRENCY = re.compile(r"(?:rs\.?|inr|₹)\s*" + _NUM, re.I)
 # Words that must never be read as a brand typo (Daksh)
 _BRAND_STOPWORDS = {
     "shoes", "shoe", "phone", "phones", "under", "below", "black", "white", "blue", "green", "red",
@@ -113,6 +122,11 @@ _BRAND_STOPWORDS = {
     "free", "deal", "more", "less", "sale", "home", "wear", "mens", "womens", "boys", "girls",
     "chahiye", "dikhao", "sasta", "saste", "accha", "acha", "wala", "wali", "wale", "karo", "karna",
     "only", "nahi", "nahin", "mat", "not", "between", "over", "above", "item", "items", "both",
+    "boot", "boots", "camp", "camps", "cut", "jeans", "sandal", "sandals", "slipper", "slippers",
+    "sneaker", "sneakers", "heels", "kurta", "saree", "hoodie", "jacket", "bag", "bags",
+    "speaker", "speakers", "earbuds", "headphones", "charger", "cable", "mouse", "keyboard",
+    "tablet", "camera", "fridge", "level", "sonic", "bottle", "bottles", "backpack", "backpacks",
+    "cotton", "sports", "running", "casual", "formal", "dress", "pants", "tshirt", "tshirts",
 }
 _NEG = [re.compile(r"\b(?:not|no|except|without|but not)\s+([a-z][\w&-]+)", re.I),
         re.compile(r"\b([a-z][\w&-]+)\s+(?:nahi|nahin|mat)\b", re.I)]
@@ -162,12 +176,14 @@ def _match_brand(token: str, brands: dict[str, str], threshold: float = 85.0) ->
         return None
     best_brand, best_score = None, 0.0
     for b_lower, b_orig in brands.items():
-        if " " in b_lower:
+        if " " in b_lower or t[0] != b_lower[0] or abs(len(t) - len(b_lower)) > 1:
+            continue
+        dl = distance.DamerauLevenshtein.distance(t, b_lower)
+        if len(t) <= 5 and dl > 1:
             continue
         ratio = fuzz.ratio(t, b_lower)
         jw = distance.JaroWinkler.similarity(t, b_lower) * 100.0
-        dl = distance.DamerauLevenshtein.distance(t, b_lower)
-        score = max(ratio, jw) if (dl <= 1 and abs(len(t) - len(b_lower)) <= 1) else ratio
+        score = max(ratio, jw) if dl <= 1 else ratio
         if score >= threshold and score > best_score:
             best_score, best_brand = score, b_orig
     return best_brand
@@ -248,14 +264,16 @@ def parse(message: str, known_brands: Iterable[str] = (), vocabulary: Iterable[s
             range_found = True
             break
     if not range_found:
-        for p in _MAX:
-            if m := p.search(text):
-                s.budget_max = _parse_val(m.group(1), m.group(2), m.group(3))
-                break
         for p in _MIN:
             if m := p.search(text):
                 s.budget_min = _parse_val(m.group(1), m.group(2), m.group(3))
                 break
+        for p in _MAX:
+            if m := p.search(text):
+                s.budget_max = _parse_val(m.group(1), m.group(2), m.group(3))
+                break
+        if s.budget_min is None and s.budget_max is None and (m := _BARE_CURRENCY.search(text)):
+            s.budget_max = _parse_val(m.group(1), m.group(2), m.group(3))
 
     text, translated = translate_terms(text)
     before_typos = text
