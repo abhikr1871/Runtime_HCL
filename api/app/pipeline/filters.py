@@ -48,6 +48,16 @@ def build_where(f: dict[str, Any], in_stock_only: bool = True) -> tuple[str, lis
         if exclude:
             clauses.append(f"(brand IS NULL OR LOWER(brand) NOT IN ({','.join('?' * len(exclude))}))")
             params.extend(exclude)
+            # brand missing in the data ("Nike Pulse Running Shoes", brand NULL): the name still says Nike
+            for b in exclude:
+                clauses.append("NOT (brand IS NULL AND (' ' || LOWER(name) || ' ') LIKE ?)")
+                params.append(f"% {b} %")
+
+    # 5b. "more options": skip products already shown in this conversation
+    if f.get("exclude_ids"):
+        ids = [str(i) for i in f["exclude_ids"]][:200]
+        clauses.append(f"product_id NOT IN ({','.join('?' * len(ids))})")
+        params.extend(ids)
 
     # 6. Category / Subcategory / Product Type constraint
     cat = f.get("category") or f.get("product_type")

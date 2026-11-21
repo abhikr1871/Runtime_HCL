@@ -58,13 +58,20 @@ _HINDI_TERMS = {
 _HINGLISH_TERMS = {
     "joote": "shoes", "joota": "shoes", "jute": "shoes", "juta": "shoes", "ghadi": "watch", "chashma": "sunglasses",
     "botal": "bottle", "mobile": "phone", "kapde": "clothes", "kurte": "kurta",
+    "chappal": "slippers", "chappals": "slippers", "chappalein": "slippers", "sandal": "sandals",
+    "ghadiyan": "watch", "baste": "backpack", "basta": "backpack", "thaila": "bag", "jhola": "bag",
+    "kameez": "shirt", "kamiz": "shirt", "pant": "trousers", "saree": "saree", "sari": "saree",
+    "bartan": "kitchen", "kadhai": "kadai", "tawa": "pan", "pankha": "fan", "chadar": "bedsheet",
+    "khilona": "toy", "khilone": "toys", "kitab": "book", "kitaben": "books", "dawai": "medicine",
 }
 # Extra words added to the SEARCH text only (catalogue uses category plurals such as "smartphones", "watches")
 _SEARCH_SYNONYMS = {
     "phone": "smartphones smartphone", "phones": "smartphones smartphone", "mobile": "smartphones",
     "smartphone": "smartphones", "watch": "watches", "laptop": "laptops", "shoe": "shoes", "earbud": "earbuds",
     "bag": "bags backpack", "sunglass": "sunglasses", "perfume": "fragrances", "earphones": "earbuds neckband",
-    "headphones": "earbuds", "tablet": "tablets", "cooker": "pressure",
+    "headphones": "earbuds", "tablet": "tablets", "cooker": "pressure", "slippers": "slipper sandals",
+    "slipper": "slippers sandals", "sandals": "sandal slipper", "travelling": "travel", "traveling": "travel",
+    "trekker": "trekking", "hiker": "hiking", "runner": "running",
 }
 
 # ---------- budget phrases (Daksh) ----------
@@ -140,6 +147,9 @@ _REFS = [(re.compile(r"\b(first two|top two|these two|both|pehle do)\b", re.I), 
          (re.compile(r"\b(second|2nd|dusra|dusri)\b", re.I), [1]),
          (re.compile(r"\b(third|3rd|teesra|teesri)\b", re.I), [2])]
 _COMPARE = re.compile(r"\bcompare\b|\bvs\.?\b|\bversus\b|\bdifference between\b|\bmukabla\b", re.I)
+_MORE = re.compile(r"\b(?:more|other|another|different|aur|dusre|doosre|baaki|next)\b.{0,20}\b(?:options?|ones?|products?|items?|results?|dikhao|wale|choices)\b|\bshow\s+(?:me\s+)?more\b|\baur\s+dikhao\b|\b(?:something|anything)\s+else\b|\bmore\s+like\s+(?:this|these)\b", re.I)
+_MORE_WORDS = {"more", "other", "another", "different", "aur", "dusre", "doosre", "baaki", "next", "options", "option",
+               "ones", "products", "items", "results", "dikhao", "wale", "choices", "else", "give", "like", "these"}
 _CHEAPER = re.compile(r"\bcheaper\b|\bless expensive\b|\bsaste\b|\bkam (?:daam|price|keemat)\b", re.I)
 _FACT = re.compile(r"\b(in stock|available|how much (?:is|does)|price of|kitne ka|kitni keemat)\b", re.I)
 _GREETING = re.compile(r"^\s*(hi+|hello|hey|namaste|namaskar)\b[\s!.]*$", re.I)
@@ -329,6 +339,8 @@ def parse(message: str, known_brands: Iterable[str] = (), vocabulary: Iterable[s
         s.intent = "compare"
     elif (s.product_ids or s.references) and _FACT.search(text):
         s.intent = "product_fact"
+    elif _MORE.search(text) and set(product_words) <= _MORE_WORDS:
+        s.wants_more, s.intent = True, "refine"   # "give me more options": same search, the next products
     elif _CHEAPER.search(text) and not product_words:
         s.wants_cheaper, s.intent = True, "refine"
     elif _CHEAPER.search(text):
@@ -339,4 +351,28 @@ def parse(message: str, known_brands: Iterable[str] = (), vocabulary: Iterable[s
     found = any([s.budget_min, s.budget_max, s.brands_include, s.brands_exclude, s.size, s.color, s.references,
                  s.product_ids, translated])
     s.confidence = 0.8 if found or s.intent != "search" else (0.6 if len(tokens) >= 2 else 0.4)
+
+    # Hindi / Hinglish words our dictionary could not translate ("मच्छरदानी", "pankhi"): lower the confidence so
+    # the LLM fallback translates the request into English search words (nlu_llm "search_text").
+    # English too: "wanna giv my dad sumthing" - words no product, brand or word list knows -> Groq reads it.
+    if s.intent == "search" and not s.wants_more:
+        from app.pipeline.retrieval import _NOT_PRODUCT_WORDS, _STOP, _filler_typo
+        vocab = set(vocabulary)
+        if s.language == "hi":
+            leftover = [w for w in re.findall(r"[ऀ-ॿ]+", s.query_text) if w not in _HINDI_FILLER]
+        else:
+            leftover = [w for w in product_words if vocab and w not in vocab and w not in _MULT
+                        and w not in _WORDS_TO_NUM and len(w) > 2 and w not in _STOP
+                        and w not in _NOT_PRODUCT_WORDS and w not in _MORE_WORDS and not _filler_typo(w)]
+        if leftover:
+            s.confidence = min(s.confidence, 0.5)
     return s
+
+
+_HINDI_FILLER = {
+    "मुझे", "मुझको", "चाहिए", "चाहिये", "के", "लिए", "का", "की", "को", "है", "हैं", "एक", "में", "से", "कम", "तक",
+    "और", "कुछ", "दिखाओ", "दिखाइए", "दिखाएं", "कोई", "सस्ता", "सस्ती", "सस्ते", "अच्छा", "अच्छी", "अच्छे", "मेरे", "मेरी",
+    "मेरा", "लिये", "वाला", "वाली", "वाले", "बजट", "रुपये", "रुपए", "रु", "अंदर", "बताओ", "दो", "दें", "दीजिए", "चाहता",
+    "चाहती", "हूँ", "हूं", "क्या", "आप", "पास", "भी", "नहीं", "हज़ार", "हजार", "लाख", "सौ", "पापा", "मम्मी", "दोस्त",
+    "गिफ्ट", "तोहफा", "उपहार",
+}

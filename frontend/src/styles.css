@@ -3,3 +3,81 @@
 @media(max-width:1200px){.chat-layout{grid-template-columns:minmax(400px,1fr) 320px;padding:18px;gap:13px}.catalog-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.chat-heading{padding:19px}.assistant-badge{display:none}}
 @media(max-width:900px){.sidebar{width:210px}.chat-layout{grid-template-columns:1fr}.results-panel{min-height:400px}.result-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.comparison-dock{left:225px}.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.page-content{padding:24px}}
 @media(max-width:650px){.sidebar{position:fixed;left:-250px;top:0;bottom:0;z-index:20;transition:left .2s;width:235px}.sidebar.open{left:0}.topbar{padding:0 14px;height:55px}.mobile-menu-btn{display:grid;place-items:center;background:transparent;color:#687887}.breadcrumb{font-size:10px}.status-pill{display:none}.top-actions{gap:7px}.chat-layout{padding:12px;gap:12px}.chat-heading h1{font-size:22px}.chat-heading p{max-width:260px}.conversation{padding:12px 13px}.chat-composer{padding:11px}.composer-hint{display:none}.quick-prompts{gap:5px}.quick-prompts button{font-size:9px}.results-panel{padding:15px}.page-content{padding:19px 13px}.page-title{gap:12px;flex-wrap:wrap}.page-title h1{font-size:24px}.catalog-toolbar{gap:7px}.catalog-search{flex-basis:100%}.catalog-toolbar select,.budget-input,.brand-input{flex:1;min-width:100px}.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.catalog-grid .product-visual{height:110px}.product-content{padding:9px}.product-content h3{font-size:11px}.reason{font-size:9px}.compare-grid{grid-template-columns:1fr!important}.compare-sticky{flex-wrap:wrap}.admin-grid{grid-template-columns:1fr}.footer{padding:12px;flex-wrap:wrap;gap:8px}.comparison-dock{left:10px;right:10px;bottom:10px}.dock-chip{font-size:8px}.trace-stat-row{gap:6px}.trace-stat-row>div{padding:9px}.trace-stat-row strong{font-size:10px}.trace-status{font-size:9px}.catalog-total{padding:9px 12px}.results-panel .result-list{grid-template-columns:1fr}.chat-panel{min-height:650px}.results-panel{min-height:520px}}
+/* ---- live API additions ---- */
+.dot-off{background:#e0614f!important}.status-off{border-color:#f3dcd8;background:#fdf5f4;color:#b2584b}
+.user-pick{min-width:0;flex:1}.customer-select{width:100%;background:#1b2a36;color:#e3eaf0;border:1px solid #293b4a;border-radius:6px;font-size:11px;font-weight:700;padding:4px 5px;outline:0}
+.filter-chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:9px}.chips-label{display:flex;align-items:center;gap:4px;font-size:9px;color:#8793a0;font-weight:700;letter-spacing:.4px;text-transform:uppercase;margin-right:2px}
+.filter-chip{display:inline-flex;align-items:center;gap:5px;background:#edf4ff;border:1px solid #d5e4fb;color:#4a6585;border-radius:16px;padding:4px 5px 4px 9px;font-size:10px}.filter-chip b{color:#2f5fae}.filter-chip button{display:grid;place-items:center;width:16px;height:16px;border-radius:50%;background:#d7e5fb;color:#3d63a0;padding:0}.filter-chip button:hover{background:#c3d6f6}
+.funnel-line{display:flex;align-items:center;gap:5px;font-size:10px;color:#7f8c98;margin-top:7px}.assume-tag{margin-top:8px;font-size:10px;color:#4f7d5f;background:#eef8f1;border-radius:6px;padding:5px 7px}
+.mini-compare{margin-top:9px;max-width:95%;overflow:auto;border:1px solid #e9edf1;border-radius:10px}.mini-compare table{border-collapse:collapse;width:100%;font-size:10px}.mini-compare th,.mini-compare td{padding:7px 9px;border-bottom:1px solid #eef0f2;text-align:left;color:#55626e}.mini-compare th{background:#f5f8fb;color:#3f4d5a}.mini-compare td:first-child{color:#8a96a1;text-transform:capitalize}
+.reason b{color:#4f6070}.bubble{white-space:pre-wrap}
+.quick-replies{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px;max-width:95%}.quick-replies button{background:#fff;border:1px solid #c9dcff;color:#2f66c9;border-radius:18px;padding:7px 13px;font-size:11px;font-weight:600;transition:.15s}.quick-replies button:hover{background:#edf4ff;border-color:#9fc0f5}
+
+/* ===================== visual refresh ===================== */
+:root{--ink:#13202d;--ink-2:#4a5866;--ink-3:#8592a0;--brand:#2f6fe4;--brand-2:#5b8ff0;--surface:#ffffff;--bg:#f3f5f8;--line:#e6eaf0}
+body{background:var(--bg)}
+.main-area{background:var(--bg)}
+/* product visuals: clean icon tile on a soft gradient, no decorative circles */
+.product-visual:before,.product-visual:after{display:none}
+.product-visual{height:104px;border-bottom:1px solid var(--line)}
+.catalog-grid .product-visual{height:120px}
+.product-visual.sand{background:linear-gradient(135deg,#fbf3e6,#f3e4cb)}
+.product-visual.green{background:linear-gradient(135deg,#eaf6ef,#d3ebdd)}
+.product-visual.blue{background:linear-gradient(135deg,#ecf3ff,#d6e4fb)}
+.product-visual.rose{background:linear-gradient(135deg,#fdf0f2,#f6d9de)}
+.product-visual.purple{background:linear-gradient(135deg,#f3effc,#e0d6f5)}
+.product-emoji{font-size:34px;width:64px;height:64px;display:grid;place-items:center;background:#ffffffd9;border-radius:18px;
+  box-shadow:0 6px 18px #1b2b3d14,inset 0 0 0 1px #ffffff;filter:none}
+.product-id{background:#ffffffe6;color:#4d5c6b;font-weight:600;border-radius:6px}
+.heart-btn{background:#ffffffe6;box-shadow:0 2px 6px #1b2b3d12}
+.product-card{border-radius:14px;border-color:var(--line);box-shadow:0 1px 2px #1b2b3d08;transition:transform .15s,box-shadow .15s}
+.product-card:hover{transform:translateY(-2px);box-shadow:0 10px 24px #1b2b3d14}
+.product-content{padding:12px 14px 14px}
+.product-meta{font-size:10px;text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+.product-content h3{font-size:13.5px;font-weight:700;color:var(--ink)}
+.brand-name{font-size:11px}
+.price-line strong{font-size:16px;color:var(--ink)}
+.stock-ok,.stock-low{font-size:10px;font-weight:600;border-radius:20px;padding:4px 8px}
+.reason{font-size:11px;line-height:1.55;color:var(--ink-2);background:#f6f8fb;border-radius:8px;padding:7px 9px;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.reason b{color:var(--brand)}
+.compare-btn{font-size:11px;font-weight:600;border-radius:9px}
+.compare-btn:hover{border-color:#c9dcff;color:var(--brand)}
+/* chat */
+.chat-panel,.results-panel{border-color:var(--line);box-shadow:0 1px 3px #1b2b3d0a;border-radius:16px}
+.chat-heading h1{font-size:27px}
+.message-label{font-size:11px}
+.bubble{font-size:13.5px;line-height:1.65;color:var(--ink-2);background:var(--surface);border:1px solid var(--line);
+  box-shadow:0 1px 2px #1b2b3d08;padding:12px 15px;border-radius:4px 14px 14px 14px}
+.message.user .bubble{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;border:0;
+  border-radius:14px 4px 14px 14px;box-shadow:0 4px 12px #2f6fe430}
+.message.user{flex-direction:row-reverse}
+.message.user .message-body{display:flex;flex-direction:column;align-items:flex-end}
+.message.user .message-label{text-align:right}
+.message-avatar{width:30px;height:30px;border-radius:10px;font-size:10px}
+.inline-products{border-radius:12px;background:#fff;border-color:var(--line)}
+.mini-product{padding:10px 12px}
+.mini-product b{font-size:12px}
+.mini-product small{font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-product>strong{font-size:13px;color:var(--ink)}
+.mini-emoji{width:34px;height:34px;border-radius:10px;font-size:18px}
+.quick-replies button{font-size:12px;padding:8px 14px;box-shadow:0 1px 2px #1b2b3d0d}
+.funnel-line,.trace-link{font-size:11px}
+.input-wrap{border-radius:14px;background:#fff}
+.input-wrap textarea{font-size:13.5px}
+.send-btn{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,var(--brand),var(--brand-2))}
+.quick-prompts button{font-size:11px;padding:7px 11px}
+.filter-chip{font-size:11px}
+.results-title h2{font-size:17px}
+/* pages */
+.page-title h1{font-size:30px}
+.catalog-grid{gap:16px}
+.trace-card,.admin-card{border-radius:16px;box-shadow:0 1px 3px #1b2b3d0a}
+.pipeline-step b,.trace-code,.trace-answer{font-size:12px}
+.json-editor{font-size:12px}
+/* sidebar stays in view while the page scrolls */
+.sidebar{position:sticky;top:0;height:100vh;min-height:0;overflow-y:auto;align-self:flex-start;scrollbar-width:thin}
+.app-shell{align-items:flex-start}
+.main-area{min-height:100vh}
+/* the "product picks" panel also stays in view next to a long chat */
+@media (min-width:1101px){.results-panel{position:sticky;top:16px;max-height:calc(100vh - 32px);align-self:flex-start}.result-list{max-height:calc(100vh - 150px)}}

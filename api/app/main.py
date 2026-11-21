@@ -22,6 +22,10 @@ async def lifespan(_: FastAPI):
     db.init_db()
     db.seed_sample_if_empty()
     log.info("index ready: %s products", indexer.rebuild())
+    # load the embedding model now, so the first shopper question is not the one that waits ~25 s for it
+    from app.ai import embeddings
+    if embeddings.embed_query("warm up") is not None:
+        log.info("embedding model warmed up")
     yield
 
 

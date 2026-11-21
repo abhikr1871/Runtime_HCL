@@ -16,11 +16,13 @@ import csv
 import io
 import json
 import time
+import uuid
 from typing import Any
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
 from pydantic import ValidationError
 
+from app.observe.trace_store import save_trace
 from app.schemas import IngestResult, Product
 from app.store import indexer, repository
 from app.store.normalise import normalize_product
@@ -70,11 +72,24 @@ def _process_product_dicts(rows: list[dict[str, Any]], start_time: float) -> Ing
         except Exception as exc:
             errors.append({"row": i, "product_id": pid_str, "error": f"Database error: {exc}"})
 
+    t_index = time.perf_counter()
     if changed:
         indexer.update_product_index(changed)
+    index_ms = int((time.perf_counter() - t_index) * 1000)
 
     took_ms = int((time.perf_counter() - start_time) * 1000)
-    return IngestResult(created=created, updated=updated, errors=errors, took_ms=took_ms)
+    # Every ingest gets a replayable trace too (GET /trace/{id}), like every chat reply
+    trace_id = uuid.uuid4().hex[:8]
+    try:
+        save_trace(trace_id, "ingest", "admin", "/ingest", {
+            "kind": "ingest", "rows": len(rows), "created": created, "updated": updated,
+            "changed_ids": changed, "errors": errors,
+            "timings_ms": {"validate_and_save": took_ms - index_ms, "reindex (bm25 + embeddings)": index_ms,
+                           "total": took_ms},
+        })
+    except Exception:
+        trace_id = None
+    return IngestResult(created=created, updated=updated, errors=errors, took_ms=took_ms, trace_id=trace_id)
 
 
 @router.post("/ingest", response_model=IngestResult)
