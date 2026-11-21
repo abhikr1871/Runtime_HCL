@@ -1,0 +1,31 @@
+# docker compose up --build
+# Ollama runs on the host machine (faster); the API reaches it via host.docker.internal.
+services:
+  api:
+    build:
+      context: .
+      dockerfile: api/Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      OLLAMA_URL: http://host.docker.internal:11434
+      DB_PATH: data/shop.db
+      MODELS_DIR: models
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  ui:
+    build:
+      context: .
+      dockerfile: ui/Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      API_URL: http://api:8000
+    depends_on:
+      - api

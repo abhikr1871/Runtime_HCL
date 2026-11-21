@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+
+# Secrets and local config
+.env
+
+# Generated data and models (rebuilt by scripts)
+data/*.db
+data/*.db-*
+data/raw/
+data/processed/
+models/*
+!models/.gitkeep
+eval/results/
+
+# Long internal planning docs (keep only the 5-page design and architecture in git)
+docs/Design_Submission.pdf
+docs/Strategy_Report.pdf
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
