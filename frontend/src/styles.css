@@ -81,3 +81,8 @@ body{background:var(--bg)}
 .main-area{min-height:100vh}
 /* the "product picks" panel also stays in view next to a long chat */
 @media (min-width:1101px){.results-panel{position:sticky;top:16px;max-height:calc(100vh - 32px);align-self:flex-start}.result-list{max-height:calc(100vh - 150px)}}
+/* sidebar pinned to the window: always visible while the page scrolls (fixed, not sticky) */
+.sidebar{position:fixed;top:0;left:0;bottom:0;height:100vh;overflow-y:auto;z-index:20}
+.main-area{margin-left:244px}
+@media(max-width:900px){.main-area{margin-left:210px}}
+@media(max-width:650px){.sidebar{left:-250px}.sidebar.open{left:0}.main-area{margin-left:0}}
