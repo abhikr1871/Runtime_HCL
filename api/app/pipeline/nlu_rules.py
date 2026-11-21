@@ -45,14 +45,21 @@ _MULT: dict[str, int] = {
     "लाख": 100000,
 }
 
-_WORDS_PAT = "|".join(sorted(_WORDS_TO_NUM.keys(), key=lambda x: -len(x)))
-_MULT_PAT = r"(?:k\b|thousand|hazaar|hazar|hajar|हज़ार|हजार|sau|सौ|lakh|lac|लाख)"
+_ROMAN_WORDS = r"\b(?:ek|do|teen|char|chaar|paanch|panch|chhe|che|saat|aath|nau|das|gyarah|barah|terah|chaudah|pandrah|solah|satrah|atharah|unnis|bees|tees|chalis|pachas|pachaas)\b"
+_DEV_WORDS = r"(?<![ऀ-ॿ])(?:एक|दो|तीन|चार|पाँच|पांच|छह|छ|सात|आठ|नौ|दस)(?![ऀ-ॿ])"
+_WORDS_PAT = f"(?:{_ROMAN_WORDS}|{_DEV_WORDS})"
+
+_MULT_ROMAN = r"(?:k\b|\b(?:thousand|hazaar|hazar|hajar|sau|lakh|lac)\b)"
+_MULT_DEV = r"(?<![ऀ-ॿ])(?:हज़ार|हजार|सौ|लाख)(?![ऀ-ॿ])"
+_MULT_PAT = f"(?:{_MULT_ROMAN}|{_MULT_DEV})"
+
+_UNIT_GUARD = r"(?!\s*(?:gb|tb|mb|mp|g|inch(?:es)?|hz|khz|mhz|ghz|mah|ram|cores?)\b)"
 
 _NUM = (
     r"(?:(?:rs\.?|inr|₹)\s*)?"
-    r"(?:(\d[\d,]*(?:\.\d+)?)|(" + _WORDS_PAT + r"))"
+    r"(?:(?<![\d.])(\d[\d,]*(?:\.\d+)?)(?![\d.])|(" + _WORDS_PAT + r"))"
     r"(?:\s*(" + _MULT_PAT + r"))?"
-    r"(?!\s*(?:gb|tb|mb|mp|g\b|inch|hz|mah))"
+    + _UNIT_GUARD
 )
 
 
@@ -76,12 +83,12 @@ _BETWEEN = [
 _MAX = [
     re.compile(r"(?:under|below|less than|within|up\s?to|upto|max(?:imum)?|budget(?:\s+of|\s+is)?)\s*" + _NUM, re.I),
     re.compile(_NUM + r"\s*(?:se\s+kam|से\s*कम|ke\s+andar|के\s*अंदर|ke\s+neeche|tak(?:\s+ka)?|तक(?:\s*का)?|or less|budget)", re.I),
-    re.compile(r"(?:rs\.?|inr|₹)\s*" + _NUM, re.I),
 ]
 _MIN = [
     re.compile(r"(?:above|over|more than|at least|min(?:imum)?|starting(?:\s+from)?|start(?:\s+from)?)\s*" + _NUM, re.I),
     re.compile(_NUM + r"\s*(?:se\s+(?:zyada|jyada|upar|adhik)|से\s*(?:ज़्यादा|ज्यादा|ऊपर|अधिक)|or more)", re.I),
 ]
+_BARE_CURRENCY = re.compile(r"(?:rs\.?|inr|₹)\s*" + _NUM, re.I)
 
 _NEG = [
     re.compile(r"\b(?:not|no|except|without|but not)\s+([a-z][\w&-]+)", re.I),
@@ -110,6 +117,11 @@ _BRAND_STOPWORDS = {
     "free", "deal", "more", "less", "sale", "home", "wear", "mens", "womens", "boys", "girls",
     "chahiye", "dikhao", "sasta", "saste", "accha", "acha", "wala", "wali", "wale", "karo", "karna",
     "only", "nahi", "nahin", "mat", "not", "between", "over", "above", "item", "items", "both",
+    "boot", "boots", "camp", "camps", "cut", "jeans", "sandal", "sandals", "slipper", "slippers",
+    "sneaker", "sneakers", "heels", "kurta", "saree", "hoodie", "jacket", "bag", "bags",
+    "speaker", "speakers", "earbuds", "headphones", "charger", "cable", "mouse", "keyboard",
+    "tablet", "camera", "fridge", "level", "sonic", "bottle", "bottles", "backpack", "backpacks",
+    "cotton", "sports", "running", "casual", "formal", "dress", "pants", "tshirt", "tshirts",
 }
 
 
@@ -124,10 +136,17 @@ def _match_brand(token: str, brands: dict[str, str], threshold: float = 85.0) ->
     for b_lower, b_orig in brands.items():
         if " " in b_lower:
             continue
+        # Tightened fuzzy rules
+        if t[0] != b_lower[0]:
+            continue
+        if abs(len(t) - len(b_lower)) > 1:
+            continue
+        dl = distance.DamerauLevenshtein.distance(t, b_lower)
+        if len(t) <= 5 and dl > 1:
+            continue
         ratio = fuzz.ratio(t, b_lower)
         jw = distance.JaroWinkler.similarity(t, b_lower) * 100.0
-        dl = distance.DamerauLevenshtein.distance(t, b_lower)
-        score = max(ratio, jw) if (dl <= 1 and abs(len(t) - len(b_lower)) <= 1) else ratio
+        score = max(ratio, jw) if dl <= 1 else ratio
         if score >= threshold and score > best_score:
             best_score = score
             best_brand = b_orig
@@ -146,7 +165,7 @@ def parse(message: str, known_brands: Iterable[str] = ()) -> Slots:
     s = Slots(query_text=text, language=detect_language(text))
     t_budget = text.translate(_DEV_NUM)
 
-    # Budget range
+    # 1. Range first
     range_found = False
     for p in _BETWEEN:
         if m := p.search(t_budget):
@@ -155,16 +174,20 @@ def parse(message: str, known_brands: Iterable[str] = ()) -> Slots:
             range_found = True
             break
 
-    # Budget max / min
+    # 2. Contextual min and max
     if not range_found:
-        for p in _MAX:
-            if m := p.search(t_budget):
-                s.budget_max = _parse_val(m.group(1), m.group(2), m.group(3))
-                break
         for p in _MIN:
             if m := p.search(t_budget):
                 s.budget_min = _parse_val(m.group(1), m.group(2), m.group(3))
                 break
+        for p in _MAX:
+            if m := p.search(t_budget):
+                s.budget_max = _parse_val(m.group(1), m.group(2), m.group(3))
+                break
+        # 3. Bare currency fallback only if no between, min or max matched
+        if s.budget_min is None and s.budget_max is None:
+            if m := _BARE_CURRENCY.search(t_budget):
+                s.budget_max = _parse_val(m.group(1), m.group(2), m.group(3))
 
     # Brands handling: exact, multi-word, typo-tolerant, negation, only
     brands = {b.lower(): b for b in known_brands if b}
