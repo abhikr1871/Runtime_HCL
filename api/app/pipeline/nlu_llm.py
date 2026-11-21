@@ -43,7 +43,8 @@ def refine(message: str, rules: Slots, llm: LLMClient) -> Slots:
         if from_llm is None:
             # Retry once, showing the validation error to the model
             retry_prompt = f"{message}\n\nYour previous output was invalid: {err}. Return only valid JSON matching the schema."
-            from_llm, retry_err = _try_parse_slots(llm.complete_json(_PROMPT, retry_prompt, max_tokens=MAX_TOKENS))
+            data = llm.complete_json(_PROMPT, retry_prompt, max_tokens=MAX_TOKENS)
+            from_llm, retry_err = _try_parse_slots(data)
             if from_llm is None:
                 log.info("LLM refine retry failed: %s; falling back to rules", retry_err)
         if from_llm is None:
@@ -51,11 +52,24 @@ def refine(message: str, rules: Slots, llm: LLMClient) -> Slots:
 
         clean = {k: getattr(from_llm, k) for k in Slots.model_fields if getattr(from_llm, k) not in (None, "", [])}
         update = {k: v for k, v in clean.items() if k not in {"query_text", "references", "product_ids", "corrections"}}
+        # Never take the LLM's category/product_type: they become HARD filters, and its names ("electronics")
+        # rarely match ours ("audio"). Search already finds the right product type from the words.
+        update.pop("category", None)
+        update.pop("product_type", None)
+        # If the rules read ANY budget, the budget is theirs alone ("budget 50k" must not gain an LLM minimum)
+        if rules.budget_min is not None or rules.budget_max is not None:
+            update.pop("budget_min", None)
+            update.pop("budget_max", None)
         # Rules win on numbers and explicit brands they already found
         for key in ("budget_max", "budget_min", "brands_include", "brands_exclude", "language"):
             value = getattr(rules, key)
             if value not in (None, [], ""):
                 update[key] = value
+        # Hindi / Hinglish the dictionary could not translate: search with the LLM's English words instead
+        search_text = data.get("search_text") if isinstance(data, dict) else None
+        if (rules.intent == "search" and isinstance(search_text, str)
+                and 0 < len(search_text.strip()) <= 60 and search_text.isascii()):
+            update["query_text"] = search_text.strip().lower()
         return rules.model_copy(update={**update, "source": "rules+llm"})
     except Exception as exc:
         log.warning("nlu_llm refine error: %s; falling back to rules", exc)

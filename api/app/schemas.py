@@ -62,6 +62,7 @@ class ChatResponse(BaseModel):
     products: list[ProductOut] = []
     sources: list[Source] = []
     follow_up_question: Optional[str] = None
+    follow_up_options: list[str] = []   # one-tap answers to the follow-up question (the UI shows them as buttons)
     # --- our additive fields ---
     language: Language = "en"
     active_filters: dict[str, Any] = {}
@@ -92,6 +93,7 @@ class Slots(BaseModel):
     product_ids: list[str] = []         # explicit IDs typed by the shopper, e.g. "P-0012"
     corrections: dict[str, str] = {}    # typo / Hindi word -> word used for search, e.g. {"blutooth": "bluetooth"}
     wants_cheaper: bool = False
+    wants_more: bool = False      # "more options", "aur dikhao": same search, without what was shown
     sort: Optional[Literal["price_asc", "price_desc", "rating_desc"]] = None
     confidence: float = 0.5
     source: Literal["rules", "llm", "rules+llm"] = "rules"
@@ -153,6 +155,7 @@ class IngestResult(BaseModel):
     updated: int
     errors: list[dict[str, Any]] = []
     took_ms: int
+    trace_id: Optional[str] = None   # GET /trace/{trace_id} shows what this ingest changed
 
 
 # ---------- /health ----------

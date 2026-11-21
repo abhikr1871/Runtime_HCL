@@ -133,3 +133,68 @@ def test_validator_checks_stock_claims():
     assert not validator.check("Only 5 left of P-0001", [p]).ok
     assert validator.check("सिर्फ़ 2 बचे हैं", [p]).ok
     assert not validator.check("P-0001 is out of stock", [p]).ok
+
+
+# ---------- answering a clarifying question keeps the topic ----------
+def test_answer_to_clarifying_question_keeps_the_product():
+    from app.pipeline import state as state_mod
+    from app.schemas import Slots
+    asked = SessionState(session_id="s", customer_id="C-001", filters={"query_text": "options for shoes"},
+                         clarify_streak=1, asked_slots=["budget_max"])
+    st, _ = state_mod.apply(asked, Slots(query_text="under 3000", budget_max=3000), [])
+    assert "shoes" in st.filters["query_text"] and st.filters["budget_max"] == 3000
+    st, _ = state_mod.apply(asked, Slots(query_text="running"), [])
+    assert "shoes" in st.filters["query_text"] and "running" in st.filters["query_text"]
+    fresh = SessionState(session_id="s", customer_id="C-001", filters={"query_text": "shoes"})
+    st, _ = state_mod.apply(fresh, Slots(query_text="pressure cooker"), [])
+    assert st.filters["query_text"] == "pressure cooker"                         # a new product is a new topic
+
+
+def test_clarify_options_are_real_uses_and_round_budgets():
+    shoes = [Product(product_id=f"P-{i}", name="Shoe", category="mens-shoes", price_inr=p, stock=5,
+                     tags=t) for i, (p, t) in enumerate([(999, ["agile", "running"]), (2412, ["running"]),
+                                                          (4999, ["office"]), (8999, ["trekking"])])]
+    _, opts = clarify._attribute_variance("use", shoes)
+    assert opts.startswith("running") and "agile" not in opts
+    _, budget = clarify._attribute_variance("budget_max", shoes)
+    assert "₹2,500" in budget and "₹5,000" in budget
+
+
+def test_new_product_starts_fresh_but_same_product_keeps_filters():
+    from app.pipeline import state as state_mod
+    from app.schemas import Slots
+    old = SessionState(session_id="s", customer_id="C-001", filters={"query_text": "shoes under 3000", "budget_max": 3000})
+    st, _ = state_mod.apply(old, Slots(query_text="pressure cooker"), [])
+    assert st.filters == {"query_text": "pressure cooker"}
+    st, _ = state_mod.apply(old, Slots(query_text="running shoes"), [])
+    assert st.filters["budget_max"] == 3000
+
+
+def test_new_product_after_our_question_is_a_new_search():
+    from app.pipeline import state as state_mod
+    from app.schemas import Slots
+    asked = SessionState(session_id="s", customer_id="C-001", filters={"query_text": "mujhe laptop chahiye"},
+                         clarify_streak=1, asked_slots=["budget_max"])
+    st, _ = state_mod.apply(asked, Slots(query_text="mujhe slippers chahiye"), [])
+    assert "laptop" not in st.filters["query_text"] and st.asked_slots == [] and st.clarify_streak == 0
+    st, _ = state_mod.apply(asked, Slots(query_text="for coding"), [])
+    assert "laptop" in st.filters["query_text"] and "coding" in st.filters["query_text"]
+
+
+def test_hinglish_chappal_means_slippers():
+    assert "slippers" in nlu_rules.parse("mujhe chappal chahiye", BRANDS, VOCAB).query_text
+
+
+def test_only_one_question_per_product():
+    st = _state("laptop")
+    st.asked_slots = ["budget_max"]
+    many = [P(f"P-{i:04d}", price=1000 * (i + 1), brand=f"B{i}") for i in range(12)]
+    assert clarify.next_question(st, many, "en") is None
+
+
+def test_bare_number_answers_the_budget_question():
+    from app.pipeline import orchestrator as o
+    for txt, val in [("500", 500), ("2k", 2000), ("₹3,000", 3000), ("3 hazaar", 3000), ("1.5 lakh", 150000)]:
+        m = o._BARE_BUDGET.fullmatch(txt)
+        assert m and int(float(m.group(1).replace(",", "")) * o._BUDGET_UNIT.get((m.group(2) or "").lower(), 1)) == val
+    assert o._BARE_BUDGET.fullmatch("running shoes") is None

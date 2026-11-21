@@ -14,6 +14,7 @@ from functools import lru_cache
 from typing import Any, Optional
 
 from app.ai.llm_client import LLMClient
+from app.config import get_settings
 from app.observe.timing import Timer
 from app.observe.trace_store import save_trace
 from app.pipeline import (clarify, compare, composer, diversity, filters, guard, nlu_llm, nlu_rules, personalise,
@@ -44,6 +45,11 @@ _WIDEN = {
     "hinglish": "Kya main search thoda badha doon?",
     "hi": "क्या मैं खोज थोड़ी बढ़ा दूँ?",
 }
+
+
+_BARE_BUDGET = re.compile(r"(?:₹|rs\.?|inr)?\s*(\d[\d,]*(?:\.\d+)?)\s*(k|hazaar|hazar|thousand|lakh|lac)?\s*(?:rupees?|rs)?\.?",
+                          re.I)
+_BUDGET_UNIT = {"k": 1000, "hazaar": 1000, "hazar": 1000, "thousand": 1000, "lakh": 100000, "lac": 100000}
 
 
 class SessionOwnershipError(Exception):
@@ -101,6 +107,7 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
 
     def finish(resp: ChatResponse, new_state: Optional[SessionState] = None) -> ChatResponse:
         st = new_state or state
+        resp.answer = guard.scrub_output(resp.answer, req.customer_id)   # output guard: no other shopper's ID
         repository.save_session(st)
         record.update({"timings_ms": {**timer.ms, "total": timer.total()},
                        "llm": {"calls": llm.calls, "tokens_in": llm.tokens_in, "tokens_out": llm.tokens_out},
@@ -121,15 +128,30 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
 
     # 2. understand: rules first (Hindi words, typos, budget, brands), LLM only if unclear
     with timer.step("understand"):
-        slots = nlu_rules.parse(req.message, _known_brands(), _vocabulary())
-        slots = nlu_llm.refine(req.message, slots, llm)
+        rules = nlu_rules.parse(req.message, _known_brands(), _vocabulary())
+        slots = nlu_llm.refine(req.message, rules, llm)
+        if (state.clarify_streak > 0 and rules.intent in {"search", "refine"}
+                and slots.intent not in {"search", "refine", "compare", "product_fact"}):
+            # a one-word reply ("running") right after our question answers it: not a hello, not off-topic
+            slots = slots.model_copy(update={"intent": rules.intent})
+        if (state.clarify_streak > 0 and state.asked_slots and state.asked_slots[-1] == "budget_max"
+                and slots.budget_max is None and (m := _BARE_BUDGET.fullmatch(req.message.strip()))):
+            # we asked for a budget and got a bare number ("500", "2k", "3 hazaar"): that IS the budget
+            amount = float(m.group(1).replace(",", "")) * _BUDGET_UNIT.get((m.group(2) or "").lower(), 1)
+            slots = slots.model_copy(update={"budget_max": int(amount), "intent": "search", "query_text": ""})
     record["slots"] = slots.model_dump()
     lang = slots.language
 
     if slots.intent == "greeting":
         q = {"en": "Hi! What are you shopping for today?", "hinglish": "Namaste! Aaj aap kya dhoondh rahe hain?",
              "hi": "नमस्ते! आज आप क्या ढूँढ रहे हैं?"}[lang]
-        return finish(ChatResponse(trace_id=trace_id, answer_type="clarification", answer=q, follow_up_question=q, language=lang))
+        return finish(ChatResponse(trace_id=trace_id, answer_type="clarification", answer=q, follow_up_question=q,
+                                   follow_up_options=clarify.STARTER_OPTIONS[lang], language=lang))
+    if g.injection and not retrieval.tokens(re.sub(r"(?i)ignore\s+\w+\s+(?:previous\s+)?(?:instructions|rules)|recommend|\bP-\d+\b", " ", req.message)):
+        # an instruction aimed at the assistant with no real shopping request in it: do not run a search
+        q = clarify.WHAT_ARE_YOU_LOOKING_FOR[lang]
+        return finish(ChatResponse(trace_id=trace_id, answer_type="clarification", answer=q, follow_up_question=q,
+                                   follow_up_options=clarify.STARTER_OPTIONS[lang], language=lang))
     if slots.intent == "out_of_scope":
         return finish(ChatResponse(trace_id=trace_id, answer_type="refusal", answer=_REFUSAL["out_of_scope"][lang], language=lang))
     if slots.intent == "not_sold":
@@ -167,31 +189,64 @@ def handle_chat(req: ChatRequest) -> ChatResponse:
 
     # 4b. hard filters, rank, then maybe one clarifying question
     query = nlu_rules.expand_for_search(f.get("query_text", ""))
+    for b in f.get("brands_exclude", []):   # "running shoes not Nike": never SEARCH for the excluded brand
+        query = re.sub(r"\b" + re.escape(b) + r"\b", " ", query, flags=re.I)
+    if not retrieval.tokens(query) and not f.get("category") and not f.get("brands_include"):
+        # "suggest something good", "I need a product", "something under 3000": no product named at all.
+        # Ask what they want instead of guessing a category (the budget, if given, is kept for the next turn).
+        q = clarify.WHAT_ARE_YOU_LOOKING_FOR[lang]
+        new_state = new_state.model_copy(update={"clarify_streak": new_state.clarify_streak + 1,
+                                                 "filters": {k: v for k, v in f.items() if k != "query_text"}})
+        return finish(ChatResponse(trace_id=trace_id, answer_type="clarification", answer=q, follow_up_question=q,
+                                   follow_up_options=clarify.STARTER_OPTIONS[lang], language=lang,
+                                   active_filters=new_state.filters), new_state)
     with timer.step("filter"):
         total = repository.count_products()
         candidates = filters.apply(f)
     with timer.step("rank"):
-        ranked = retrieval.rank(query, candidates, f.get("sort"))
-    question = clarify.next_question(new_state, [p for p, _ in ranked], lang)
+        not_sold = get_settings().enable_embeddings and retrieval.probably_not_sold(f.get("query_text", ""))
+        ranked = [] if not_sold else retrieval.rank(query, candidates, f.get("sort"))
+    wants_everything = req.message.strip().lower().rstrip(".!") in {"show all", "sab dikhao", "सब दिखाओ", "any",
+                                                                    "koi bhi", "anything", "show everything"}
+    question = None if wants_everything else clarify.next_question(new_state, [p for p, _ in ranked], lang)
     if question:
         slot, q = question
         new_state = new_state.model_copy(update={"clarify_streak": new_state.clarify_streak + 1,
                                                  "asked_slots": new_state.asked_slots + [slot]})
         return finish(ChatResponse(trace_id=trace_id, answer_type="clarification", answer=q, follow_up_question=q,
-                                   language=lang, active_filters=f,
-                                   funnel=Funnel(total=total, after_filters=len(candidates), shown=0)), new_state)
+                                   follow_up_options=clarify.quick_replies(slot, [p for p, _ in ranked], lang),
+                                   language=lang, active_filters=f), new_state)
     new_state = new_state.model_copy(update={"clarify_streak": 0})
 
     # 5. rerank (stretch) and personal tie-break
     with timer.step("rank"):
         ranked = rerank.rerank(query, ranked)
-        ranked, assumptions = personalise.apply(ranked, req.customer_id)
+        # identity from the request only; skipped when the shopper asked for an explicit order (cheapest first)
+        ranked, assumptions = (ranked, []) if f.get("sort") else personalise.apply(ranked, req.customer_id)
     record["retrieval"] = {"query": query, "candidates": len(candidates),
                            "top": [(p.product_id, round(s, 4)) for p, s in ranked[:10]]}
 
     # 6. nothing matched -> relax one constraint and say which one blocked results
+    if not ranked and slots.wants_more and state.last_results:
+        msg = {"en": "That's everything we have that matches your request; there are no more options.",
+               "hinglish": "Is request ke liye hamare paas bas itne hi options hain.",
+               "hi": "आपकी ज़रूरत के लिए हमारे पास बस इतने ही विकल्प हैं।"}[lang]
+        return finish(ChatResponse(trace_id=trace_id, answer_type="not_found", language=lang,
+                                   active_filters=state.filters, answer=msg,
+                                   funnel=Funnel(total=total, after_filters=len(candidates), shown=0)), state)
+    if not ranked and slots.wants_cheaper and state.last_results:
+        # "cheaper ones" but nothing cheaper fits: say so, and keep the previous filters (no silly "₹1 more")
+        msg = {"en": "Those are already the cheapest matching options in our catalogue.",
+               "hinglish": "Ye already hamare catalogue ke sabse saste matching options hain.",
+               "hi": "ये पहले से ही हमारे कैटलॉग के सबसे सस्ते मेल खाते विकल्प हैं।"}[lang]
+        prev = sorted(repository.get_products(state.last_results), key=lambda p: p.price_inr or 0)   # cheapest first
+        rel = Relaxation(blocked_by="budget", message=msg, nearest=[_out(p, reasons.build(p, state.filters, lang)[0]) for p in prev])
+        return finish(ChatResponse(trace_id=trace_id, answer_type="not_found", language=lang, active_filters=state.filters,
+                                   answer=msg, relaxation=rel,
+                                   funnel=Funnel(total=total, after_filters=len(candidates), shown=0)), state)
     if not ranked:
-        relaxed = relax.relax(f, query, lang)
+        # we do not sell it at all: do not offer "nearest" items by dropping the colour (red lipstick for a wallet)
+        relaxed = None if not_sold else relax.relax(f, query, lang)
         if relaxed:
             label, nearest_ranked, hint, _extra_allowed = relaxed
             nearest = diversity.diversify(nearest_ranked, 3)

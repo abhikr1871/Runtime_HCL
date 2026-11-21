@@ -68,3 +68,30 @@ def test_ingest_then_searchable(client):
     body = ask(client, "yoga mat", session="ingest")
     assert any(p["product_id"] == "P-9100" for p in body["products"])
     assert client.get("/products/P-9100").status_code == 200
+
+
+def test_product_list_for_catalogue_page(client):
+    r = client.get("/products", params={"max_price": 3000, "in_stock": True})
+    assert r.status_code == 200
+    items = r.json()
+    assert items and all(p["price_inr"] <= 3000 and p["stock"] > 0 for p in items)
+    assert client.get("/products", params={"limit": 2}).json().__len__() <= 2
+
+
+def test_ingest_returns_a_replayable_trace(client):
+    r = client.post("/ingest", json=[{"product_id": "P-9911", "name": "Trace Test Bottle", "category": "kitchen",
+                                      "price_inr": 499, "stock": 5}, {"name": "no id"}]).json()
+    assert r["created"] + r["updated"] == 1 and len(r["errors"]) == 1 and r["trace_id"]
+    rec = client.get(f"/trace/{r['trace_id']}").json()["record"]
+    assert rec["kind"] == "ingest" and rec["changed_ids"] == ["P-9911"] and rec["rows"] == 2
+
+
+def test_vague_request_with_no_product_asks_what_they_want(client):
+    body = ask(client, "suggest something good", session="vague2")
+    assert body["answer_type"] == "clarification" and body["follow_up_options"]
+    assert not body["products"]
+
+
+def test_clarifying_question_comes_with_one_tap_answers(client):
+    body = ask(client, "I need a laptop", session="vague3")
+    assert body["answer_type"] == "clarification" and body["follow_up_options"]

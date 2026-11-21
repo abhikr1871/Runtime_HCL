@@ -15,6 +15,7 @@ A detail is never asked twice in one conversation.
 from __future__ import annotations
 
 import re
+from collections import Counter
 from typing import Optional
 
 from app.pipeline.reasons import format_inr
@@ -29,6 +30,8 @@ _FILLER = {
     "i", "need", "want", "a", "an", "the", "some", "me", "show", "for", "please", "looking", "buy", "get", "find",
     "suggest", "recommend", "something", "good", "nice", "new", "any", "my", "to", "is", "can", "you", "with",
     "in", "best", "give", "mujhe", "chahiye", "ek", "koi", "dikhao", "dikhaye", "do", "kuch", "chaiye", "chahie",
+    "options", "option", "products", "product", "items", "item", "ideas", "suggestions", "stuff", "of", "few",
+    "dikhaiye", "batao", "bataiye",
 }
 _BLOCKING = ("budget_max", "budget_min", "brands_include", "brands_exclude")
 
@@ -76,8 +79,20 @@ _DEFAULT_BUDGET_QUESTION = {
 }
 
 
+_USE_TAGS = {"running", "trekking", "hiking", "walking", "jogging", "gym", "fitness", "sports", "yoga", "cricket",
+             "football", "office", "work", "formal", "party", "casual", "wedding", "festive", "travel", "daily",
+             "outdoor", "study", "school", "college", "gaming", "music", "kids", "gift"}
+
+
+def _round_up(x: int) -> int:
+    """Round up to 2 significant digits, at least to the hundred: 2,412 -> 2,500; 1,36,880 -> 1,40,000."""
+    step = max(10 ** (len(str(int(x))) - 2), 100)
+    return int(-(-x // step) * step)
+
+
 def product_words(text: str) -> list[str]:
-    return [w for w in re.findall(r"[\wऀ-ॿ]+", text.lower()) if w not in _FILLER and not w.isdigit()]
+    from app.pipeline.retrieval import _filler_typo   # "optons" is a typo of "options", not a product
+    return [w for w in re.findall(r"[\wऀ-ॿ]+", text.lower()) if w not in _FILLER and not w.isdigit() and not _filler_typo(w)]
 
 
 def _attribute_variance(attr: str, matches: list[Product], language: str = "en") -> tuple[int, str]:
@@ -86,16 +101,23 @@ def _attribute_variance(attr: str, matches: list[Product], language: str = "en")
         distinct = sorted({s for p in matches for s in (p.sizes or [])}, key=lambda x: (len(x), x))
         return (len(distinct), ", ".join(distinct[:4])) if len(distinct) >= 2 else (0, "")
     if attr == "use":
-        distinct = sorted({t.lower().strip() for p in matches for t in (p.tags or [])} - _GENERIC_TAGS)
+        # only real uses ("running", "office"), most common first - never adjectives like "agile"
+        counts = Counter(t.lower().strip() for p in matches for t in (p.tags or []) if t.lower().strip() in _USE_TAGS)
+        distinct = [t for t, _ in counts.most_common()]
         return (len(distinct), ", ".join(distinct[:3])) if len(distinct) >= 2 else (0, "")
     if attr == "brand":
         distinct = sorted({p.brand for p in matches if p.brand})
         return (len(distinct), ", ".join(distinct[:3])) if len(distinct) >= 2 else (0, "")
     if attr == "budget_max":
-        prices = [p.price_inr for p in matches if p.price_inr is not None]
-        if len(set(prices)) < 2 or max(prices) - min(prices) < 500:
+        prices = sorted(p.price_inr for p in matches if p.price_inr is not None)
+        if len(set(prices)) < 2 or prices[-1] - prices[0] < 500:
             return 0, ""
-        low, high = format_inr(int(round(min(prices) * 1.5, -2))), format_inr(int(round(max(prices) * 0.9, -2)))
+        # round numbers that split the matches into cheaper / middle / dearer thirds
+        lo_n = _round_up(prices[len(prices) // 3])
+        hi_n = _round_up(prices[(2 * len(prices)) // 3])
+        if hi_n <= lo_n:
+            hi_n = _round_up(prices[-1])
+        low, high = format_inr(lo_n), format_inr(hi_n)
         options = {"hi": f"{low} से कम या {high} से कम", "hinglish": f"{low} se kam ya {high} se kam"}.get(
             language, f"under {low} or under {high}")
         return len(set(prices)), options
@@ -107,10 +129,43 @@ def _wide_price_spread(matches: list[Product]) -> bool:
     return len(prices) >= 2 and max(prices) >= 1.5 * min(prices)
 
 
+_SHOW_ALL = {"en": "Show all", "hinglish": "Sab dikhao", "hi": "सब दिखाओ"}
+WHAT_ARE_YOU_LOOKING_FOR = {
+    "en": "Happy to help! What are you looking for? For example shoes, a laptop, earbuds or a gift.",
+    "hinglish": "Zaroor! Aap kya dhoondh rahe hain? Jaise shoes, laptop, earbuds ya koi gift.",
+    "hi": "ज़रूर! आप क्या ढूँढ रहे हैं? जैसे जूते, लैपटॉप, ईयरबड्स या कोई गिफ्ट।",
+}
+STARTER_OPTIONS = {
+    "en": ["Running shoes", "Laptop", "Earbuds", "Trekking gear", "Pressure cooker", "Gift for father"],
+    "hinglish": ["Running shoes", "Laptop", "Earbuds", "Trekking gear", "Pressure cooker", "Papa ke liye gift"],
+    "hi": ["जूते", "लैपटॉप", "ईयरबड्स", "ट्रेकिंग बैकपैक", "प्रेशर कुकर", "पापा के लिए गिफ्ट"],
+}
+
+
+def quick_replies(slot: str, matches: list[Product], language: str) -> list[str]:
+    """One-tap answers for the question we just asked, built from the real matches (UI buttons)."""
+    out: list[str] = []
+    if slot == "budget_max":
+        prices = sorted(p.price_inr for p in matches if p.price_inr is not None)
+        if prices:
+            cuts = sorted({_round_up(prices[len(prices) // 3]), _round_up(prices[(2 * len(prices)) // 3])})
+            tpl = {"hi": "{} तक", "hinglish": "{} tak"}.get(language, "Under {}")
+            out = [tpl.format(format_inr(c)) for c in cuts]
+    elif slot == "use":
+        counts = Counter(t.lower().strip() for p in matches for t in (p.tags or []) if t.lower().strip() in _USE_TAGS)
+        out = [t.capitalize() for t, _ in counts.most_common(3)]
+    elif slot == "size":
+        out = [f"Size {s}" for s in sorted({s for p in matches for s in (p.sizes or [])}, key=lambda x: (len(x), x))[:4]]
+    elif slot == "brand":
+        out = [b for b, _ in Counter(p.brand for p in matches if p.brand).most_common(3)]
+    return out + [_SHOW_ALL.get(language, "Show all")] if out else []
+
+
 def next_question(state: SessionState, matches: list[Product], language: str) -> Optional[tuple[str, str]]:
     """`matches` = products that matched the request after filters. Returns (slot, question) or None."""
     f = state.filters
-    if state.clarify_streak >= MAX_STREAK or not matches:
+    # one question per product: after the shopper answered once, show results (a second question annoys)
+    if state.clarify_streak >= MAX_STREAK or not matches or state.asked_slots:
         return None
     if any(f.get(k) for k in _BLOCKING):
         return None
