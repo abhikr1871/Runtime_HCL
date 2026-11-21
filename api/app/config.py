@@ -18,13 +18,17 @@ def _path(name: str, default: str) -> Path:
     return p if p.is_absolute() else ROOT / p
 
 
+_DEFAULT_URLS = {"groq": "https://api.groq.com/openai/v1"}
+
+
 @dataclass(frozen=True)
 class Settings:
-    llm_provider: str
+    llm_provider: str            # ollama | groq | openai (any OpenAI-compatible API)
     llm_model: str
     ollama_url: str
     hosted_api_url: str
     hosted_api_key: str
+    llm_reasoning_effort: str    # optional, for reasoning models (e.g. gpt-oss): low | medium | high
     llm_timeout_s: float
     mock_llm: bool
     embed_model: str
@@ -35,14 +39,29 @@ class Settings:
     sample_products: Path
 
 
+def _load_dotenv() -> None:
+    """Read ROOT/.env into the environment (without overriding real env vars). No extra dependency."""
+    env_file = ROOT / ".env"
+    if not env_file.exists():
+        return
+    for line in env_file.read_text(encoding="utf-8").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            key, value = line.split("=", 1)
+            os.environ.setdefault(key.strip(), value.strip().strip('"').strip("'"))
+
+
 @lru_cache
 def get_settings() -> Settings:
+    _load_dotenv()
+    provider = os.getenv("LLM_PROVIDER", "ollama").strip().lower()
     return Settings(
-        llm_provider=os.getenv("LLM_PROVIDER", "ollama"),
+        llm_provider=provider,
         llm_model=os.getenv("LLM_MODEL", "qwen2.5:7b-instruct"),
         ollama_url=os.getenv("OLLAMA_URL", "http://localhost:11434"),
-        hosted_api_url=os.getenv("HOSTED_API_URL", ""),
-        hosted_api_key=os.getenv("HOSTED_API_KEY", ""),
+        hosted_api_url=os.getenv("HOSTED_API_URL") or _DEFAULT_URLS.get(provider, ""),
+        hosted_api_key=os.getenv("GROQ_API_KEY") or os.getenv("HOSTED_API_KEY", ""),
+        llm_reasoning_effort=os.getenv("LLM_REASONING_EFFORT", ""),
         llm_timeout_s=float(os.getenv("LLM_TIMEOUT_S", "20")),
         mock_llm=_bool("MOCK_LLM", True),
         embed_model=os.getenv("EMBED_MODEL", "intfloat/multilingual-e5-small"),

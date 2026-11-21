@@ -16,6 +16,9 @@ import httpx
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data" / "processed"
 USD_TO_INR = 83
+# Cars and motorbikes don't fit a shopping-assistant demo, and the brief's own example
+# ("Do you sell electric cars?" -> not found) needs them absent.
+EXCLUDED_CATEGORIES = {"vehicle", "motorcycle"}
 
 
 def inr_price(usd: float) -> int:
@@ -27,7 +30,9 @@ def main() -> None:
     OUT.mkdir(parents=True, exist_ok=True)
     data = httpx.get("https://dummyjson.com/products", params={"limit": 0}, timeout=60).json()
     products, reviews = [], []
-    for i, d in enumerate(data["products"], start=1):
+    kept = [d for d in data["products"] if d["category"] not in EXCLUDED_CATEGORIES]
+    print(f"downloaded {len(data['products'])}, excluded {len(data['products']) - len(kept)} vehicles/motorcycles")
+    for i, d in enumerate(kept, start=1):
         pid = f"P-{i:04d}"
         price = inr_price(d["price"])
         products.append({
